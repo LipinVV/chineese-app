@@ -1,38 +1,59 @@
+$mobileDevice: 320px;
+$tabletDevice: 768px;
+$largeTabletDevice: 992px;
+$desktopDevice: 1024px;
+$largeDesktopDevice: 1440px;
+
+// fonts
+$small-font: 12px;
+$medium-font: 18px;
+$large-font: 24px;
+$big-font: 30px;
+
+//color palette
+$black: #050814;
+$deep-blue: #284277;
+$blue: #006bbd;
+$juicy-blue: #1b6bb8;
+$light-blue: #81c8ee;
+$deep-grey: #c1afa8;
+$grey: #ede8e4;
+$light-grey: #e1e3e5;
+$brown: #cfb093;
+$white: #fdfdfd;
+
+//
+
+$dark: #10002B;
+$deep-purple: #240046;
+$dark-purple: #3C096C;
+$purple: #5A189A;
+$violet: #7B2CBF;
+$orchid: #9D4EDD;
+$light-violet: #C77DFF;
+$lavender: #E0AAFF;
+
+$red: #b04553;
+$rose: #d98c9e;
+$amethyst: #d7eae5;
+$green: #00e567;
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  @media (min-width: $mobileDevice) {
+    padding: 20px;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  @media (min-width: $tabletDevice) {
+    padding: 30px;
   }
-  to {
-    transform: rotate(360deg);
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+    margin: 0 auto;
   }
 }

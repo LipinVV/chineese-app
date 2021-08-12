@@ -1,0 +1,14 @@
+@import "src/App";
+
+.admin__data-updater {
+  display: grid;
+  margin: 0 auto;
+  @media screen and (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    grid-gap: 20px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+    padding: 0 20px 0 20px;
+  }
+}
