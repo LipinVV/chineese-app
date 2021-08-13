@@ -6,7 +6,7 @@
     max-width: $mobileDevice;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     padding: $navigation-padding-top 0 $navigation-padding-top 0;
   }
@@ -61,11 +61,13 @@
     background-color: $light-blue;
     }
   }
+  @media (min-width: $tabletDevice) {
+    justify-content: center;
+  }
   @media (min-width: $desktopDevice) {
     justify-content: center;
   }
   @media (min-width: $largeDesktopDevice) {
-    justify-content: center;
   }
 }
 

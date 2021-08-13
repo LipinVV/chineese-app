@@ -51,7 +51,7 @@ function App() {
         <div id='width' className="app">
             <Router>
                 <h1 className='app__label'>Chinese trainer</h1>
-                <h3 className='app__label-bottom'>{matchedUser && `Welcome, ${matchedUser}!`}</h3>
+                <h3 className='app__label-bottom'>{matchedUser ? `Welcome, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         <Route path='/:admin/registration'><Registration/></Route>
