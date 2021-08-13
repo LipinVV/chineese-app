@@ -5,19 +5,22 @@ import {server} from "../App";
 
 export const Navigation = ({state}: any) => {
 
-    // const [menu, setMenu] = useState(false);
-    // const [subMenu, setSubMenu] = useState(true);
+    const [menu, setMenu] = useState(false);
+    const [subMenu, setSubMenu] = useState(true);
 
+    const menuHandler = () => {
+        setMenu(prevState => !prevState)
+    }
 
     return (
-        <ul className='navigation'>
-            <li className='navigation__link'>
-                <Link to='/'>Home</Link>
-                <Link to='/admin'>Admin</Link>
-                <Link to='/:admin/access'>Login</Link>
-                {!state ? <Link to='/:admin/registration'>Registration</Link> : null}
-                {/*<Link to='/access'><Access/></Link>*/}
-            </li>
-        </ul>
+        <div className='navigation'>
+            <div className={menu ? 'navigation__links navigation__links_hidden' : 'navigation__links'}>
+                <Link className='navigation__link' to='/'>Home</Link>
+                <Link className='navigation__link' to='/admin'>Admin</Link>
+                <Link className='navigation__link' to='/:admin/access'>Login</Link>
+                {!state ? <Link className='navigation__link' to='/:admin/registration'>Registration</Link> : null}
+            </div>
+            <button onClick={menuHandler} className='navigation__menu-button'>Open</button>
+        </div>
     )
 }

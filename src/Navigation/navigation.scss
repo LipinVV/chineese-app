@@ -1,10 +1,44 @@
 @import "src/App";
 
-.navigation__link {
+.navigation {
+  position: relative;
+  @media (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    padding: 20px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    grid-template-rows: 1fr;
+  }
+  @media (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+  }
+}
+
+.navigation__links {
   list-style: none ;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 0;
   display: grid;
   grid-gap: 20px;
+}
 
+.navigation__links_hidden {
+  display: none;
+}
+
+.navigation__link {
+  text-decoration: none;
+}
+
+.navigation__menu-button {
+  cursor: pointer;
+  position: absolute;
+  @media (min-width: $mobileDevice) {
+    right: 19px;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 50px;
+  }
 }

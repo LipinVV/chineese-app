@@ -27,7 +27,7 @@ export const Registration = () => {
             })
             const {data} = await server
                 .from('users')
-            if (!data?.map((user: any) => user).find((values: any) => values.nickname === nickName)) {
+            if (!data?.map((user: any) => user).find((values: any) => values.nickname === nickName || values.mail === userMail)) {
                 const {data} = await server
                     .from('users')
                     .insert([
