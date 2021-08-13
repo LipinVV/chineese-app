@@ -6,7 +6,6 @@ import {server} from "../App";
 export const Navigation = ({state}: any) => {
 
     const [menu, setMenu] = useState(false);
-    const [subMenu, setSubMenu] = useState(true);
 
     const menuHandler = () => {
         setMenu(prevState => !prevState)

@@ -1,26 +1,16 @@
 import React from "react";
-import {Access} from "./Access/Access";
-import {Registration} from "./Access/Registration/Registration";
 import {statusOfPersonalInfo} from "../Services/dataGetter";
 import './admin.scss';
+import {WordCreator} from "./WordCreator/WordCreator";
 
-export const Admin = ({accessFn, state}: any) => {
+
+export const Admin = ({matchedUser}: any) => {
+
 
     return (
-        <div className='admin'>Admin
-
+        <div className='admin'>Admin is: {matchedUser}
+            {/*<button onClick={statusOfPersonalInfo} className='admin__button'>Get users</button>*/}
+            <WordCreator/>
         </div>
     )
 }
-
-
-// in case of needed soon, or delete after a week
-// <Access accessFn={accessFn} state={state}/>
-// <br/>
-// {!state && <Registration/>}
-// <div className='admin__data-updater'>Check the whole data
-//     <button
-//         type='button'
-//         onClick={statusOfPersonalInfo}>Check nicknames
-//     </button>
-// </div>

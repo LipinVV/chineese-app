@@ -44,7 +44,6 @@ export const Access = ({accessFn, state}: any) => {
             console.error('error', error)
         }
     }
-
     return (
         <div className='access'>Access
             {!state && <label className='access-label'>Enter your e-mail

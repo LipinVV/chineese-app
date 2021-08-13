@@ -15,6 +15,7 @@ import {Access} from "./AdminSection/Access/Access";
 import {Navigation} from "./Navigation/Navigation";
 import {allReducers} from "./Reducers/reducers";
 import {createStore} from "redux";
+import {statusOfPersonalInfo} from "./Services/dataGetter";
 
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -39,14 +40,22 @@ function App() {
         console.log('state in app', state)
          setState(!state)
     }
+    const [users, setUsers] = useState<[]>([]);
+    useEffect(() => {
+        statusOfPersonalInfo().then(person => setUsers(person));
+    }, [])
+    // FIX IT
+    //@ts-ignore
+    const matchedUser = users?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname
     return (
         <div className="App">
             <Router>
+                <div>Welcome{matchedUser ? `, ${matchedUser}!` : ` to our platform!`}</div>
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         <Route path='/:admin/registration'><Registration/></Route>
                         <Route path='/:admin/access'><Access accessFn={accessFn} state={state}/></Route>
-                        <Route path='/admin'><Admin accessFn={accessFn} state={state}/></Route>
+                        <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>
                     </Switch>
             </Router>
         </div>
