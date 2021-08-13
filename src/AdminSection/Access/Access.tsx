@@ -11,7 +11,7 @@ export const Access = ({accessFn, state}: any) => {
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
     const [userConnected, setUserConnected] = useState(userLoggedIn);
-    const [loginError, setLoginError] = useState(false);
+    const [accessError, setAccessError] = useState(false);
     const [textOfError, setTextOfError] = useState('');
 
     const mailCondition = (password: string, email: string) => {
@@ -25,10 +25,12 @@ export const Access = ({accessFn, state}: any) => {
                 password: userPassword,
             });
             dispatch(isLoggedIn(!userConnected))
-            accessFn()
             if (error) {
-                setLoginError(true);
+                setAccessError(true);
                 setTextOfError(error.message)
+            }
+            else {
+                accessFn()
             }
         } catch (error) {
             console.error('error', error)
@@ -46,9 +48,9 @@ export const Access = ({accessFn, state}: any) => {
     }
     return (
         <div className='access'>Access
-            {!state && <label className='access-label'>Enter your e-mail
+            {!state && <label className='access__label'>Enter your e-mail
                 <input
-                    className='access-input'
+                    className='access__input'
                     type='text'
                     value={userMail}
                     onChange={(evt) => setUserMail(evt.target.value)}/>
@@ -63,20 +65,21 @@ export const Access = ({accessFn, state}: any) => {
             {state ?
                 <button
                     type='button'
-                    className='access-button'
+                    className='access__button'
                     onClick={logOut}>Logout
                 </button>
                 :
                 <button
                     type='button'
+                    style={accessError ? {'animationName': 'shake', 'animationDuration' : '0.6s'}: {}}
                     disabled={mailCondition(userPassword, userMail)}
-                    className={mailCondition(userPassword, userMail) ? '' : ''}
+                    className={accessError ? 'access__button' : 'access__button'}
                     onClick={logIn}>Login
                 </button>
             }
-            {loginError && <div className={!loginError ? '' : ''}>
+            {accessError && <div className={accessError ? 'access__error-message' : 'access__error-message access__error-message_hidden'}>
                 {textOfError}
-                <Link to='/access' className='login-button'>Try again</Link>
+                <Link  to='/access' className='access__button access__button_retry'>Try again</Link>
             </div>}
         </div>
     )
