@@ -47,7 +47,8 @@ export const Access = ({accessFn, state}: any) => {
         }
     }
     return (
-        <div className='access'>Access
+        <div className='access'>
+            <h1 className='access__header'>The last step <br/>to start your training</h1>
             {!state && <label className='access__label'>Enter your e-mail
                 <input
                     className='access__input'

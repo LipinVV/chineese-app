@@ -48,9 +48,10 @@ function App() {
     //@ts-ignore
     const matchedUser = users?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname
     return (
-        <div className="App">
+        <div className="app">
             <Router>
-                <div>Welcome{matchedUser ? `, ${matchedUser}!` : ` to our platform!`}</div>
+                <h1 className='app__label'>Chinese trainer</h1>
+                <h3 className='app__label-bottom'>{matchedUser && `Welcome, ${matchedUser}!`}</h3>
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         <Route path='/:admin/registration'><Registration/></Route>

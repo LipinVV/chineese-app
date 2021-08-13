@@ -22,6 +22,22 @@ $light-grey: #e1e3e5;
 $brown: #cfb093;
 $white: #fdfdfd;
 
+// for help
+:root {
+  --first: #08d9d6;
+  --second: #000000;
+  --third: #ff2e63;
+  --fourth: #eaeaea;
+  --test: #ffd532;
+
+  --one: #733c03;
+  --two: #ba6c17;
+  --three: #ed8707;
+  --four: #0c666e;
+  --five: #75b2b7;
+  --six: #b9d6d4;
+}
+
 //
 
 $dark: #10002B;
@@ -37,7 +53,13 @@ $red: #b04553;
 $rose: #d98c9e;
 $amethyst: #d7eae5;
 $green: #00e567;
+$deep-green: #0c666e;
+$lightly-blue: #75b2b7;
+$piaoliang: #08d9d6;
 
+// some needs:
+
+$navigation-padding-top: 25px;
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -45,7 +67,7 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.App {
+.app {
   @media (min-width: $mobileDevice) {
     padding: 20px;
   }
@@ -56,4 +78,20 @@ input[type="number"]::-webkit-inner-spin-button {
     max-width: $largeDesktopDevice;
     margin: 0 auto;
   }
+}
+
+.app__label {
+  @media (min-width: $mobileDevice) {
+    font-family: "Old English Text MT";
+    font-size: 30px;
+    border-radius: 7px;
+  }
+}
+
+.app__label-bottom {
+  font-weight: 600;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: $deep-green;
 }

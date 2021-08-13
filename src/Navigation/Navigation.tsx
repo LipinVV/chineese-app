@@ -5,7 +5,7 @@ import {server} from "../App";
 
 export const Navigation = ({state}: any) => {
 
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(true);
 
     const menuHandler = () => {
         setMenu(prevState => !prevState)
@@ -19,7 +19,7 @@ export const Navigation = ({state}: any) => {
                 <Link className='navigation__link' to='/:admin/access'>Login</Link>
                 {!state ? <Link className='navigation__link' to='/:admin/registration'>Registration</Link> : null}
             </div>
-            <button onClick={menuHandler} className='navigation__menu-button'>Open</button>
+            <button onClick={menuHandler} className='navigation__menu-button'><span className='navigation__animated-link'>{menu ? `Open` : `Close`}</span></button>
         </div>
     )
 }
