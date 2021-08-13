@@ -1,0 +1,19 @@
+@import "src/App";
+
+.access {
+  margin: 0 auto;
+  display: grid;
+  @media screen and (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    grid-gap: 20px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+    padding: 0 20px 0 20px;
+  }
+}
+
+.access-label {
+  display: grid;
+  grid-gap: 10px;
+}
