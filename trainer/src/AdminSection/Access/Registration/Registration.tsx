@@ -7,10 +7,10 @@ import {Link} from 'react-router-dom';
 
 export const Registration = () => {
     const history = useHistory();
-    const userLoggedIn = Boolean(server.auth.session()?.user);
+    // const userLoggedIn = Boolean(server.auth.session()?.user);
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
-    const [userConnected, setUserConnected] = useState(false);
+    // const [userConnected, setUserConnected] = useState(false);
     const [signInError, setSignInError] = useState(false);
     const [textOfError, setTextOfError] = useState('');
     const [status, setStatus] = useState(false);

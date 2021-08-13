@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
-import {server, store} from "../../App";
+import {server, userLoggedIn} from "../../App";
 import './access.scss';
-import {useHistory} from "react-router";
-import {Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {isLoggedOut} from "../../Actions/actions";
+import {isLoggedIn, isLoggedOut} from "../../Actions/actions";
 
 
-export const Access = () => {
-    const history = useHistory();
+export const Access = ({accessFn, state}: any) => {
     const dispatch = useDispatch();
-    const userLoggedIn = Boolean(server.auth.session()?.user);
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
     const [userConnected, setUserConnected] = useState(userLoggedIn);
@@ -27,10 +24,9 @@ export const Access = () => {
                 email: userMail,
                 password: userPassword,
             });
-            console.log('session', session)
-            setUserConnected(!userLoggedIn)
+            dispatch(isLoggedIn(!userConnected))
+            accessFn()
             if (error) {
-                console.log('ERROR', error)
                 setLoginError(true);
                 setTextOfError(error.message)
             }
@@ -42,33 +38,30 @@ export const Access = () => {
     const logOut = async () => {
         try {
             const {error} = await server.auth.signOut();
-            setUserConnected(!userLoggedIn)
             dispatch(isLoggedOut(userConnected));
-            console.log(error)
+            accessFn()
         } catch (error) {
             console.error('error', error)
         }
     }
-    console.log('userConnected', userConnected)
 
     return (
         <div className='access'>Access
-            {!userConnected && <label className='access-label'>Enter your e-mail
+            {!state && <label className='access-label'>Enter your e-mail
                 <input
                     className='access-input'
                     type='text'
                     value={userMail}
                     onChange={(evt) => setUserMail(evt.target.value)}/>
             </label>}
-            {!userConnected && <label className='access__label'>Enter your password
+            {!state && <label className='access__label'>Enter your password
                 <input
                     className='access__input'
                     type='text'
                     value={userPassword}
                     onChange={(evt) => setUserPassword(evt.target.value)}/>
             </label>}
-
-            {userConnected ?
+            {state ?
                 <button
                     type='button'
                     className='access-button'
@@ -86,7 +79,6 @@ export const Access = () => {
                 {textOfError}
                 <Link to='/access' className='login-button'>Try again</Link>
             </div>}
-            {/*{userConnected && <Redirect to='/'/>}*/}
         </div>
     )
 }

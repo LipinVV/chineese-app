@@ -5,7 +5,7 @@
 // npm i @supabase/supabase-js
 // npm i --save-dev @types/react-router-dom
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import {Admin} from "./AdminSection/Admin";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -21,8 +21,8 @@ export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODc1MjMyMSwiZXhwIjoxOTQ0MzI4MzIxfQ.' +
     'I8cMe1GntTxYlQRrWZAHF6MAInAwHjolSX_xxNNIRro');
 console.log('user is online ~>', server.auth.session()?.user)
-export const status = Boolean(server.auth.session()?.user);
-
+export const userLoggedIn = Boolean(server.auth.session()?.user);
+console.log('APP status', userLoggedIn)
 export const store = createStore(
     allReducers,
     {},
@@ -32,31 +32,22 @@ store.subscribe(() => {
 })
 console.log(store.getState())
 
-function App() {
 
+function App() {
+    const [state, setState] = useState(userLoggedIn)
+     const accessFn = () => {
+        console.log('state in app', state)
+         setState(!state)
+    }
     return (
         <div className="App">
-            {server.auth.session()?.user ? 'YES' : 'NO'}
             <Router>
-                <Navigation />
-                {!server.auth.session()?.user &&
-                <>
+                <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         <Route path='/:admin/registration'><Registration/></Route>
-                        <Route path='/:admin/access'><Access/></Route>
-                        <Route path='/admin'><Admin status={status}/></Route>
+                        <Route path='/:admin/access'><Access accessFn={accessFn} state={state}/></Route>
+                        <Route path='/admin'><Admin accessFn={accessFn} state={state}/></Route>
                     </Switch>
-                </>
-                }
-                {server.auth.session()?.user &&
-                    <>
-                        <Switch>
-                            <Route path='/:admin/registration'><Registration/></Route>
-                            <Route path='/:admin/access'><Access/></Route>
-                            <Route path='/admin'><Admin/></Route>
-                        </Switch>
-                    </>
-                }
             </Router>
         </div>
     );
