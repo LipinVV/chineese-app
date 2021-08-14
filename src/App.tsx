@@ -21,9 +21,7 @@ export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
     'eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODc1MjMyMSwiZXhwIjoxOTQ0MzI4MzIxfQ.' +
     'I8cMe1GntTxYlQRrWZAHF6MAInAwHjolSX_xxNNIRro');
-console.log('user is online ~>', server.auth.session()?.user)
 export const userLoggedIn = Boolean(server.auth.session()?.user);
-console.log('APP status', userLoggedIn)
 export const store = createStore(
     allReducers,
     {},

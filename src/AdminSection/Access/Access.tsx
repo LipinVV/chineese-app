@@ -65,7 +65,7 @@ export const Access = ({accessFn, state, user}: any) => {
                     onChange={(evt) => setUserPassword(evt.target.value)}/>
             </label>}
             {state ?
-                <Link  to='/practice' className='access__button access__button_practice'>Start practice</Link>
+                <Link  to='/practice' className='access__button access__button_practice'>Return to practice</Link>
                 :
                 <button
                     type='button'
