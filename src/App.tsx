@@ -55,7 +55,7 @@ function App() {
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         <Route path='/:admin/registration'><Registration/></Route>
-                        <Route path='/:admin/access'><Access accessFn={accessFn} state={state}/></Route>
+                        <Route path='/:admin/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>
                     </Switch>
             </Router>

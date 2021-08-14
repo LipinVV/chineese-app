@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {isLoggedIn, isLoggedOut} from "../../Actions/actions";
 
 
-export const Access = ({accessFn, state}: any) => {
+export const Access = ({accessFn, state, user}: any) => {
     const dispatch = useDispatch();
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
@@ -27,9 +27,10 @@ export const Access = ({accessFn, state}: any) => {
             dispatch(isLoggedIn(!userConnected))
             if (error) {
                 setAccessError(true);
-                setTextOfError(error.message)
+                setTextOfError(`${error.message}. Try again`)
             }
             else {
+                setAccessError(false);
                 accessFn()
             }
         } catch (error) {
@@ -48,7 +49,7 @@ export const Access = ({accessFn, state}: any) => {
     }
     return (
         <div className='access'>
-            <h1 className='access__header'>The last step <br/>to start your training</h1>
+            <h1 className='access__header'>{!state ? 'The last step' : 'Practice'} {!state ? 'to start your training' : `is waiting for you, ${user}`}</h1>
             {!state && <label className='access__label'>Enter your e-mail
                 <input
                     className='access__input'
@@ -64,11 +65,7 @@ export const Access = ({accessFn, state}: any) => {
                     onChange={(evt) => setUserPassword(evt.target.value)}/>
             </label>}
             {state ?
-                <button
-                    type='button'
-                    className='access__button'
-                    onClick={logOut}>Logout
-                </button>
+                <Link  to='/practice' className='access__button access__button_practice'>Start practice</Link>
                 :
                 <button
                     type='button'
@@ -78,10 +75,14 @@ export const Access = ({accessFn, state}: any) => {
                     onClick={logIn}>Login
                 </button>
             }
-            {accessError && <div className={accessError ? 'access__error-message' : 'access__error-message access__error-message_hidden'}>
+            {accessError ? <div className={accessError ? 'access__error-message' : 'access__error-message access__error-message_hidden'}>
                 {textOfError}
-                <Link  to='/access' className='access__button access__button_retry'>Try again</Link>
-            </div>}
+            </div> : ''}
+            {state && <button
+                type='button'
+                className='access__button'
+                onClick={logOut}>Logout
+            </button>}
         </div>
     )
 }

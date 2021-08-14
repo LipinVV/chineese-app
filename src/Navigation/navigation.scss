@@ -53,22 +53,43 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  position: relative;
   @media (min-width: $mobileDevice) {
-    font-weight: 500;
-    color: $dark;
+    font-weight: 600;
+    color: $deep-green;
     min-height: 30px;
     &:hover {
-    background-color: $light-blue;
+      font-weight: 600;
+      color: $blue;
     }
   }
   @media (min-width: $tabletDevice) {
-    justify-content: center;
+
   }
   @media (min-width: $desktopDevice) {
     justify-content: center;
   }
   @media (min-width: $largeDesktopDevice) {
   }
+}
+
+.navigation__link:after {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #3498db;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s;
+}
+
+.navigation__link:hover:after{
+    transform: scaleX(1);
+    transform-origin: center;
 }
 
 .navigation__link_hidden {

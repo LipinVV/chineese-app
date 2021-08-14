@@ -1,9 +1,5 @@
 @import "src/App";
 
-.access__header {
-  margin: 30px 0 30px 0;
-}
-
 @keyframes shake {
   0%, 100% {transform: translateX(0);
   }
@@ -44,12 +40,28 @@
     max-width: $tabletDevice;
     padding: 0 20px 0 20px;
   }
+  @media screen and (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+}
+
+.access__header {
+  @media screen and (min-width: $mobileDevice) {
+    text-align: center;
+    font-size: 22px;
+    margin: 30px 0 10px 0;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    font-size: 25px;
+  }
 }
 
 .access__label {
   display: grid;
   grid-gap: 10px;
   @media screen and (min-width: $mobileDevice) {
+    margin: 0 auto;
+    max-width: $mobileDevice;
     font-weight: 600;
     color: $juicy-blue;
   }
@@ -73,6 +85,7 @@
     font-weight: 600;
     font-size: 20px;
     text-align: center;
+    color: $red;
   }
 }
 
@@ -120,4 +133,9 @@
     color: $dark;
     background-color: $red;
   }
+}
+
+.access__button_practice {
+  border: none;
+  background-color: $greeny;
 }
