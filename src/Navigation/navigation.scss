@@ -4,22 +4,45 @@
   position: relative;
   @media (min-width: $mobileDevice) {
     max-width: $mobileDevice;
-    padding: 20px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    padding: $navigation-padding-top 0 $navigation-padding-top 0;
   }
   @media (min-width: $tabletDevice) {
     max-width: $tabletDevice;
+    padding: 0 20px 0 20px;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding: 0;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
   }
 }
 
 .navigation__links {
-  list-style: none ;
+  list-style: none;
   margin: 0;
   display: grid;
   grid-gap: 20px;
+  @media (min-width: $mobileDevice) {
+    font-size: 15px;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    padding: 0;
+  }
+}
+
+.navigation__links_desktop {
+
 }
 
 .navigation__links_hidden {
@@ -28,17 +51,99 @@
 
 .navigation__link {
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  position: relative;
+  @media (min-width: $mobileDevice) {
+    font-weight: 600;
+    color: $deep-green;
+    min-height: 30px;
+    &:hover {
+      font-weight: 600;
+      color: $blue;
+    }
+  }
+  @media (min-width: $tabletDevice) {
+
+  }
+  @media (min-width: $desktopDevice) {
+    justify-content: center;
+  }
+  @media (min-width: $largeDesktopDevice) {
+  }
+}
+
+.navigation__link:after {
+  display: block;
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #3498db;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s;
+}
+
+.navigation__link:hover:after{
+    transform: scaleX(1);
+    transform-origin: center;
+}
+
+.navigation__link_hidden {
+  display: none;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateX(1000px);
+
+  }
+  70% {
+    transform: translateX(-30px);
+
+  }
+  90% {
+    transform: translateX(30px);
+
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.navigation__animated-link {
+  animation-name: bounce;
+  animation-duration: 1s;
 }
 
 .navigation__menu-button {
   cursor: pointer;
   position: absolute;
   @media (min-width: $mobileDevice) {
-    right: 19px;
-    top: 20px;
+    padding: 0;
+    right: 0;
+    top: $navigation-padding-top;
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 50px;
+    min-width: 100px;
+    min-height: 30px;
+    background-color: $light-blue;
+    border: 2px solid $dark;
+    border-radius: 5px;
+    font-weight: 600;
+    &:hover {
+      border: none;
+    }
+  }
+  @media (min-width: $tabletDevice) {
+    right: 20px;
+    top: 0;
+  }
+  @media (min-width: $desktopDevice) {
+    display: none;
   }
 }
