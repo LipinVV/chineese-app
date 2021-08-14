@@ -11,20 +11,18 @@ export const WordCard = () => {
         getWordsDataBase().then(wordSets => setWords(wordSets))
     }, [])
     return (
-        <div>
+        <div className='word-card__wrapper'>
             {words.map((word: wordCard, index: number) => {
                 return (
-                    <div>{word.word}
-                        <div className='word-card'
-                             key={keyHandler(index)}
-                        >
-                            <div className='word-card__field'>{word.word}</div>
-                            <div className='word-card__field'>{word.pinyin}</div>
-                            <div className='word-card__field'>{word.definition}</div>
-                            <div className='word-card__field'>{word.tone}</div>
-                            <div className='word-card__field'>{word.toLearn?.toString()}</div>
-                            <div className='word-card__field'>{word.isFavourite?.toString()}</div>
-                        </div>
+                    <div className='word-card'
+                         key={keyHandler(index)}
+                    >
+                        <div className='word-card__field'>{word.word}</div>
+                        <div className='word-card__field'>{word.pinyin}</div>
+                        <div className='word-card__field'>{word.definition}</div>
+                        <div className='word-card__field'>{word.tone}</div>
+                        <div className='word-card__field'>{word.toLearn?.toString()}</div>
+                        <div className='word-card__field'>{word.isFavourite?.toString()}</div>
                     </div>
                 )
             })}

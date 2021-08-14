@@ -1,9 +1,17 @@
 @import "src/App";
 
 .practice {
-  margin: 0 auto;
-  @media (min-width: $mobileDevice) {
-    padding: 20px;
-    max-width: $mobileDevice;
-  }
+  //@media (min-width: $mobileDevice) {
+  //  display: grid;
+  //  max-width: $mobileDevice;
+  //}
+  //@media (min-width: $tabletDevice) {
+  //  max-width: $tabletDevice;
+  //}
+  //@media (min-width: $desktopDevice) {
+  //  max-width: $desktopDevice;
+  //}
+  //@media (min-width: $largeDesktopDevice) {
+  //  max-width: $largeDesktopDevice;
+  //}
 }
