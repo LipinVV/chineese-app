@@ -4,6 +4,11 @@
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr;
+
+  @media (min-width: $mobileDevice) {
+    padding: 20px;
+    max-width: $mobileDevice;
+  }
 }
 
 .word-card__field {

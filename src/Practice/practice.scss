@@ -1,1 +1,9 @@
 @import "src/App";
+
+.practice {
+  margin: 0 auto;
+  @media (min-width: $mobileDevice) {
+    padding: 20px;
+    max-width: $mobileDevice;
+  }
+}
