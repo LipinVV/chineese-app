@@ -85,7 +85,7 @@ export const Registration = () => {
                         onClick={signUp}
                     >Create an account
                     </button>
-                    <Link to='/:admin/access' className='registration__button'>To login</Link>
+                    <Link to='/access' className='registration__button'>To login</Link>
                 </div>
             }
             {!status &&

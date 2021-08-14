@@ -1,0 +1,14 @@
+@import "src/App";
+
+.word-card {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+}
+
+.word-card__field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
