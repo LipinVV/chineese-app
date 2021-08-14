@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './navigation.scss';
 
 export const Navigation = ({state}: any) => {

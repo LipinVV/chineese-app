@@ -21,7 +21,7 @@ export const Registration = () => {
     }
     const signUp = async () => {
         try {
-            const {user, session, error} = await server.auth.signUp({
+            const {user, error} = await server.auth.signUp({
                 email: userMail,
                 password: userPassword,
             })
