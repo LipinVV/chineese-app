@@ -32,6 +32,8 @@
 .access {
   margin: 0 auto;
   display: grid;
+  background-color: $section-bg;
+  padding-bottom: 20px;
   @media screen and (min-width: $mobileDevice) {
     max-width: $mobileDevice;
     grid-gap: 20px;
