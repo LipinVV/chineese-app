@@ -12,7 +12,7 @@
   }
   @media (min-width: $tabletDevice) {
     max-width: $tabletDevice;
-    padding: 0 20px 0 20px;
+    padding: 0;
   }
   @media (min-width: $desktopDevice) {
     max-width: $desktopDevice;
@@ -124,24 +124,26 @@
   position: absolute;
   @media (min-width: $mobileDevice) {
     padding: 0;
-    right: 0;
-    top: $navigation-padding-top;
+    right: 20px;
+    top: 30px;
+    transform: translateX(20px);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 100px;
+    min-width: 140px;
     min-height: 30px;
-    background-color: $light-blue;
+    background-color: $white;
     border: 2px solid $dark;
     border-radius: 5px;
     font-weight: 600;
     &:hover {
-      border: none;
+      color: $white;
+      background-color: $juicy-blue;
     }
   }
   @media (min-width: $tabletDevice) {
     right: 20px;
-    top: 0;
+    top: -30px;
   }
   @media (min-width: $desktopDevice) {
     display: none;
