@@ -1,5 +1,4 @@
 import {createClient} from "@supabase/supabase-js";
-import {stat} from "fs";
 
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +

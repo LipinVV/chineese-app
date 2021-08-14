@@ -41,11 +41,12 @@ export const Registration = () => {
             if (error) {
                 console.log('ERROR', error, typeof error)
                 setSignInError(true)
-                setTextOfError(error.message)
+                setTextOfError(`${error.message}. Try again`)
             }
             if (user?.aud === 'authenticated') {
                 console.log('user', user)
                 setStatus(true)
+                setSignInError(false)
             }
         } catch (error) {
             console.error(error)
@@ -55,7 +56,7 @@ export const Registration = () => {
     return (
         <div className='registration'>
             <h1 className='registration__header'>Sign In to your account</h1>
-            {!status && !signInError ? <div className='registration__form'>
+            {!status && <div className='registration__form'>
                     <label className='registration__label'>Enter your nickname
                         <input
                             className='registration__input'
@@ -79,25 +80,22 @@ export const Registration = () => {
                     </label>
                     <button
                         disabled={mailCondition(userPassword, userMail)}
-                        className={mailCondition(userPassword, userMail) ? '' : ''}
+                        className={mailCondition(userPassword, userMail) ? 'registration__button registration__button_disabled' : 'registration__button'}
                         type='button'
                         onClick={signUp}
                     >Create an account
                     </button>
-                    <button
-                        className='registration__button'
-                        onClick={() => history.goBack()}>Back
-                    </button>
+                    <Link to='/:admin/access' className='registration__button'>To login</Link>
                 </div>
-                :
-                <div className={!signInError ? '' : ''}>
-                    {textOfError}
-                    <Link to='/' className='registration__link'>Try again</Link>
-                </div>
+            }
+            {!status &&
+            <div className={signInError ? 'registration__error-message' : ''}>
+                {textOfError}
+            </div>
             }
             {status && <div className={signInError ? '' : ''}>
                 Account was created
-                <button className='login-button' onClick={() => history.goBack()}>Go back</button>
+                <button className='registration__button' onClick={() => history.goBack()}>Go back</button>
             </div>
             }
 

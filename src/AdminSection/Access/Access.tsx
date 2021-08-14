@@ -6,12 +6,12 @@ import {useDispatch} from "react-redux";
 import {isLoggedIn, isLoggedOut} from "../../Actions/actions";
 
 
-export const Access = ({accessFn, state}: any) => {
+export const Access = ({accessFn, state, user}: any) => {
     const dispatch = useDispatch();
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
     const [userConnected, setUserConnected] = useState(userLoggedIn);
-    const [loginError, setLoginError] = useState(false);
+    const [accessError, setAccessError] = useState(false);
     const [textOfError, setTextOfError] = useState('');
 
     const mailCondition = (password: string, email: string) => {
@@ -25,10 +25,13 @@ export const Access = ({accessFn, state}: any) => {
                 password: userPassword,
             });
             dispatch(isLoggedIn(!userConnected))
-            accessFn()
             if (error) {
-                setLoginError(true);
-                setTextOfError(error.message)
+                setAccessError(true);
+                setTextOfError(`${error.message}. Try again`)
+            }
+            else {
+                setAccessError(false);
+                accessFn()
             }
         } catch (error) {
             console.error('error', error)
@@ -45,10 +48,11 @@ export const Access = ({accessFn, state}: any) => {
         }
     }
     return (
-        <div className='access'>Access
-            {!state && <label className='access-label'>Enter your e-mail
+        <div className='access'>
+            <h1 className='access__header'>{!state ? 'The last step' : 'Practice'} {!state ? 'to start your training' : `is waiting for you, ${user}`}</h1>
+            {!state && <label className='access__label'>Enter your e-mail
                 <input
-                    className='access-input'
+                    className='access__input'
                     type='text'
                     value={userMail}
                     onChange={(evt) => setUserMail(evt.target.value)}/>
@@ -61,23 +65,24 @@ export const Access = ({accessFn, state}: any) => {
                     onChange={(evt) => setUserPassword(evt.target.value)}/>
             </label>}
             {state ?
-                <button
-                    type='button'
-                    className='access-button'
-                    onClick={logOut}>Logout
-                </button>
+                <Link  to='/practice' className='access__button access__button_practice'>Return to practice</Link>
                 :
                 <button
                     type='button'
+                    style={accessError ? {'animationName': 'shake', 'animationDuration' : '0.6s'}: {}}
                     disabled={mailCondition(userPassword, userMail)}
-                    className={mailCondition(userPassword, userMail) ? '' : ''}
+                    className={accessError ? 'access__button' : 'access__button'}
                     onClick={logIn}>Login
                 </button>
             }
-            {loginError && <div className={!loginError ? '' : ''}>
+            {accessError ? <div className={accessError ? 'access__error-message' : 'access__error-message access__error-message_hidden'}>
                 {textOfError}
-                <Link to='/access' className='login-button'>Try again</Link>
-            </div>}
+            </div> : ''}
+            {state && <button
+                type='button'
+                className='access__button'
+                onClick={logOut}>Logout
+            </button>}
         </div>
     )
 }
