@@ -1,0 +1,35 @@
+@import "src/App";
+
+.match-the-word {
+  @media (min-width: $mobileDevice) {
+    display: grid;
+    max-width: $mobileDevice;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    margin: 0 auto;
+  }
+  @media (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
+}
+
+.match-the-word__word {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: $mobileDevice) {
+    min-width: 120px;
+    min-height: 120px;
+    font-size: 40px;
+    border: 1px $dark solid;
+  }
+  background-color: white;
+}

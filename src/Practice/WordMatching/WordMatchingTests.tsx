@@ -3,8 +3,14 @@ import {wordCard} from "../../types/types";
 import {store} from "../../App";
 import {keyHandler} from "../../Services/keyHandler";
 import './wordMatching.scss';
+import {useDispatch} from "react-redux";
+import {colorReducer} from "../../Reducers/colors";
+import {ACTIONS, getColor} from "../../Actions/actions";
 
-export const WordMatching = () => {
+export const WordMatchingTests = () => {
+    const dispatch = useDispatch();
+
+
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const arrayShuffler = (arr: wordCard[]) => {
         let newPos, temp;
@@ -18,30 +24,31 @@ export const WordMatching = () => {
     }
     const [practice, setPractice] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
-    const [statusOfTheCorrectAnswer, setStatusOfTheCorrectAnswer] = useState(true);
-    const [won, setWon] = useState(practice[0]?.word)
 
     const generateCorrectAnswer = () => {
         const randomInteger = Math.floor(Math.random() * 4);
         setRandomNumber(randomInteger);
     }
 
+    const [styles, setStyles] = useState<any>()
+
     const generateFourWords = () => {
         setPractice(arrayShuffler(wordsFromStore).filter((_: any, i: number) => i < 4));
         generateCorrectAnswer()
     }
 
+    // const inputHandler = (evt) => {
+    //     const { value } = evt.target
+    //     setValue(value)
+    // }
+    const [someValue, setSomeValue] = useState('1')
     const handler = (evt :any) => {
-        if (evt.target.value === practice[randomNumber].word) {
-            setWon(evt.target.value)
-            console.log('won', won)
-            // generateFourWords()
-            setStatusOfTheCorrectAnswer(false)
+        let color = evt.target.style
+        color.backgroundColor = 'white'
+        if (evt.target.value === practice[randomNumber]?.word) {
+            color.backgroundColor = Object.values(store.getState().bg)[0]
+            console.log(color)
         }
-        if (evt.target.value !== practice[randomNumber].word) {
-            setStatusOfTheCorrectAnswer(true)
-        }
-        generateFourWords()
     }
 
     useEffect(() => {
@@ -50,33 +57,38 @@ export const WordMatching = () => {
     }, [])
 
 
+
     return (
         <div>
-            <h1 style={{'textAlign': 'center'}}>Match word</h1>
+            <h1>Match word</h1>
             <div className='match-the-word'>
                 {practice.map((word: wordCard, index: number) => {
                     return (
-                        <label
+                        <button
+                            id='btn'
                             key={keyHandler(index)}
-                            style={{'textAlign': 'center'}}
                             className='match-the-word__word'
+                            value={word.word}
+                            onClick={(evt) => {
+                                handler(evt);
+                            }}
                         >
                             {word.word}
                             <br/>
                             {word.isFavourite?.toString()}
-                            <input
-                                className='match-the-word__input'
-                                type='radio'
-                                value={word.word}
-                                checked={word.definition === practice[randomNumber]?.definition}
-                                onChange={handler}
-                            />
-                        </label>
+                        </button>
                     )
                 })}
             </div>
+            <div>
+            </div>
             <div className='match-the-word__result'>{practice[randomNumber]?.definition}</div>
-            <div>{won}</div>
+            <button
+                style={styles}
+                onClick={(evt) => {
+                    setStyles(styles)
+                    generateFourWords();
+            }} className='button'>Next</button>
         </div>
     )
 }
