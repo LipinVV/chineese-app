@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {wordCard} from "../../types/types";
-import {getWordsDataBase} from "../../Services/dataGetter";
-import {keyHandler} from "../../Services/keyHandler"
-import './wordcard.scss'
+import {keyHandler} from "../../Services/keyHandler";
+import './wordcard.scss';
+import {store} from "../../App";
 
 export const WordCard = () => {
-
-    const [words, setWords] = useState<wordCard[]>([])
-    useEffect(() => {
-        getWordsDataBase().then(wordSets => setWords(wordSets))
-    }, [])
+    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     return (
         <div className='word-card__wrapper'>
-            {words.map((word: wordCard, index: number) => {
+            {wordsFromStore?.map((word: wordCard, index: number) => {
                 return (
                     <div className='word-card'
                          key={keyHandler(index)}
