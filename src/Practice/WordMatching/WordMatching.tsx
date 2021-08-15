@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
+import {wordCard} from "../../types/types";
+import {store} from "../../App";
 
 export const WordMatching = () => {
-    const [words, setWords] = useState([])
-
-
-    const arrayShuffle = (arr: any) => {
+    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+    const arrayShuffle = (arr: wordCard[]) => {
         let newPos, temp;
         for (let i = arr.length - 1; i > 0; i--) {
             newPos = Math.floor(Math.random() * (i + 1))
@@ -14,22 +14,17 @@ export const WordMatching = () => {
         }
         return arr;
     }
-
-    const [practice, setPractice] = useState([]);
-
+    const [practice, setPractice] = useState<wordCard[]>([]);
     const renderQuiz = () => {
         setStatus(false)
-        setPractice(arrayShuffle(words).filter((_: any, i: number) => i < 4));
+        setPractice(arrayShuffle(wordsFromStore).filter((_: any, i: number) => i < 4));
     }
-
-    //to start
     const startTask = () => {
-        setPractice(arrayShuffle(words).filter((_: any, i: number) => i < 4));
+        setPractice(arrayShuffle(wordsFromStore).filter((_: any, i: number) => i < 4));
     }
 
     let num = Math.floor(Math.random() * 4);
-
-    const [status, setStatus] = useState(false)
+    const [status, setStatus] = useState(false);
     const validation = (evt: any) => {
         const { value } = evt.target;
         if (value === practice[num]) {
@@ -40,14 +35,17 @@ export const WordMatching = () => {
             const toggler = practice.map((word) => {
                 console.log('value', word)
                 return {
-                    // ...word,
-                    // status: word.definition === value ? 'error' : word.status,
+                    ...word,
+                    status: word.definition === value ? 'error' : status,
                 }
             })
-            // setPractice(toggler);
+            setPractice(toggler);
         }
     }
-
+    useEffect(() => {
+        renderQuiz()
+    }, [])
+    console.log('practice', practice)
     return (
         <div className='match-the-word'>Word-matching
 

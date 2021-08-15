@@ -5,7 +5,7 @@
 // npm i @supabase/supabase-js
 // npm i --save-dev @types/react-router-dom
 
-import React, {useEffect, useReducer, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.scss';
 import {Admin} from "./AdminSection/Admin";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -15,12 +15,11 @@ import {Access} from "./AdminSection/Access/Access";
 import {Navigation} from "./Navigation/Navigation";
 import {allReducers} from "./Reducers/reducers";
 import {createStore} from "redux";
-import {getWordsDataBase, statusOfPersonalInfo} from "./Services/dataGetter";
+import {getWordsDataBase, statusOfPersonalInfo, userInterface} from "./Services/dataGetter";
 import {Practice} from "./Practice/Practice";
 import {wordCard} from "./types/types";
-import {ACTIONS, getAllWords} from "./Actions/actions";
+import {getAllWords} from "./Actions/actions";
 import {useDispatch} from "react-redux";
-import {wordGetter} from "./Reducers/wordGetter";
 // 1) nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -38,17 +37,16 @@ console.log(store.getState())
 
 
 function App() {
-    const [state, setState] = useState(userLoggedIn)
+    const [state, setState] = useState(userLoggedIn);
      const accessFn = () => {
-         setState(!state)
+         setState(!state);
     }
-    const [users, setUsers] = useState<[]>([]);
+    const [users, setUsers] = useState<userInterface[]>([]);
     useEffect(() => {
         statusOfPersonalInfo().then(person => setUsers(person));
     }, [])
-    // FIX IT
-    //@ts-ignore
-    const matchedUser = users?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname
+
+    const matchedUser = users?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
 
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
