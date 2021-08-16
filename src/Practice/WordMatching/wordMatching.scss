@@ -33,3 +33,23 @@
   }
   background-color: white;
 }
+
+.match-the-word_correct {
+  background-color: $green;
+}
+
+.error {
+  background-color: red;
+}
+
+.match-the-word__word_unset {
+  all: unset;
+}
+
+.yes {
+  background-color: $green;
+}
+
+.no {
+  background-color: $red;
+}

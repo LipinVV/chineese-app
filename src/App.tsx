@@ -33,7 +33,7 @@ export const store = createStore(
 store.subscribe(() => {
     localStorage['redux-store'] = JSON.stringify(store.getState());
 })
-console.log(store.getState())
+// console.log(store.getState())
 
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
             setWords(wordSets);
         })
     }, [])
-    console.log(store.getState())
+    // console.log(store.getState())
     return (
         <div id='width' className="app">
             <Router>
