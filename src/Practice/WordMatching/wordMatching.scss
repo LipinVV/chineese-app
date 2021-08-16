@@ -1,5 +1,16 @@
 @import "src/App";
 
+@keyframes shake {
+  0%, 100% {transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+}
+
 .match-the-word {
   @media (min-width: $mobileDevice) {
     display: grid;
@@ -28,28 +39,99 @@
   @media (min-width: $mobileDevice) {
     min-width: 120px;
     min-height: 120px;
-    font-size: 40px;
     border: 1px $dark solid;
   }
   background-color: white;
 }
 
-.match-the-word_correct {
+.match-the-word_animated {
+  animation-name: shake;
+  animation-duration: 0.6s;
+}
+
+.match-the-word__word_correct {
   background-color: $green;
 }
 
-.error {
-  background-color: red;
+.answer {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (min-width: $mobileDevice) {
+    min-width: 120px;
+    min-height: 120px;
+    border: 1px $dark solid;
+  }
+  background-color: white;
 }
 
-.match-the-word__word_unset {
-  all: unset;
+.undefined,
+.incorrect,
+.correct {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $white-light;
+  border: none;
+  @media (min-width: $mobileDevice) {
+    min-width: 120px;
+    min-height: 120px;
+    font-size: 30px;
+    font-weight: 600;
+  }
 }
 
-.yes {
-  background-color: $green;
+.correct {
+  background-color: $section-light-bg;
 }
 
-.no {
-  background-color: $red;
+.incorrect {
+  background-color: $red-light;
+}
+
+.match-the-word__wrapper {
+  display: grid;
+  position: relative;
+  padding: 30px 0 30px 0;
+}
+
+.match-the-word__start,
+.match-the-word__next {
+  position: relative;
+  @media screen and (min-width: $mobileDevice) {
+    cursor: pointer;
+    background-color: $section-deep-bg;
+    min-height: 40px;
+    font-size: $medium-font;
+    font-weight: 600;
+    border-radius: 5px;
+    border: none;
+    color: $white;
+    margin: 0 auto;
+    min-width: 200px;
+    &:hover{
+      //font-size: $large-font;
+      //transform: scale(1.1);
+    }
+  }
+  @media screen and (min-width: $tabletDevice) {
+    //min-height: 80px;
+    font-size: $large-font;
+    &:hover{
+      //font-size: $big-font;
+      //transform: scale(1.1);
+    }
+  }
+}
+
+.match-the-word__result {
+  @media screen and (min-width: $mobileDevice) {
+    font-size: 25px;
+    text-align: center;
+    padding: 30px 0 30px 0;
+    background-color: $section-bg;
+    margin-bottom: 30px;
+  }
 }

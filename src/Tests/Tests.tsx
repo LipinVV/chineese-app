@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {wordCard} from "../types/types";
 import {keyHandler} from "../Services/keyHandler";
 import '../Practice/WordMatching/wordMatching.scss';
@@ -6,10 +6,10 @@ import {useDispatch} from "react-redux";
 import {getAllWords} from "../Actions/actions";
 import {getWordsDataBase} from "../Services/dataGetter";
 import {arrayShuffler} from "../Services/arrayShuffler";
-import {Book} from "./Answer";
+import {Answer} from "./Answer";
 
 export const Tests = (props: any) => {
-
+    // можно ли забрать из глоабального стора?
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -18,51 +18,51 @@ export const Tests = (props: any) => {
             setWords(wordSets);
         })
     }, [])
-
+console.log(words)
     const [randomNumber, setRandomNumber] = useState(0);
 
     const generateRandomNumber = () => {
         const randomInteger = Math.floor(Math.random() * 4);
         setRandomNumber(randomInteger);
     }
-    let quizArray = arrayShuffler(words).slice(0,4);
+    let quizArray = arrayShuffler(words).slice(0, 4)
     let answerOfTheQuiz = quizArray[randomNumber];
 
     const [selectedAnswer, setAnswer] = useState<any>();
+
+    const divElem = useRef(null);
+    const [some, setSome] = useState<any>(false)
+    const inputEl = useRef<any>(null);
+    const onButtonClick = () => {
+        inputEl.current.className = 'match-the-word__word match-the-word_animated'
+    };
+    const [points, setPoints] = useState(0)
     return (
-        <div className="row turn">
+        <div>
             <h3>Guessed word: {answerOfTheQuiz?.word}</h3>
-            <button onClick={() => {
-                generateRandomNumber()
-                setAnswer({})
-            }}>PooRoom</button>
-            <div className="col-6">
-                {quizArray.map(word => (
-                    <Book
-                        key={keyHandler(1)}
+            <div  className="match-the-word">
+                {quizArray.map((word, index) => (
+                    <Answer
+                        inputEl={inputEl}
+                        className="match-the-word__word"
+                        key={keyHandler(index)}
                         word={word}
                         answerOfTheQuiz={answerOfTheQuiz}
-                        selectedChoice={selectedAnswer}
+                        onButtonClick={onButtonClick}
                     />
                 ))}
             </div>
+            <button
+
+                onClick={() => {
+                generateRandomNumber()
+                setAnswer({})
+            }}>Next
+            </button>
         </div>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// incorrect version
 // <div>
 //     <h1>Match word</h1>
 //     <h3 style={{'width' : '100%'}}>{answer?.word}</h3>

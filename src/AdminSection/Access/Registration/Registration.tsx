@@ -34,6 +34,8 @@ export const Registration = () => {
                         {
                             nickname: nickName,
                             mail: userMail,
+                            globalPoints: 0,
+                            sessionPoints: 0
                         }
                     ])
                 console.log('user is =>', data)

@@ -1,4 +1,5 @@
 export type wordCard = {
+    correct: string;
     id: number,
     word: string | undefined,
     pinyin: string | undefined,

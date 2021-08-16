@@ -10,10 +10,8 @@ export const Practice = () => {
     return (
         <div className='practice'>
             <h1 className='practice__header'>Practice</h1>
-            <Tests/>
-            {/*<WordMatching/>*/}
-            {/*<WordCard />*/}
-            {/*<WordCard id={words.id} word={words.word} definition={words.w}/>*/}
+            <WordMatching/>
+            {/*<Tests/>*/}
         </div>
     )
 }

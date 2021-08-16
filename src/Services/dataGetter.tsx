@@ -1,11 +1,12 @@
 import {server} from "../App";
-import {wordInterface} from "../AdminSection/WordCreator/WordCreator";
 import {wordCard} from "../types/types";
 
 export interface userInterface  {
     id: number,
     nickname: string,
     mail: string,
+    globalPoints: number,
+    sessionPoints: number
 }
 
 export const statusOfPersonalInfo = async () => {

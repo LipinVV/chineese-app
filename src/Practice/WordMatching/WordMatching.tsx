@@ -3,23 +3,12 @@ import {wordCard} from "../../types/types";
 import {store} from "../../App";
 import {keyHandler} from "../../Services/keyHandler";
 import './wordMatching.scss';
+import {arrayShuffler} from "../../Services/arrayShuffler";
 
 export const WordMatching = () => {
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-    const arrayShuffler = (arr: wordCard[]) => {
-        let newPos, temp;
-        for (let i = arr.length - 1; i > 0; i--) {
-            newPos = Math.floor(Math.random() * (i + 1))
-            temp = arr[i];
-            arr[i] = arr[newPos];
-            arr[newPos] = temp;
-        }
-        return arr;
-    }
     const [practice, setPractice] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
-    const [statusOfTheCorrectAnswer, setStatusOfTheCorrectAnswer] = useState(true);
-    const [won, setWon] = useState(practice[0]?.word)
 
     const generateCorrectAnswer = () => {
         const randomInteger = Math.floor(Math.random() * 4);
@@ -27,56 +16,68 @@ export const WordMatching = () => {
     }
 
     const generateFourWords = () => {
-        setPractice(arrayShuffler(wordsFromStore).filter((_: any, i: number) => i < 4));
+        setPractice(arrayShuffler(wordsFromStore).slice(0, 4));
         generateCorrectAnswer()
     }
-
-    const handler = (evt :any) => {
-        if (evt.target.value === practice[randomNumber].word) {
-            setWon(evt.target.value)
-            console.log('won', won)
-            // generateFourWords()
-            setStatusOfTheCorrectAnswer(false)
-        }
-        if (evt.target.value !== practice[randomNumber].word) {
-            setStatusOfTheCorrectAnswer(true)
-        }
-        generateFourWords()
-    }
-
     useEffect(() => {
         generateFourWords()
-        generateCorrectAnswer()
     }, [])
+    const [status, setStatus] = useState<any>(false)
 
-
+    const validation = (evt: any) => {
+        const { value } = evt.target;
+        if (value === practice[randomNumber].word) {
+            setStatus(true)
+            const toggled = practice.map((word) => {
+                return {
+                    ...word,
+                    correct: word.word === value ? 'correct' : word.correct
+                }
+            })
+            setPractice(toggled);
+        }
+        if (value !== practice[randomNumber].word) {
+            setStatus(false)
+            const toggled = practice.map((word) => {
+                return {
+                    ...word,
+                    correct: word.word === value ? 'incorrect' : word.correct,
+                }
+            })
+            setPractice(toggled);
+        }
+    }
+    const [startTask, setStartTask] = useState(false)
     return (
         <div>
-            <h1 style={{'textAlign': 'center'}}>Match word</h1>
+            <h1 style={{'textAlign': 'center'}}>Match a word</h1>
+            <div className='match-the-word__wrapper'>
+                <button className='match-the-word__start'  hidden={startTask} type='button' onClick={() => {
+                    generateFourWords()
+                    setStartTask(true)
+                }}>Start</button>
+            </div>
+            <div hidden={!startTask} className='match-the-word__result'>{practice[randomNumber]?.definition}</div>
             <div className='match-the-word'>
-                {practice.map((word: wordCard, index: number) => {
-                    return (
-                        <label
+                {practice.map((word: wordCard, index: number) => (
+                        <button
+                            disabled={status}
                             key={keyHandler(index)}
-                            style={{'textAlign': 'center'}}
-                            className='match-the-word__word'
+                            value={word.word}
+                            onClick={validation}
+                            className={`answer ${word.correct}`}
                         >
                             {word.word}
-                            <br/>
-                            {word.isFavourite?.toString()}
-                            <input
-                                className='match-the-word__input'
-                                type='radio'
-                                value={word.word}
-                                checked={word.definition === practice[randomNumber]?.definition}
-                                onChange={handler}
-                            />
-                        </label>
+                        </button>
                     )
-                })}
+                )}
             </div>
-            <div className='match-the-word__result'>{practice[randomNumber]?.definition}</div>
-            <div>{won}</div>
+            <div className='match-the-word__wrapper'>
+                <button className='match-the-word__next' hidden={status !== true} onClick={() => {
+                    generateFourWords()
+                    setStatus(false)
+                }}>Next</button>
+            </div>
         </div>
     )
 }

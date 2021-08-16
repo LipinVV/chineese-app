@@ -5,7 +5,10 @@ export const ACTIONS = {
     IS_LOGGED_IN: 'IS_LOGGED_IN',
     GET_ALL_WORDS: 'GET_ALL_WORDS',
     GET_WHITE_COLOR: 'GET_WHITE_COLOR',
-    GET_RED_COLOR: 'GET_RED_COLOR'
+    GET_RED_COLOR: 'GET_RED_COLOR',
+    // users points:
+    INCREMENT_USER_POINTS: 'INCREMENT_USER_POINTS',
+    DECREMENT_USER_POINTS: 'DECREMENT_USER_POINTS'
 }
 
 export const isLoggedOut = (status: boolean) => {
@@ -40,6 +43,20 @@ export const getRedColor = (color : any) => {
     return {
         type: ACTIONS.GET_RED_COLOR,
         payload: color
+    }
+}
+
+export const incrementUserPoints = (points: number) => {
+    return {
+        type: ACTIONS.INCREMENT_USER_POINTS,
+        payload: points
+    }
+}
+
+export const decrementUserPoints = (points: number) => {
+    return {
+        type: ACTIONS.DECREMENT_USER_POINTS,
+        payload: points
     }
 }
 

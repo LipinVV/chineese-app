@@ -35,6 +35,7 @@ store.subscribe(() => {
 })
 // console.log(store.getState())
 
+// console.log('users', statusOfPersonalInfo().then(x =>console.log(x)))
 
 function App() {
     const [state, setState] = useState(userLoggedIn);

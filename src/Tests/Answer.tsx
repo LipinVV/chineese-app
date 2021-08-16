@@ -1,14 +1,27 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {incrementUserPoints} from "../Actions/actions";
 
-export const Book = ({ selectedChoice, answerOfTheQuiz, word } : any) => {
+export const Answer = ({inputEl,  onButtonClick, answerOfTheQuiz, word } : any) => {
+
+    const dispatch = useDispatch()
     const [selectedAnswer, setAnswer] = useState<any>();
-    const q = 1
+    const [points, setPoints] = useState(1)
+    console.log(points)
     return (
         <div
+            ref={inputEl}
+            className='match-the-word__word'
             style={{
-                color: selectedAnswer && selectedAnswer.id === answerOfTheQuiz.id ? "green" : "red"
+                backgroundColor: selectedAnswer && selectedAnswer.id === answerOfTheQuiz.id && "rgb(12,102,110, 0.7)",
+                // animationName: selectedAnswer &&  selectedAnswer.id !== answerOfTheQuiz.id  ? 'shake' : '',
+                // animationDuration: selectedAnswer &&  selectedAnswer.id !== answerOfTheQuiz.id  ? '0.6s' : ''
             }}
-            onClick={() => {setAnswer(word)}}
+            onClick={() => {
+                setAnswer(word)
+                onButtonClick()
+                dispatch(incrementUserPoints(points))
+            }}
         >
             <h1>{word.word}</h1>
         </div>
