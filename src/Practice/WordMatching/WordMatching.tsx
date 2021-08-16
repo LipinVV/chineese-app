@@ -47,7 +47,8 @@ export const WordMatching = () => {
             setPractice(toggled);
         }
     }
-    const [startTask, setStartTask] = useState(false)
+    const [startTask, setStartTask] = useState(false);
+    const correctAnswer : any = practice[randomNumber]?.definition; // FIX IT
     return (
         <div>
             <h1 style={{'textAlign': 'center'}}>Match a word</h1>
@@ -57,7 +58,7 @@ export const WordMatching = () => {
                     setStartTask(true)
                 }}>Start</button>
             </div>
-            <div hidden={!startTask} className='match-the-word__result'>{practice[randomNumber]?.definition}</div>
+            <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
             <div className='match-the-word'>
                 {practice.map((word: wordCard, index: number) => (
                         <button
