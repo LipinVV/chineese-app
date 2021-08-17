@@ -22,6 +22,11 @@ export const WordMatching = () => {
     useEffect(() => {
         generateFourWords()
     }, [])
+    // in case of 'Start' button -> remove useEffect and put this
+    {/*<button className='match-the-word__start'  hidden={startTask} type='button' onClick={() => {*/}
+    {/*    generateFourWords()*/}
+    {/*    setStartTask(true)*/}
+    {/*}}>Start</button>*/}
     const [status, setStatus] = useState<any>(false)
 
     const validation = (evt: any) => {
@@ -53,10 +58,6 @@ export const WordMatching = () => {
         <div>
             <h1 style={{'textAlign': 'center'}}>Match a word</h1>
             <div className='match-the-word__wrapper'>
-                <button className='match-the-word__start'  hidden={startTask} type='button' onClick={() => {
-                    generateFourWords()
-                    setStartTask(true)
-                }}>Start</button>
             </div>
             <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
             <div className='match-the-word'>
