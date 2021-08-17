@@ -4,6 +4,7 @@
 // npm i node-sass
 // npm i @supabase/supabase-js
 // npm i --save-dev @types/react-router-dom
+// npm install react-confetti
 
 import React, {useEffect, useState} from 'react';
 import './App.scss';
@@ -42,12 +43,12 @@ function App() {
      const accessFn = () => {
          setState(!state);
     }
-    const [users, setUsers] = useState<userInterface[]>([]);
+    const [user, setUser] = useState<userInterface[]>([]);
     useEffect(() => {
-        statusOfPersonalInfo().then(person => setUsers(person));
+        statusOfPersonalInfo().then(person => setUser(person));
     }, [])
 
-    const matchedUser = users?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
+    const matchedUser= user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
 
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
@@ -66,7 +67,7 @@ function App() {
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}
-                        <Route path='/practice'><Practice/></Route>
+                        <Route path='/practice'><Practice user={matchedUser}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>
                     </Switch>

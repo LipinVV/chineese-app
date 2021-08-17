@@ -147,7 +147,9 @@
 }
 
 .match-the-word__start,
-.match-the-word__next {
+.match-the-word__next,
+.match-the-word__restart,
+.match-the-word__exit {
   position: relative;
   @media screen and (min-width: $mobileDevice) {
     cursor: pointer;
@@ -189,4 +191,31 @@
   @media (min-width: $largeDesktopDevice) {
     max-width: $largeDesktopDevice;
   }
+}
+
+.match-the-word__winner-zone {
+  @media screen and (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    display: grid;
+    grid-gap: 30px;
+    margin: 0 auto;
+    background-color: $section-bg;
+    padding-bottom: 30px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
+}
+
+.match-the-word__exit {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
