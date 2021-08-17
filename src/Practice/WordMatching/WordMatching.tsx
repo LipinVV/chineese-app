@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
 import {store} from "../../App";
 import {keyHandler} from "../../Services/keyHandler";
@@ -6,9 +6,15 @@ import './wordMatching.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import ReactConfetti from "react-confetti";
 import {Link} from "react-router-dom";
+import {Fireworks} from "fireworks-js/dist/react";
+import {Word} from "../../Word/Word";
+import {useDispatch} from "react-redux";
+import {incrementUserPoints} from "../../Actions/actions";
 
 export const WordMatching = ({user} : any) => {
+    const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+    console.log('ALL WORDS', wordsFromStore)
     const [practice, setPractice] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
 
@@ -32,6 +38,7 @@ export const WordMatching = ({user} : any) => {
         const {value} = evt.target;
         if (value === practice[randomNumber].word) {
             setStatus(true)
+            setCollectedPoints(collectedPoints + 1)
             const toggled = practice.map((word) => {
                 return {
                     ...word,
@@ -54,6 +61,35 @@ export const WordMatching = ({user} : any) => {
     const [startTask, setStartTask] = useState(false);
     const correctAnswer: any = practice[randomNumber]?.definition; // FIX IT
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
+    const [collectedPoints, setCollectedPoints] = useState(0);
+
+    const [width, setWidth] = useState(window.innerWidth)
+    useEffect(() => {
+        const reportWindowSize = () => {
+            setWidth(window.innerWidth)
+        }
+        window.onresize = reportWindowSize;
+        window.addEventListener('resize', reportWindowSize);
+    }, [])
+
+    const options = {
+        speed: 3
+    }
+
+    const style: any = {
+        left: 0,
+        top: 0,
+        width: '100%',
+        height: '100%',
+        position: 'fixed',
+        // background: '#000'
+    }
+
+    useEffect(() => {
+        if(numberOfQuestions === 0) {
+            dispatch(incrementUserPoints(collectedPoints))
+        }
+    }, [numberOfQuestions])
     return (
         <div>
             {numberOfQuestions !== 0 && <div>
@@ -70,17 +106,17 @@ export const WordMatching = ({user} : any) => {
                 </div>
                 <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
                 <div className='match-the-word'>
-                    {practice.map((word: wordCard, index: number) => (
+                    {practice.map((word: wordCard) => (
                             <button
                                 type='button'
                                 data-unit={word.definition}
                                 disabled={status}
-                                key={keyHandler(index)}
+                                key={word.word}
                                 value={word.word}
                                 onClick={validation}
                                 className={`answer ${word.correct}`}
                             >
-                                {word.word}
+                               <Word word={word.word} tone={word.tone}/>
                             </button>
                         )
                     )}
@@ -98,7 +134,8 @@ export const WordMatching = ({user} : any) => {
                     </button>
                 </div>
             </div>}
-            {numberOfQuestions === 0 && <ReactConfetti className='match-the-word__confetti'/>}
+            {/*{numberOfQuestions === 0 && <ReactConfetti width={width}/>}*/}
+            {numberOfQuestions === 0 && <Fireworks options={options} style={style} />}
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>

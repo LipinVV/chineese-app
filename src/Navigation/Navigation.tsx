@@ -11,7 +11,7 @@ export const Navigation = ({state}: any) => {
     }
 
     useEffect(() => {
-        function reportWindowSize() {
+        const reportWindowSize = () => {
             setWidth(window.innerWidth)
         }
         window.onresize = reportWindowSize;

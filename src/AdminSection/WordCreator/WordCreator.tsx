@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {server} from "../../App";
 import './wordcreator.scss'
 import {wordCard} from "../../types/types";
+import {Word} from "../../Word/Word";
 
 export interface wordInterface {
     word: string,
@@ -13,7 +14,7 @@ export const WordCreator = () => {
     const [word, setWord] = useState('');
     const [pinyin, setPinyin] = useState('');
     const [definition, setDefinition] = useState('');
-    const [tone, setTone] = useState(0);
+    const [tone, setTone] = useState('');
     const [toLearn, setIstoLearn] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
     const [error, setError] = useState('')
@@ -22,9 +23,8 @@ export const WordCreator = () => {
         setWord('');
         setPinyin('');
         setDefinition('');
-        setTone(0);
+        setTone('');
     }
-
     const uploadDictionary = async () => {
         try {
             const {data} = await server
@@ -51,9 +51,22 @@ export const WordCreator = () => {
         }
     }
 
+
+    const tones: any = {
+        0: 'grey',
+        1: 'white',
+        2: 'green',
+        3: 'yellow',
+        4: 'blue'
+    }
+
     return (
         <div>
             <div className='word__creator'>
+
+                <h1>
+                    <Word word={word} tone={tone}/>
+                </h1>
                 <label className='word__label'>Word
                     <input
                         type='text'
@@ -79,7 +92,7 @@ export const WordCreator = () => {
                     <input
                         type='number'
                         value={tone}
-                        onChange={(evt) => setTone(Number(evt.target.value))}
+                        onChange={(evt) => setTone(evt.target.value)}
                     />
                 </label>
             </div>

@@ -4,7 +4,7 @@ export type wordCard = {
     word: string | undefined,
     pinyin: string | undefined,
     definition: string | undefined,
-    tone: number | undefined,
+    tone: string | undefined,
     isFavourite: boolean | undefined,
     toLearn: boolean | undefined,
 }

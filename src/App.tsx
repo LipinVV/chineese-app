@@ -6,6 +6,7 @@
 // npm i --save-dev @types/react-router-dom
 // npm install react-confetti
 // npm install --save react-snowstorm
+// npm install fireworks-js
 
 import React, {useEffect, useState} from 'react';
 import './App.scss';
@@ -35,7 +36,7 @@ export const store = createStore(
 store.subscribe(() => {
     localStorage['redux-store'] = JSON.stringify(store.getState());
 })
-// console.log(store.getState())
+console.log(store.getState())
 
 // console.log('users', statusOfPersonalInfo().then(x =>console.log(x)))
 
