@@ -19,15 +19,12 @@ export const WordMatching = () => {
         setPractice(arrayShuffler(wordsFromStore).slice(0, 4));
         generateCorrectAnswer()
     }
-    useEffect(() => {
-        generateFourWords()
-    }, [])
     // in case of 'Start' button -> remove useEffect and put this
-    {/*<button className='match-the-word__start'  hidden={startTask} type='button' onClick={() => {*/}
-    {/*    generateFourWords()*/}
-    {/*    setStartTask(true)*/}
-    {/*}}>Start</button>*/}
-    const [status, setStatus] = useState<any>(false)
+    // useEffect(() => {
+    //     generateFourWords()
+    // }, [])
+
+    const [status, setStatus] = useState<any>(false);
 
     const validation = (evt: any) => {
         const { value } = evt.target;
@@ -54,16 +51,22 @@ export const WordMatching = () => {
     }
     const [startTask, setStartTask] = useState(false);
     const correctAnswer : any = practice[randomNumber]?.definition; // FIX IT
+    const [incorrectAnswer, setIncorrectAnswer] = useState(false);
     return (
         <div>
             <h1 style={{'textAlign': 'center'}}>Match a word</h1>
             <div className='match-the-word__wrapper'>
+                <button className='match-the-word__start'  hidden={startTask} type='button' onClick={() => {
+                    generateFourWords()
+                    setStartTask(true)
+                }}>Start</button>
             </div>
             <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
             <div className='match-the-word'>
                 {practice.map((word: wordCard, index: number) => (
                         <button
-                            disabled={status}
+                            data-unit={word.definition}
+                            disabled={status || incorrectAnswer}
                             key={keyHandler(index)}
                             value={word.word}
                             onClick={validation}

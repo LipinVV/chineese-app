@@ -61,9 +61,10 @@ $piaoliang: #08d9d6;
 $nephrite: #828c83;
 $greeny: #6BAF92;
 $calm-green: #8DC3A7;
-$section-light-bg: rgb(12,102,110, 0.7);
+$section-light-bg: rgb(12,102,110, 0.3);
 $section-bg: rgb(12,102,110, 0.5);
 $section-deep-bg: rgb(12,102,110, 0.7);
+$section-super-deep-bg: rgb(12,102,110, 0.85);
 // some needs:
 
 $navigation-padding-top: 30px;
@@ -92,6 +93,7 @@ input[type="number"]::-webkit-inner-spin-button {
     font-family: "Old English Text MT";
     font-size: 30px;
     border-radius: 7px;
+    margin: 0;
   }
 }
 

@@ -1,13 +1,24 @@
 @import "src/App";
 
-@keyframes shake {
-  0%, 100% {transform: translateX(0);
+@keyframes correct {
+  0%, 100% {transform: translateY(0);
   }
-  10%, 30%, 50%, 70%, 90% {
-    transform: translateX(-10px);
+  10%, 100% {
+    transform: translateY(-5px);
+    background-color: $section-deep-bg;
+    content: 'CONTENT'
   }
-  20%, 40%, 60%, 80% {
-    transform: translateX(10px);
+  35%, 75% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes color {
+  0% {
+    background-color: $red-light;
+  }
+  50% {
+    background-color: $red;
   }
 }
 
@@ -80,11 +91,44 @@
 }
 
 .correct {
+  position: relative;
   background-color: $section-light-bg;
+  animation-name: correct;
+  animation-duration: 1s;
+}
+
+.correct:after {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 20px;
+  content: 'Correct!';
+  font-size: 25px;
+  transform: translateY(30px);
 }
 
 .incorrect {
   background-color: $red-light;
+}
+
+.incorrect:after {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  @media (min-width: $mobileDevice) {
+    font-size: 12px;
+    min-height: 20px;
+    content: attr(data-unit);
+    transform: translateY(40px);
+    max-width: 150px;
+  }
+  @media (min-width: $tabletDevice) {
+      font-size: 15px;
+      max-width: 300px;
+  }
 }
 
 .undefined {
@@ -96,7 +140,10 @@
 .match-the-word__wrapper {
   display: grid;
   position: relative;
-  padding: 30px 0 30px 0;
+}
+
+.match-the-word__wrapper:last-of-type{
+  padding: 30px 0 30px;
 }
 
 .match-the-word__start,
@@ -127,10 +174,10 @@
 .match-the-word__result {
   @media screen and (min-width: $mobileDevice) {
     max-width: $mobileDevice;
-    font-size: 35px;
+    font-size: 30px;
     text-align: center;
     padding: 30px 0 30px 0;
-    background-color: $section-bg;
+    background-color: $section-super-deep-bg;
     margin: 0 auto 30px;
   }
   @media screen and (min-width: $tabletDevice) {
