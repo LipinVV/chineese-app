@@ -6,7 +6,6 @@ import './wordMatching.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import ReactConfetti from "react-confetti";
 import {Link} from "react-router-dom";
-import {userInterface} from "../../Services/dataGetter";
 
 export const WordMatching = ({user} : any) => {
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
@@ -86,7 +85,7 @@ export const WordMatching = ({user} : any) => {
                         )
                     )}
                 </div>
-                <div className='match-the-word__wrapper'>
+                <div style={status !== true || numberOfQuestions === 0 ? {'display' : 'none'} : {}} className='match-the-word__wrapper'>
                     <button
                         type='button'
                         className='match-the-word__next'
@@ -99,11 +98,11 @@ export const WordMatching = ({user} : any) => {
                     </button>
                 </div>
             </div>}
-            {numberOfQuestions === 0 && <ReactConfetti/>}
+            {numberOfQuestions === 0 && <ReactConfetti className='match-the-word__confetti'/>}
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
-                    <h1 style={{'textAlign': 'center', 'color' : 'white'}}>Congratulations, {user}!</h1>
+                    <h1 className='match-the-word__header-winner'>Congratulations, {user}!</h1>
                 </div>
                 <Link
                     to='/home'

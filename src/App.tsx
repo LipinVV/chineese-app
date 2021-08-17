@@ -5,6 +5,7 @@
 // npm i @supabase/supabase-js
 // npm i --save-dev @types/react-router-dom
 // npm install react-confetti
+// npm install --save react-snowstorm
 
 import React, {useEffect, useState} from 'react';
 import './App.scss';
