@@ -10,8 +10,9 @@ import {Fireworks} from "fireworks-js/dist/react";
 import {Word} from "../../Word/Word";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
+import {stat} from "fs";
 
-export const WordMatching = ({user} : any) => {
+export const WordMatching = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     console.log('ALL WORDS', wordsFromStore)
@@ -33,7 +34,7 @@ export const WordMatching = ({user} : any) => {
     // }, [])
 
     const [status, setStatus] = useState<any>(false);
-
+    const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const validation = (evt: any) => {
         const {value} = evt.target;
         if (value === practice[randomNumber].word) {
@@ -49,6 +50,7 @@ export const WordMatching = ({user} : any) => {
         }
         if (value !== practice[randomNumber].word) {
             setStatus(false)
+            setWrongAnswer(true)
             const toggled = practice.map((word) => {
                 return {
                     ...word,
@@ -73,9 +75,8 @@ export const WordMatching = ({user} : any) => {
     }, [])
 
     const options = {
-        speed: 3
+        speed: 5
     }
-
     const style: any = {
         left: 0,
         top: 0,
@@ -84,12 +85,12 @@ export const WordMatching = ({user} : any) => {
         position: 'fixed',
         // background: '#000'
     }
-
     useEffect(() => {
-        if(numberOfQuestions === 0) {
+        if (numberOfQuestions === 0) {
             dispatch(incrementUserPoints(collectedPoints))
         }
     }, [numberOfQuestions])
+    console.log(collectedPoints)
     return (
         <div>
             {numberOfQuestions !== 0 && <div>
@@ -116,12 +117,14 @@ export const WordMatching = ({user} : any) => {
                                 onClick={validation}
                                 className={`answer ${word.correct}`}
                             >
-                               <Word word={word.word} tone={word.tone}/>
+                                {/*<Word word={word.word} tone={word.tone}/>*/}
+                                {word.word}
                             </button>
                         )
                     )}
                 </div>
-                <div style={status !== true || numberOfQuestions === 0 ? {'display' : 'none'} : {}} className='match-the-word__wrapper'>
+                <div style={status !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
+                     className='match-the-word__wrapper'>
                     <button
                         type='button'
                         className='match-the-word__next'
@@ -133,24 +136,42 @@ export const WordMatching = ({user} : any) => {
                         }}>Next
                     </button>
                 </div>
+                {wrongAnswer && !status &&
+                <div className='match-the-word__wrapper'>
+                    <button
+                        type='button'
+                        className='match-the-word__next'
+                        onClick={() => {
+                            generateFourWords()
+                            setStatus(false)
+                            setWrongAnswer(false)
+                            setNumberOfQuestions(prevState => prevState - 1)
+                        }}>Wrong, but who cares
+                    </button>
+                </div>
+                }
             </div>}
             {/*{numberOfQuestions === 0 && <ReactConfetti width={width}/>}*/}
-            {numberOfQuestions === 0 && <Fireworks options={options} style={style} />}
+            {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
                     <h1 className='match-the-word__header-winner'>Congratulations, {user}!</h1>
                 </div>
                 <Link
-                    to='/home'
+                    to='/practice'
                     className='match-the-word__exit'
                 >
-                    Exit task
+                    To practice page
                 </Link>
                 <button
                     type='button'
                     className='match-the-word__restart'
-                    onClick={() => setNumberOfQuestions(3)}
+                    onClick={() => {
+                        setNumberOfQuestions(3)
+                        // dispatch to global points
+                        setCollectedPoints(0)
+                    }}
                 >
                     I want again!
                 </button>

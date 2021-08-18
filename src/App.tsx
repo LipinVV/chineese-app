@@ -23,6 +23,7 @@ import {Practice} from "./Practice/Practice";
 import {wordCard} from "./types/types";
 import {getAllWords} from "./Actions/actions";
 import {useDispatch} from "react-redux";
+import {WordMatching} from "./Practice/WordMatching/WordMatching";
 // 1) nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -69,6 +70,7 @@ function App() {
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}
+                        <Route path='/practice/word-matching'><WordMatching user={matchedUser}/></Route>
                         <Route path='/practice'><Practice user={matchedUser}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>

@@ -134,10 +134,10 @@
   align-items: flex-end;
   @media (min-width: $mobileDevice) {
     font-size: 12px;
-    min-height: 20px;
+    min-height: 30px;
     content: attr(data-unit);
     transform: translateY(40px);
-    max-width: 150px;
+    max-width: 120px;
   }
   @media (min-width: $tabletDevice) {
       font-size: 15px;
@@ -227,21 +227,6 @@
   }
 }
 
-.match-the-word__confetti {
-  //@media screen and (min-width: $mobileDevice) {
-  //  width: 100%;
-  //}
-  //@media screen and (min-width: $tabletDevice) {
-  //  max-width: $tabletDevice;
-  //}
-  //@media (min-width: $desktopDevice) {
-  //  max-width: $desktopDevice;
-  //}
-  //@media (min-width: $largeDesktopDevice) {
-  //  max-width: $largeDesktopDevice;
-  //}
-}
-
 .match-the-word__exit {
   text-decoration: none;
   display: flex;
@@ -253,4 +238,12 @@
   text-align: center;
   color: $white;
   font-size: 25px;
+}
+
+.h {
+  background-color: red;
+}
+
+.k {
+  background-color: green;
 }

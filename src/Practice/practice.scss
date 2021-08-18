@@ -1,17 +1,60 @@
 @import "src/App";
 
+.practice,
+.practice__navigation {
+  @media (min-width: $mobileDevice) {
+    display: grid;
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
+}
+
 .practice {
-  //@media (min-width: $mobileDevice) {
-  //  display: grid;
-  //  max-width: $mobileDevice;
-  //}
-  //@media (min-width: $tabletDevice) {
-  //  max-width: $tabletDevice;
-  //}
-  //@media (min-width: $desktopDevice) {
-  //  max-width: $desktopDevice;
-  //}
-  //@media (min-width: $largeDesktopDevice) {
-  //  max-width: $largeDesktopDevice;
-  //}
+  margin: 0 auto;
+}
+
+.practice__navigation {
+  @media (min-width: $mobileDevice) {
+    grid-gap: 20px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.practice__navigation-link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100px;
+  font-size: 20px;
+  text-align: center;
+  color: $white;
+}
+
+.practice__navigation-link:nth-child(1) {
+  background-color: $blue;
+}
+.practice__navigation-link:nth-child(2) {
+  background-color: $green;
+}
+.practice__navigation-link:nth-child(3) {
+  background-color: $red;
+}
+.practice__navigation-link:nth-child(4) {
+  background-color: $purple;
+}
+
+.practice__header {
+  text-align: center;
+  color: $red;
 }
