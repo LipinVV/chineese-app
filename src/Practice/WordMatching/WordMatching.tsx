@@ -1,21 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
-import {store} from "../../App";
-import {keyHandler} from "../../Services/keyHandler";
+import {server, store} from "../../App";
 import './wordMatching.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";
-import ReactConfetti from "react-confetti";
 import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
-import {Word} from "../../Word/Word";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
-import {stat} from "fs";
 
 export const WordMatching = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-    console.log('ALL WORDS', wordsFromStore)
     const [practice, setPractice] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
 
@@ -37,9 +32,11 @@ export const WordMatching = ({user}: any) => {
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const validation = (evt: any) => {
         const {value} = evt.target;
+        if (value === practice[randomNumber].word && wrongAnswer !== true) {
+            setCollectedPoints(collectedPoints + 1)
+        }
         if (value === practice[randomNumber].word) {
             setStatus(true)
-            setCollectedPoints(collectedPoints + 1)
             const toggled = practice.map((word) => {
                 return {
                     ...word,
@@ -51,6 +48,7 @@ export const WordMatching = ({user}: any) => {
         if (value !== practice[randomNumber].word) {
             setStatus(false)
             setWrongAnswer(true)
+            setCollectedPoints(collectedPoints)
             const toggled = practice.map((word) => {
                 return {
                     ...word,
@@ -82,18 +80,38 @@ export const WordMatching = ({user}: any) => {
         top: 0,
         width: '100%',
         height: '100%',
-        position: 'fixed',
-        // background: '#000'
+        position: 'absolute',
     }
-    useEffect(() => {
-        if (numberOfQuestions === 0) {
-            dispatch(incrementUserPoints(collectedPoints))
+    // useEffect(() => {
+    //     if (numberOfQuestions === 0) {
+    //         dispatch(incrementUserPoints(collectedPoints))
+    //     }
+    // }, [numberOfQuestions])
+
+    const updateUserPoints = async () => {
+        try {
+            let {data: users}: any = await server
+                .from('users')
+            const chosenUser = users.find((person: any) => person.nickname === user)
+            const {data} = await server
+                .from('users')
+                .update([
+                    {
+                        globalPoints: chosenUser.globalPoints + collectedPoints,
+                    }
+                ])
+                .match({nickname: user})
+            console.log('user is updated =>', data)
+        } catch (error) {
+            console.error(error)
         }
-    }, [numberOfQuestions])
-    console.log(collectedPoints)
+    }
+    console.log('collectedPoints', collectedPoints)
     return (
         <div className='match-the-word__global-wrapper'>
-            {numberOfQuestions !== 0 && <div>
+            {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
+            {numberOfQuestions !== 0 &&
+            <div className='match-the-word__task'>
                 <h1 style={{'textAlign': 'center'}}>Match a word</h1>
                 <div className='match-the-word__wrapper'>
                     <button
@@ -133,6 +151,7 @@ export const WordMatching = ({user}: any) => {
                             generateFourWords()
                             setStatus(false)
                             setNumberOfQuestions(prevState => prevState - 1)
+                            setWrongAnswer(false)
                         }}>Next
                     </button>
                 </div>
@@ -144,15 +163,12 @@ export const WordMatching = ({user}: any) => {
                         onClick={() => {
                             generateFourWords()
                             setStatus(false)
-                            setWrongAnswer(false)
                             setNumberOfQuestions(prevState => prevState - 1)
                         }}>Wrong, but who cares
                     </button>
                 </div>
                 }
             </div>}
-            {/*{numberOfQuestions === 0 && <ReactConfetti width={width}/>}*/}
-            {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
@@ -161,6 +177,7 @@ export const WordMatching = ({user}: any) => {
                 <Link
                     to='/practice'
                     className='match-the-word__exit'
+                    onClick={updateUserPoints}
                 >
                     To practice page
                 </Link>
@@ -169,14 +186,14 @@ export const WordMatching = ({user}: any) => {
                     className='match-the-word__restart'
                     onClick={() => {
                         setNumberOfQuestions(3)
-                        // dispatch to global points
+                        dispatch(incrementUserPoints(collectedPoints))
                         setCollectedPoints(0)
+                        updateUserPoints().then(data => data)
                     }}
                 >
-                    I want again!
+                    Repeat
                 </button>
-            </div>
-            }
+            </div>}
         </div>
     )
 }

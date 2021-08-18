@@ -24,7 +24,7 @@ import {wordCard} from "./types/types";
 import {getAllWords} from "./Actions/actions";
 import {useDispatch} from "react-redux";
 import {WordMatching} from "./Practice/WordMatching/WordMatching";
-// 1) nicknames problem
+// 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
     'eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODc1MjMyMSwiZXhwIjoxOTQ0MzI4MzIxfQ.' +
@@ -37,9 +37,7 @@ export const store = createStore(
 store.subscribe(() => {
     localStorage['redux-store'] = JSON.stringify(store.getState());
 })
-console.log(store.getState())
-
-// console.log('users', statusOfPersonalInfo().then(x =>console.log(x)))
+// console.log(store.getState())
 
 function App() {
     const [state, setState] = useState(userLoggedIn);
@@ -52,6 +50,7 @@ function App() {
     }, [])
 
     const matchedUser= user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
+    const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
 
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
@@ -61,12 +60,12 @@ function App() {
             setWords(wordSets);
         })
     }, [])
-    // console.log(store.getState())
     return (
         <div id='width' className="app">
             <Router>
                 <h1 className='app__label'>Chinese trainer</h1>
                 <h3 className='app__label-bottom'>{matchedUser ? `Welcome, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
+                {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
                 <Navigation accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}

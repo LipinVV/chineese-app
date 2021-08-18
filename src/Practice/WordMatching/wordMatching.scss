@@ -37,7 +37,7 @@
 .match-the-word {
   @media (min-width: $mobileDevice) {
     display: grid;
-    max-width: $mobileDevice;
+    max-width: $tabletDevice;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -158,6 +158,7 @@
 
 .match-the-word__global-wrapper {
   margin-top: 30px;
+  position: relative;
 }
 
 .match-the-word__wrapper:last-of-type{
@@ -193,7 +194,7 @@
 
 .match-the-word__result {
   @media screen and (min-width: $mobileDevice) {
-    max-width: $mobileDevice;
+    max-width: $tabletDevice;
     font-size: 30px;
     text-align: center;
     padding: 30px 0 30px 0;
@@ -242,12 +243,4 @@
   text-align: center;
   color: $white;
   font-size: 25px;
-}
-
-.h {
-  background-color: red;
-}
-
-.k {
-  background-color: green;
 }
