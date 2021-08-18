@@ -92,7 +92,7 @@ export const WordMatching = ({user}: any) => {
     }, [numberOfQuestions])
     console.log(collectedPoints)
     return (
-        <div>
+        <div className='match-the-word__global-wrapper'>
             {numberOfQuestions !== 0 && <div>
                 <h1 style={{'textAlign': 'center'}}>Match a word</h1>
                 <div className='match-the-word__wrapper'>
