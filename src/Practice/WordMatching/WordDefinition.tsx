@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
 import {server, store} from "../../App";
-import './wordMatching.scss';
+import './definitionWord.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 
-export const WordMatching = ({user}: any) => {
+export const WordDefinition = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const [practice, setPractice] = useState<wordCard[]>([]);
@@ -32,34 +32,34 @@ export const WordMatching = ({user}: any) => {
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const validation = (evt: any) => {
         const {value} = evt.target;
-        if (value === practice[randomNumber].word && wrongAnswer !== true) {
+        if (value === practice[randomNumber].definition && wrongAnswer === false) {
             setCollectedPoints(collectedPoints + 1)
         }
-        if (value === practice[randomNumber].word) {
+        if (value === practice[randomNumber].definition) {
             setStatus(true)
             const toggled = practice.map((word) => {
                 return {
                     ...word,
-                    correct: word.word === value ? 'correct' : word.correct
+                    correct: word.definition === value ? 'correct' : word.correct
                 }
             })
             setPractice(toggled);
         }
-        if (value !== practice[randomNumber].word) {
+        if (value !== practice[randomNumber].definition) {
             setStatus(false)
             setWrongAnswer(true)
             setCollectedPoints(collectedPoints)
             const toggled = practice.map((word) => {
                 return {
                     ...word,
-                    correct: word.word === value ? 'incorrect' : word.correct,
+                    correct: word.definition === value ? 'incorrect' : word.correct,
                 }
             })
             setPractice(toggled);
         }
     }
     const [startTask, setStartTask] = useState(false);
-    const correctAnswer: any = practice[randomNumber]?.definition; // FIX IT
+    const correctAnswer: any = practice[randomNumber]?.word; // FIX IT
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
 
@@ -107,6 +107,7 @@ export const WordMatching = ({user}: any) => {
         }
     }
     console.log('collectedPoints', collectedPoints)
+    console.log('wrongAnswer', wrongAnswer)
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
@@ -128,15 +129,15 @@ export const WordMatching = ({user}: any) => {
                     {practice.map((word: wordCard) => (
                             <button
                                 type='button'
-                                data-unit={word.definition}
-                                disabled={status}
+                                data-unit={word.word}
+                                disabled={status || wrongAnswer === true}
                                 key={word.word}
-                                value={word.word}
+                                value={word.definition}
                                 onClick={validation}
                                 className={`answer ${word.correct}`}
                             >
                                 {/*<Word word={word.word} tone={word.tone}/>*/}
-                                {word.word}
+                                {word.definition}
                             </button>
                         )
                     )}
@@ -164,6 +165,7 @@ export const WordMatching = ({user}: any) => {
                             generateFourWords()
                             setStatus(false)
                             setNumberOfQuestions(prevState => prevState - 1)
+                            setWrongAnswer(false)
                         }}>Wrong, but who cares
                     </button>
                 </div>
@@ -172,7 +174,10 @@ export const WordMatching = ({user}: any) => {
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
-                    <h1 className='match-the-word__header-winner'>Congratulations, {user}!</h1>
+                    {numberOfQuestions === 0 && collectedPoints === 3 ?
+                    <h1 className='match-the-word__header-winner'>Congratulations, {user}, you've earned {collectedPoints} points</h1> :
+                        <h1 className='match-the-word__header-winner'>You've earned {collectedPoints} points</h1>
+                    }
                 </div>
                 <Link
                     to='/practice'

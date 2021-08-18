@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import {wordCard} from "../types/types";
 import {keyHandler} from "../Services/keyHandler";
-import '../Practice/WordMatching/wordMatching.scss';
+import '../Practice/WordMatching/definitionWord.scss';
 import {useDispatch} from "react-redux";
 import {getAllWords} from "../Actions/actions";
 import {getWordsDataBase} from "../Services/dataGetter";

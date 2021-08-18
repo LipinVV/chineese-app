@@ -1,7 +1,8 @@
 @import "src/App";
 
 @keyframes correct {
-  0%, 100% {transform: translateY(0);
+  0%, 100% {
+    transform: translateY(0);
   }
   10%, 100% {
     transform: translateY(-5px);
@@ -140,8 +141,8 @@
     max-width: 120px;
   }
   @media (min-width: $tabletDevice) {
-      font-size: 15px;
-      max-width: 300px;
+    font-size: 15px;
+    max-width: 300px;
   }
 }
 
@@ -161,7 +162,7 @@
   position: relative;
 }
 
-.match-the-word__wrapper:last-of-type{
+.match-the-word__wrapper:last-of-type {
   padding: 30px 0 30px;
 }
 
@@ -181,13 +182,13 @@
     color: $white;
     margin: 0 auto;
     min-width: 200px;
-    &:hover{
+    &:hover {
       background-color: $section-bg;
     }
   }
   @media screen and (min-width: $tabletDevice) {
     font-size: $large-font;
-    &:hover{
+    &:hover {
     }
   }
 }
@@ -214,7 +215,7 @@
 
 .match-the-word__winner-zone {
   @media screen and (min-width: $mobileDevice) {
-    max-width: $mobileDevice;
+    max-width: $tabletDevice;
     display: grid;
     grid-gap: 30px;
     margin: 0 auto;
@@ -242,5 +243,10 @@
 .match-the-word__header-winner {
   text-align: center;
   color: $white;
-  font-size: 25px;
+  @media screen and (min-width: $mobileDevice) {
+    font-size: 18px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    font-size: 25px;
+  }
 }
