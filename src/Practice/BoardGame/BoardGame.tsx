@@ -124,9 +124,6 @@ export const BoardGame = ({user}: any) => {
                     {practice.map((word: wordCard) => (
                             <button
                                 type='button'
-                                // data-unit={word.definition}
-                                // disabled={completedPairs.includes(word.word)}
-                                // disabled={selected?.word === word.word}
                                 disabled={selectedOne?.word === word.word}
                                 key={word.word}
                                 value={word.word}
@@ -148,8 +145,6 @@ export const BoardGame = ({user}: any) => {
                     }).map((word: any) => (
                             <button
                                 type='button'
-                                // data-unit={word.definition}
-                                // disabled={completedPairs.includes(word.word)}
                                 disabled={selectedTwo?.word === word.answer}
                                 key={word.pinyin}
                                 value={word.word}

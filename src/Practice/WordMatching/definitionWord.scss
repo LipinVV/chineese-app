@@ -126,6 +126,10 @@
   transform: translateY(30px);
 }
 
+.correct-pair:after {
+  content: none;
+}
+
 .incorrect,
 .incorrect-pair {
   background-color: $red-light;
@@ -162,7 +166,7 @@
     background-color: $section-bg;
   }
   &:disabled {
-    background-color: $purple;
+    background-color: $section-deep-bg;
   }
 }
 

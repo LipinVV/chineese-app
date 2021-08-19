@@ -6,7 +6,7 @@ export const Word =({word, tone} : any) => {
         0: 'grey',
         1: 'red',
         2: 'orange',
-        3: 'yellow',
+        3: 'orange',
         4: 'blue'
     }
 
