@@ -23,6 +23,16 @@ export const DefinitionWord = ({user}: any) => {
         setPractice(arrayShuffler(wordsFromStore).slice(0, 4));
         generateCorrectAnswer()
     }
+    // hardcore version
+    const generateCorrectAnswerHardCore = () => {
+        const randomInteger = Math.floor(Math.random() * 8);
+        setRandomNumber(randomInteger);
+    }
+
+    const generateEightWordsHardCore  = () => {
+        setPractice(arrayShuffler(wordsFromStore).slice(0, 8));
+        generateCorrectAnswer()
+    }
     // in case  to get rid of 'Start' button -> add useEffect and put this
     // useEffect(() => {
     //     generateFourWords()
@@ -108,12 +118,15 @@ export const DefinitionWord = ({user}: any) => {
     }
     console.log('collectedPoints', collectedPoints)
     console.log('wrongAnswer', wrongAnswer)
+    const [taskMode, setTaskMode] = useState(false);
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
+            {numberOfQuestions === 0 && collectedPoints === 6 && <Fireworks options={options} style={style}/>}
             {numberOfQuestions !== 0 &&
             <div className='match-the-word__task'>
-                <h1 style={{'textAlign': 'center'}}>Match a word</h1>
+                {!startTask ? <h1 style={{'textAlign': 'center'}}>Match a
+                    definition and a word</h1> : <h1 style={{'textAlign': 'center'}}>Choose correct answer</h1>}
                 <div className='match-the-word__wrapper'>
                     <button
                         className='match-the-word__start'
@@ -121,7 +134,17 @@ export const DefinitionWord = ({user}: any) => {
                         onClick={() => {
                             generateFourWords()
                             setStartTask(true)
-                        }}>Start
+                        }}>Normal mode
+                    </button>
+                    <button
+                        className='match-the-word__start'
+                        hidden={startTask} type='button'
+                        onClick={() => {
+                            generateEightWordsHardCore()
+                            setStartTask(true)
+                            setTaskMode(true)
+                            setNumberOfQuestions(6)
+                        }}>Advanced mode
                     </button>
                 </div>
                 <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
@@ -148,12 +171,22 @@ export const DefinitionWord = ({user}: any) => {
                         type='button'
                         className='match-the-word__next'
                         hidden={status !== true || numberOfQuestions === 0}
-                        onClick={() => {
-                            generateFourWords()
-                            setStatus(false)
-                            setNumberOfQuestions(prevState => prevState - 1)
-                            setWrongAnswer(false)
-                        }}>Next
+                        onClick={
+                            !taskMode ?
+                                    () => {
+                                        generateFourWords()
+                                        setStatus(false)
+                                        setNumberOfQuestions(prevState => prevState - 1)
+                                        setWrongAnswer(false)
+                                    } :
+                                    () => {
+                                        generateEightWordsHardCore()
+                                        setStatus(false)
+                                        setNumberOfQuestions(prevState => prevState - 1)
+                                        setWrongAnswer(false)
+                                    }
+
+                        }>Next
                     </button>
                 </div>
                 {wrongAnswer && !status &&
@@ -161,12 +194,22 @@ export const DefinitionWord = ({user}: any) => {
                     <button
                         type='button'
                         className='match-the-word__next'
-                        onClick={() => {
-                            generateFourWords()
-                            setStatus(false)
-                            setNumberOfQuestions(prevState => prevState - 1)
-                            setWrongAnswer(false)
-                        }}>Wrong, but who cares
+                        onClick={
+                            !taskMode ?
+                                () => {
+                                    generateFourWords()
+                                    setStatus(false)
+                                    setNumberOfQuestions(prevState => prevState - 1)
+                                    setWrongAnswer(false)
+                                }
+                                :
+                                () => {
+                                    generateEightWordsHardCore()
+                                    setStatus(false)
+                                    setNumberOfQuestions(prevState => prevState - 1)
+                                    setWrongAnswer(false)
+                                }
+                        }>Incorrect answer
                     </button>
                 </div>
                 }
@@ -174,9 +217,11 @@ export const DefinitionWord = ({user}: any) => {
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
-                    {numberOfQuestions === 0 && collectedPoints === 3 ?
-                    <h1 className='match-the-word__header-winner'>Congratulations, {user}, you've earned {collectedPoints} points</h1> :
-                        <h1 className='match-the-word__header-winner'>You've earned {collectedPoints} points</h1>
+                    {taskMode && numberOfQuestions === 0  &&
+                    <h1 className='match-the-word__header-winner'>{collectedPoints === 3 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
+                    }
+                    {!taskMode && numberOfQuestions === 0  &&
+                        <h1 className='match-the-word__header-winner'>{collectedPoints === 6 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
                     }
                 </div>
                 <Link
@@ -190,7 +235,8 @@ export const DefinitionWord = ({user}: any) => {
                     type='button'
                     className='match-the-word__restart'
                     onClick={() => {
-                        setNumberOfQuestions(3)
+                        {
+                            !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)}
                         dispatch(incrementUserPoints(collectedPoints))
                         setCollectedPoints(0)
                         updateUserPoints().then(data => data)

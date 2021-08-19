@@ -113,7 +113,8 @@ export const WordDefinition = ({user}: any) => {
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
             {numberOfQuestions !== 0 &&
             <div className='match-the-word__task'>
-                <h1 style={{'textAlign': 'center'}}>Match a word</h1>
+                {!startTask ? <h1 style={{'textAlign': 'center'}}>Match a
+                    word</h1> : <h1 style={{'textAlign': 'center'}}>Choose correct answer</h1>}
                 <div className='match-the-word__wrapper'>
                     <button
                         className='match-the-word__start'
@@ -166,7 +167,7 @@ export const WordDefinition = ({user}: any) => {
                             setStatus(false)
                             setNumberOfQuestions(prevState => prevState - 1)
                             setWrongAnswer(false)
-                        }}>Wrong, but who cares
+                        }}>Incorrect answer
                     </button>
                 </div>
                 }
