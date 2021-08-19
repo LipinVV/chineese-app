@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import './navigation.scss';
 
 export const Navigation = ({state}: any) => {
@@ -11,7 +11,7 @@ export const Navigation = ({state}: any) => {
     }
 
     useEffect(() => {
-        function reportWindowSize() {
+        const reportWindowSize = () => {
             setWidth(window.innerWidth)
         }
         window.onresize = reportWindowSize;
@@ -24,10 +24,10 @@ export const Navigation = ({state}: any) => {
             <div className={width < 1023 ? 'navigation__links' : 'navigation__links navigation__links_desktop'}>
                 {width < 1023 ? <Link className={!menu ? 'navigation__link' : 'navigation__link navigation__link_hidden' } to='/'>Home</Link> : <Link className='navigation__link' to='/'>Home</Link>}
                 {width < 1023 ? <Link className={!menu ? 'navigation__link' : 'navigation__link navigation__link_hidden' } to='/admin'>Admin</Link> : <Link className='navigation__link' to='/admin'>Admin</Link>}
-                {width < 1023 ? <Link className={!menu ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/'>Trainings</Link> : <Link className='navigation__link' to='/'>Trainings</Link>}
+                {width < 1023 && state ? <Link className={!menu && state ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/practice'>Practice</Link> : <Link className={ state ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/practice'>Practice</Link>}
                 {width < 1023 ? <Link className={!menu ? 'navigation__link' : 'navigation__link navigation__link_hidden' } to='/'>Materials</Link> : <Link className='navigation__link' to='/'>Materials</Link>}
-                {width < 1023 ? <Link className={!menu ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/:admin/access'>{!state ? 'Login' : 'Logout'}</Link> : <Link className='navigation__link' to='/:admin/access'>{!state ? 'Login' : 'Logout'}</Link>}
-                {width < 1023 && !state ? <Link className={!menu && !state ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/:admin/registration'>Registration</Link> : <Link className={ !state ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/:admin/registration'>Registration</Link>}
+                {width < 1023 ? <Link className={!menu ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/access'>{!state ? 'Login' : 'Logout'}</Link> : <Link className='navigation__link' to='/access'>{!state ? 'Login' : 'Logout'}</Link>}
+                {width < 1023 && !state ? <Link className={!menu && !state ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/registration'>Registration</Link> : <Link className={ !state ? 'navigation__link' : 'navigation__link navigation__link_hidden' }  to='/registration'>Registration</Link>}
             </div>
             <button onClick={menuHandler} className='navigation__menu-button'><span className='navigation__animated-link'>{menu ? `Open` : `Close`}</span></button>
         </div>

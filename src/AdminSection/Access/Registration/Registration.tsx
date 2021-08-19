@@ -21,7 +21,7 @@ export const Registration = () => {
     }
     const signUp = async () => {
         try {
-            const {user, session, error} = await server.auth.signUp({
+            const {user, error} = await server.auth.signUp({
                 email: userMail,
                 password: userPassword,
             })
@@ -34,6 +34,8 @@ export const Registration = () => {
                         {
                             nickname: nickName,
                             mail: userMail,
+                            globalPoints: 0,
+                            sessionPoints: 0
                         }
                     ])
                 console.log('user is =>', data)
@@ -85,7 +87,7 @@ export const Registration = () => {
                         onClick={signUp}
                     >Create an account
                     </button>
-                    <Link to='/:admin/access' className='registration__button'>To login</Link>
+                    <Link to='/access' className='registration__button'>To login page</Link>
                 </div>
             }
             {!status &&

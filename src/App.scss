@@ -21,6 +21,7 @@ $grey: #ede8e4;
 $light-grey: #e1e3e5;
 $brown: #cfb093;
 $white: #fdfdfd;
+$white-light: rgba(253, 253, 253, 0.5);
 
 // for help
 :root {
@@ -50,6 +51,7 @@ $light-violet: #C77DFF;
 $lavender: #E0AAFF;
 
 $red: #b04553;
+$red-light: rgba(	176, 69, 83, 0.5);
 $rose: #d98c9e;
 $amethyst: #d7eae5;
 $green: #00e567;
@@ -59,7 +61,11 @@ $piaoliang: #08d9d6;
 $nephrite: #828c83;
 $greeny: #6BAF92;
 $calm-green: #8DC3A7;
-
+$section-light-bg: rgb(12,102,110, 0.3);
+$section-bg: rgb(12,102,110, 0.5);
+$section-deep-bg: rgb(12,102,110, 0.7);
+$section-super-deep-bg: rgb(12,102,110, 0.85);
+$browny: #ed8707;
 // some needs:
 
 $navigation-padding-top: 30px;
@@ -88,6 +94,7 @@ input[type="number"]::-webkit-inner-spin-button {
     font-family: "Old English Text MT";
     font-size: 30px;
     border-radius: 7px;
+    margin: 0;
   }
 }
 

@@ -10,7 +10,7 @@ export const Access = ({accessFn, state, user}: any) => {
     const dispatch = useDispatch();
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
-    const [userConnected, setUserConnected] = useState(userLoggedIn);
+    const [userConnected] = useState(userLoggedIn);
     const [accessError, setAccessError] = useState(false);
     const [textOfError, setTextOfError] = useState('');
 
@@ -20,7 +20,7 @@ export const Access = ({accessFn, state, user}: any) => {
 
     const logIn = async () => {
         try {
-            const {user, session, error} = await server.auth.signIn({
+            const {error} = await server.auth.signIn({
                 email: userMail,
                 password: userPassword,
             });

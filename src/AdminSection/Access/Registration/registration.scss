@@ -3,6 +3,7 @@
 .registration {
   margin: 0 auto;
   display: grid;
+  background-color: $section-bg;
   @media screen and (min-width: $mobileDevice) {
     max-width: $mobileDevice;
     grid-gap: 20px;
@@ -11,11 +12,28 @@
     max-width: $tabletDevice;
     padding: 0 20px 0 20px;
   }
+  @media screen and (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+  @media screen and (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
 }
 
 .registration__form {
   display: grid;
   grid-gap: 10px;
+}
+
+.registration__header {
+  @media screen and (min-width: $mobileDevice) {
+    text-align: center;
+    font-size: 22px;
+    margin: 30px 0 10px 0;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    font-size: 25px;
+  }
 }
 
 .registration__label {
@@ -54,6 +72,7 @@
     border: 2px solid $dark;
     min-width: 150px;
     min-height: 40px;
+    font-size: inherit;
   }
   &:hover {
     background-color: $calm-green;

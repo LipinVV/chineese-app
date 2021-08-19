@@ -1,25 +1,27 @@
 import {server} from "../App";
+import {wordCard} from "../types/types";
 
-interface users  {
+export interface userInterface  {
     id: number,
     nickname: string,
     mail: string,
+    globalPoints: number,
+    sessionPoints: number
 }
 
 export const statusOfPersonalInfo = async () => {
     // FIX IT -> data: any
     const { data }: any = await server
-        .from<users>('users')
+        .from<userInterface>('users')
         .select('*')
     if(data.length !== 0) {
-        console.log('users', data)
         return data
     }
 }
 
-export const statusOfProducts= async () => {
-    const { data } = await server
-        .from('products')
+export const getWordsDataBase = async () => {
+    const { data }: any = await server
+        .from<wordCard>('database')
         .select('*')
-    console.log(data)
+    return data
 }
