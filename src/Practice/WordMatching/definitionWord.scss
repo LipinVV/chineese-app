@@ -88,7 +88,9 @@
 
 .undefined,
 .incorrect,
-.correct {
+.correct,
+.correct-pair,
+.incorrect-pair {
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -103,14 +105,16 @@
   }
 }
 
-.correct {
+.correct,
+.correct-pair {
   position: relative;
   background-color: $section-light-bg;
   animation-name: correct;
   animation-duration: 1s;
 }
 
-.correct:after {
+.correct:after,
+.correct-pair:after {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -122,13 +126,15 @@
   transform: translateY(30px);
 }
 
-.incorrect {
+.incorrect,
+.incorrect-pair {
   background-color: $red-light;
   animation-name: shake;
   animation-duration: 0.5s;
 }
 
-.incorrect:after {
+.incorrect:after,
+.incorrect-pair:after {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -144,6 +150,11 @@
     font-size: 15px;
     max-width: 300px;
   }
+}
+
+.correct-pair,
+.incorrect-pair {
+  pointer-events: none;
 }
 
 .undefined {

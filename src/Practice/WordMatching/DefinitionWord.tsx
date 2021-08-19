@@ -33,10 +33,6 @@ export const DefinitionWord = ({user}: any) => {
         setPractice(arrayShuffler(wordsFromStore).slice(0, 8));
         generateCorrectAnswerAdvanced()
     }
-    // in case  to get rid of 'Start' button -> add useEffect and put this
-    // useEffect(() => {
-    //     generateFourWords()
-    // }, [])
 
     const [status, setStatus] = useState<any>(false);
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
@@ -92,11 +88,6 @@ export const DefinitionWord = ({user}: any) => {
         height: '100%',
         position: 'absolute',
     }
-    // useEffect(() => {
-    //     if (numberOfQuestions === 0) {
-    //         dispatch(incrementUserPoints(collectedPoints))
-    //     }
-    // }, [numberOfQuestions])
 
     const updateUserPoints = async () => {
         try {
