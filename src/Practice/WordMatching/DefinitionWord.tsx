@@ -29,7 +29,7 @@ export const DefinitionWord = ({user}: any) => {
         setRandomNumber(randomInteger);
     }
 
-    const generateEightWordsHardCore  = () => {
+    const generateEightWordsHardCore = () => {
         setPractice(arrayShuffler(wordsFromStore).slice(0, 8));
         generateCorrectAnswer()
     }
@@ -172,20 +172,14 @@ export const DefinitionWord = ({user}: any) => {
                         className='match-the-word__next'
                         hidden={status !== true || numberOfQuestions === 0}
                         onClick={
-                            !taskMode ?
-                                    () => {
-                                        generateFourWords()
-                                        setStatus(false)
-                                        setNumberOfQuestions(prevState => prevState - 1)
-                                        setWrongAnswer(false)
-                                    } :
-                                    () => {
-                                        generateEightWordsHardCore()
-                                        setStatus(false)
-                                        setNumberOfQuestions(prevState => prevState - 1)
-                                        setWrongAnswer(false)
-                                    }
-
+                            () => {
+                                {
+                                    !taskMode ? generateFourWords() : generateEightWordsHardCore()
+                                }
+                                setStatus(false)
+                                setNumberOfQuestions(prevState => prevState - 1)
+                                setWrongAnswer(false)
+                            }
                         }>Next
                     </button>
                 </div>
@@ -195,20 +189,14 @@ export const DefinitionWord = ({user}: any) => {
                         type='button'
                         className='match-the-word__next'
                         onClick={
-                            !taskMode ?
-                                () => {
-                                    generateFourWords()
-                                    setStatus(false)
-                                    setNumberOfQuestions(prevState => prevState - 1)
-                                    setWrongAnswer(false)
+                            () => {
+                                {
+                                    !taskMode ? generateFourWords() : generateEightWordsHardCore()
                                 }
-                                :
-                                () => {
-                                    generateEightWordsHardCore()
-                                    setStatus(false)
-                                    setNumberOfQuestions(prevState => prevState - 1)
-                                    setWrongAnswer(false)
-                                }
+                                setStatus(false)
+                                setNumberOfQuestions(prevState => prevState - 1)
+                                setWrongAnswer(false)
+                            }
                         }>Incorrect answer
                     </button>
                 </div>
@@ -217,11 +205,11 @@ export const DefinitionWord = ({user}: any) => {
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
-                    {taskMode && numberOfQuestions === 0  &&
+                    {taskMode && numberOfQuestions === 0 &&
                     <h1 className='match-the-word__header-winner'>{collectedPoints === 3 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
                     }
-                    {!taskMode && numberOfQuestions === 0  &&
-                        <h1 className='match-the-word__header-winner'>{collectedPoints === 6 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
+                    {!taskMode && numberOfQuestions === 0 &&
+                    <h1 className='match-the-word__header-winner'>{collectedPoints === 6 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
                     }
                 </div>
                 <Link
@@ -236,7 +224,8 @@ export const DefinitionWord = ({user}: any) => {
                     className='match-the-word__restart'
                     onClick={() => {
                         {
-                            !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)}
+                            !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)
+                        }
                         dispatch(incrementUserPoints(collectedPoints))
                         setCollectedPoints(0)
                         updateUserPoints().then(data => data)
