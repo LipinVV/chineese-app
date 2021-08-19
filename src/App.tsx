@@ -25,6 +25,7 @@ import {getAllWords} from "./Actions/actions";
 import {useDispatch} from "react-redux";
 import {DefinitionWord} from "./Practice/WordMatching/DefinitionWord";
 import {WordDefinition} from "./Practice/WordMatching/WordDefinition";
+import {BoardGame} from "./Practice/BoardGame/BoardGame";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -72,6 +73,7 @@ function App() {
                         {!state && <Route path='/registration'><Registration/></Route>}
                         <Route path='/practice/definition-word'><DefinitionWord user={matchedUser}/></Route>
                         <Route path='/practice/word-definition'><WordDefinition user={matchedUser}/></Route>
+                        <Route path='practice/board-game'><BoardGame/></Route>
                         <Route path='/practice'><Practice user={matchedUser}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>

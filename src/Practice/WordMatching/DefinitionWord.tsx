@@ -24,14 +24,14 @@ export const DefinitionWord = ({user}: any) => {
         generateCorrectAnswer()
     }
     // hardcore version
-    const generateCorrectAnswerHardCore = () => {
+    const generateCorrectAnswerAdvanced = () => {
         const randomInteger = Math.floor(Math.random() * 8);
         setRandomNumber(randomInteger);
     }
 
-    const generateEightWordsHardCore = () => {
+    const generateEightWordsAdvanced = () => {
         setPractice(arrayShuffler(wordsFromStore).slice(0, 8));
-        generateCorrectAnswer()
+        generateCorrectAnswerAdvanced()
     }
     // in case  to get rid of 'Start' button -> add useEffect and put this
     // useEffect(() => {
@@ -140,7 +140,7 @@ export const DefinitionWord = ({user}: any) => {
                         className='match-the-word__start'
                         hidden={startTask} type='button'
                         onClick={() => {
-                            generateEightWordsHardCore()
+                            generateEightWordsAdvanced()
                             setStartTask(true)
                             setTaskMode(true)
                             setNumberOfQuestions(6)
@@ -174,7 +174,7 @@ export const DefinitionWord = ({user}: any) => {
                         onClick={
                             () => {
                                 {
-                                    !taskMode ? generateFourWords() : generateEightWordsHardCore()
+                                    !taskMode ? generateFourWords() : generateEightWordsAdvanced()
                                 }
                                 setStatus(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
@@ -191,7 +191,7 @@ export const DefinitionWord = ({user}: any) => {
                         onClick={
                             () => {
                                 {
-                                    !taskMode ? generateFourWords() : generateEightWordsHardCore()
+                                    !taskMode ? generateFourWords() : generateEightWordsAdvanced()
                                 }
                                 setStatus(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
