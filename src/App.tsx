@@ -73,7 +73,7 @@ function App() {
                         {!state && <Route path='/registration'><Registration/></Route>}
                         <Route path='/practice/definition-word'><DefinitionWord user={matchedUser}/></Route>
                         <Route path='/practice/word-definition'><WordDefinition user={matchedUser}/></Route>
-                        <Route path='practice/board-game'><BoardGame/></Route>
+                        <Route path='/practice/board-game'><BoardGame/></Route>
                         <Route path='/practice'><Practice user={matchedUser}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>

@@ -14,7 +14,7 @@ export const Practice = ({user}: any) => {
                 <Link className='practice__navigation-link' to='/practice/definition-word'>Definition-Word</Link>
                 <Link className='practice__navigation-link' to='/practice/word-definition'>Word-Definition </Link>
                 <Link className='practice__navigation-link' to='/practice/word-matching'>Audio Challenge </Link>
-                <Link className='practice__navigation-link' to='practice/board-game'>Board game</Link>
+                <Link className='practice__navigation-link' to='/practice/board-game'>Board game</Link>
                 <Link className='practice__navigation-link' to='/practice/word-matching'>Sprint </Link>
             </div>
         </div>
