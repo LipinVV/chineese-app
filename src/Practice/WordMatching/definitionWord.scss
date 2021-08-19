@@ -161,6 +161,9 @@
   &:hover {
     background-color: $section-bg;
   }
+  &:disabled {
+    background-color: $purple;
+  }
 }
 
 .match-the-word__wrapper {

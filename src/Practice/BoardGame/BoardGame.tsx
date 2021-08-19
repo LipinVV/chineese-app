@@ -31,10 +31,15 @@ export const BoardGame = ({user}: any) => {
 
     const [numberOfQuestions, setNumberOfQuestions] = useState(5);
     const [array, setArray] = useState<any>([]);
+    const [clickerCounter, setClickerCounter] = useState(0)
 
     const logic = (evt: any) => {
         const {value} = evt.target
         setArray([...array, value])
+        setClickerCounter( clickerCounter + 1)
+        if(clickerCounter >= 0) {
+            console.log(evt.preventDefault())
+        }
         return array;
     }
     const [matchedPair, setMatchedPair]: any = useState(false);
@@ -55,6 +60,8 @@ export const BoardGame = ({user}: any) => {
             setCollectedPoints(collectedPoints + 1);
             setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
+            setSelectedOne('')
+            setSelectedTwo('')
         }
 
         if (array.length === 2 && array[0] !== array[1]) {
@@ -90,8 +97,10 @@ export const BoardGame = ({user}: any) => {
             console.error(error)
         }
     }
-    const [selected, setSelected]: any = useState();
-    console.log(selected, array, matchedPair)
+    const [selectedOne, setSelectedOne]: any = useState();
+    const [selectedTwo, setSelectedTwo]: any = useState();
+    console.log(selectedOne, array, matchedPair)
+
     return (
         <div className='match-the-word__global-wrapper'>
             <div className='match-the-word__task'>
@@ -99,7 +108,6 @@ export const BoardGame = ({user}: any) => {
                     <h1 style={{'textAlign': 'center'}}>Correct: {matchedPair.toString()}</h1>}
                 <div className='match-the-word__wrapper'>
                     <button
-                        disabled={array.length === 1}
                         className='match-the-word__start'
                         hidden={startTask} type='button'
                         onClick={() => {
@@ -116,12 +124,13 @@ export const BoardGame = ({user}: any) => {
                                 type='button'
                                 // data-unit={word.definition}
                                 // disabled={completedPairs.includes(word.word)}
-                                disabled={array.includes(word.word)}
+                                // disabled={selected?.word === word.word}
+                                disabled={selectedOne?.word === word.word}
                                 key={word.word}
                                 value={word.word}
                                 onClick={(evt) => {
                                     logic(evt);
-                                    setSelected(word)
+                                    setSelectedOne(word);
                                 }}
                                 className={`answer ${word.correct}`}
                             >
@@ -129,14 +138,23 @@ export const BoardGame = ({user}: any) => {
                             </button>
                         )
                     )}
-                    {practice.map((word: wordCard) => (
+                    {practice.map((word : wordCard) => {
+                        return {
+                            ...word,
+                            answer: word.word
+                        }
+                    }).map((word: any) => (
                             <button
                                 type='button'
                                 // data-unit={word.definition}
                                 // disabled={completedPairs.includes(word.word)}
+                                disabled={selectedTwo?.word === word.answer}
                                 key={word.pinyin}
                                 value={word.word}
-                                onClick={logic}
+                                onClick={(evt) => {
+                                    logic(evt);
+                                    setSelectedTwo(word);
+                                }}
                                 className={`answer ${word.correct}`}
                             >
                                 {word.pinyin}
