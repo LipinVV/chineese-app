@@ -76,6 +76,8 @@ export const BoardGame = ({user}: any) => {
             setCollectedPoints(collectedPoints);
             setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
+            setSelectedOne('')
+            setSelectedTwo('')
         }
     }, [array])
 
