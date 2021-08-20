@@ -60,6 +60,8 @@ export const BoardGame = ({user}: any) => {
             setCollectedPoints(collectedPoints + 1);
             setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
+            setCharged(false)
+            setCharged2(false)
         }
 
         if (array.length === 2 && array[0] !== array[1]) {
@@ -74,6 +76,8 @@ export const BoardGame = ({user}: any) => {
             setCollectedPoints(collectedPoints);
             setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
+            setCharged(false)
+            setCharged2(false)
         }
     }, [array])
 
@@ -102,7 +106,9 @@ export const BoardGame = ({user}: any) => {
 
     let transformedArray: any = [...practice, ...modifiedArray];
     const [finalArray, setFinalArray]: any = useState([]);
-
+    console.log(array)
+    const [charged, setCharged] = useState(false)
+    const [charged2, setCharged2] = useState(false)
     return (
         <div className='board-game__global-wrapper'>
             <div className='board-game__task'>
@@ -126,18 +132,22 @@ export const BoardGame = ({user}: any) => {
                                     key={word.pinyin + word.word}
                                     value={word.word}
                                     style={{display: word.trans ? "none" : 'inherit'}}
+                                    disabled={array[0] === word.word && word.trans === undefined && charged}
                                     onClick={(evt: any) => {
                                         logic(evt)
+                                        setCharged(true)
                                     }} className={word.correct ? `board-answer ${word.correct}` : 'basic'}
                                 >
                                     {word.trans === undefined && word.word}
                                 </button>
                                 <button
+                                    disabled={word.trans && array[0] === word.word && charged2}
                                     key={word.word + word.pinyin}
                                     value={word.word}
                                     style={{display: !word.trans ? "none" : 'inherit'}}
                                     onClick={(evt: any) => {
                                         logic(evt)
+                                        setCharged2(true)
                                     }} className={word.correct ? `board-answer ${word.correct}` : 'basic'}
                                 >
                                     {word.trans !== undefined && word.pinyin}
