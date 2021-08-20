@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
 import {server, store} from "../../App";
-import './../WordMatching/definitionWord.scss'
+import './boardGame.scss'
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
+import {shuffleHandler} from "../../Services/arrayShuffler";
 
 
 export const BoardGame = ({user}: any) => {
@@ -36,48 +37,43 @@ export const BoardGame = ({user}: any) => {
     const logic = (evt: any) => {
         const {value} = evt.target
         setArray([...array, value])
-        setClickerCounter( clickerCounter + 1)
-        if(clickerCounter >= 0) {
-            console.log(evt.preventDefault())
-        }
+        setClickerCounter(clickerCounter + 1)
         return array;
     }
+
+    const [selectedOne, setSelectedOne]: any = useState();
+
     const [matchedPair, setMatchedPair]: any = useState(false);
     const [completedPairs, setCompletedPairs]: any = useState([]);
     useEffect(() => {
         if (array.length === 2 && array[0] === array[1]) {
             setMatchedPair(true);
             setStatus(true)
-            const toggled = practice.map((word) => {
-                console.log(completedPairs.includes(word))
+            const toggled = finalArray.map((word: any) => {
                 return {
                     ...word,
                     correct: word.word === array[0] ? 'correct-pair' : word.correct
                 }
             })
-            setPractice(toggled);
+            setFinalArray(toggled);
             setCompletedPairs([...completedPairs, array]);
             setCollectedPoints(collectedPoints + 1);
             setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
-            setSelectedOne('')
-            setSelectedTwo('')
         }
 
         if (array.length === 2 && array[0] !== array[1]) {
             setMatchedPair(false);
-            const toggled = practice.map((word) => {
+            const toggled = finalArray.map((word: any) => {
                 return {
                     ...word,
                     correct: word.word === array[0] ? 'incorrect-pair' : word.correct,
                 }
             })
-            setPractice(toggled);
+            setFinalArray(toggled);
             setCollectedPoints(collectedPoints);
             setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
-            setSelectedOne('')
-            setSelectedTwo('')
         }
     }, [array])
 
@@ -99,79 +95,70 @@ export const BoardGame = ({user}: any) => {
             console.error(error)
         }
     }
-    const [selectedOne, setSelectedOne]: any = useState();
-    const [selectedTwo, setSelectedTwo]: any = useState();
-    console.log(selectedOne, array, matchedPair)
+
+    const modifiedArray = practice.map((word: any) => {
+        return {...word, trans: !word.trans ? 'modified' : ''}
+    })
+
+    let transformedArray: any = [...practice, ...modifiedArray];
+    const [finalArray, setFinalArray]: any = useState([]);
 
     return (
-        <div className='match-the-word__global-wrapper'>
-            <div className='match-the-word__task'>
-                {!startTask ? <h1 style={{'textAlign': 'center'}}>Find correct pairs</h1> :
-                    <h1 style={{'textAlign': 'center'}}>Correct: {matchedPair.toString()}</h1>}
-                <div className='match-the-word__wrapper'>
+        <div className='board-game__global-wrapper'>
+            <div className='board-game__task'>
+                <div className='board-game__wrapper'>
                     <button
-                        className='match-the-word__start'
+                        className='board-game__start'
                         hidden={startTask} type='button'
                         onClick={() => {
                             generateWords()
-                            setStartTask(true)
+                            // setStartTask(true)
                             setMatchedPair(false)
                             setArray([])
+                            setFinalArray(shuffleHandler(transformedArray))
                         }}>Start
                     </button>
                 </div>
-                <div className='match-the-word'>
-                    {practice.map((word: wordCard) => (
-                            <button
-                                type='button'
-                                disabled={selectedOne?.word === word.word}
-                                key={word.word}
-                                value={word.word}
-                                onClick={(evt) => {
-                                    logic(evt);
-                                    setSelectedOne(word);
-                                }}
-                                className={`answer ${word.correct}`}
-                            >
-                                {word.word}
-                            </button>
-                        )
-                    )}
-                    {practice.map((word : wordCard) => {
-                        return {
-                            ...word,
-                            answer: word.word
-                        }
-                    }).map((word: any) => (
-                            <button
-                                type='button'
-                                disabled={selectedTwo?.word === word.answer}
-                                key={word.pinyin}
-                                value={word.word}
-                                onClick={(evt) => {
-                                    logic(evt);
-                                    setSelectedTwo(word);
-                                }}
-                                className={`answer ${word.correct}`}
-                            >
-                                {word.pinyin}
-                            </button>
+                <div className='board-game'>
+                    {(finalArray).map((word: any, index: any) => (
+                            <>
+                                <button
+                                    key={word.pinyin + word.word}
+                                    value={word.word}
+                                    style={{display: word.trans ? "none" : 'inherit'}}
+                                    onClick={(evt: any) => {
+                                        logic(evt)
+                                    }} className={word.correct ? `board-answer ${word.correct}` : 'basic'}
+                                >
+                                    {word.trans === undefined && word.word}
+                                </button>
+                                <button
+                                    key={word.word + word.pinyin}
+                                    value={word.word}
+                                    style={{display: !word.trans ? "none" : 'inherit'}}
+                                    onClick={(evt: any) => {
+                                        logic(evt)
+                                    }} className={word.correct ? `board-answer ${word.correct}` : 'basic'}
+                                >
+                                    {word.trans !== undefined && word.pinyin}
+                                </button>
+                            </>
                         )
                     )}
                 </div>
             </div>
             {numberOfQuestions === 0 &&
-            <div style={{marginTop: '30px', paddingTop: '30px'}} className='match-the-word__winner-zone'>
+            <div style={{marginTop: '30px', paddingTop: '30px'}} className='board-game__winner-zone'>
                 <Link
                     to='/practice'
-                    className='match-the-word__exit'
+                    className='board-game__exit'
                     onClick={updateUserPoints}
                 >
                     To practice page
                 </Link>
                 <button
                     type='button'
-                    className='match-the-word__restart'
+                    className='board-game__restart'
                     onClick={() => {
                         dispatch(incrementUserPoints(collectedPoints))
                         updateUserPoints().then(data => data)
