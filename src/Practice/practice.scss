@@ -12,9 +12,6 @@
   @media (min-width: $desktopDevice) {
     max-width: $desktopDevice;
   }
-  @media (min-width: $largeDesktopDevice) {
-    max-width: $largeDesktopDevice;
-  }
 }
 
 .practice {
@@ -52,6 +49,9 @@
 }
 .practice__navigation-link:nth-child(4) {
   background-color: $purple;
+}
+.practice__navigation-link:nth-child(5) {
+  background-color: $golden;
 }
 
 .practice__header {

@@ -50,6 +50,7 @@
     //max-width: $tabletDevice;
     grid-template-columns:  repeat(auto-fill, minmax(140px, 140px));
     grid-template-rows:  repeat(auto-fill, minmax(140px, 140px));
+    max-height: 600px;
   }
   @media (min-width: $desktopDevice) {
     max-width: $desktopDevice;
@@ -202,20 +203,22 @@
   @media screen and (min-width: $mobileDevice) {
     cursor: pointer;
     background-color: $section-deep-bg;
-    min-height: 60px;
-    font-size: $medium-font;
+    min-height: 40px;
+    font-size: $small-font;
     font-weight: 600;
     border-radius: 5px;
     border: none;
     color: $white;
     margin: 0 auto;
-    min-width: 200px;
+    min-width: 140px;
     &:hover {
       background-color: $section-bg;
     }
   }
   @media screen and (min-width: $tabletDevice) {
     font-size: $large-font;
+    min-height: 60px;
+    min-width: 200px;
     &:hover {
     }
   }
@@ -248,10 +251,11 @@
     grid-gap: 30px;
     margin: 0 auto;
     background-color: $section-bg;
-    padding-bottom: 30px;
+    padding: 15px 0 15px 0;
   }
   @media screen and (min-width: $tabletDevice) {
     max-width: $tabletDevice;
+    padding: 30px 0 30px 0;
   }
   @media (min-width: $desktopDevice) {
     max-width: $desktopDevice;

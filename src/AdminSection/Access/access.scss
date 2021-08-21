@@ -30,7 +30,7 @@
 }
 
 .access {
-  margin: 0 auto;
+  margin: 30px auto;
   display: grid;
   background-color: $section-bg;
   padding-bottom: 20px;
@@ -50,8 +50,8 @@
 .access__header {
   @media screen and (min-width: $mobileDevice) {
     text-align: center;
-    font-size: 20px;
     margin: 30px 0 10px 0;
+    font-size: 17px;
   }
   @media screen and (min-width: $tabletDevice) {
     font-size: 25px;
@@ -111,7 +111,7 @@
     padding: 0;
   }
   &:hover {
-    background-color: $light-blue;
+    background-color: $golden;
     color: $dark;
     border: none;
   }
@@ -139,5 +139,5 @@
 
 .access__button_practice {
   border: none;
-  background-color: $greeny;
+  background-color: $light-blue ;
 }

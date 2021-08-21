@@ -82,11 +82,6 @@ export const WordDefinition = ({user}: any) => {
         height: '100%',
         position: 'absolute',
     }
-    // useEffect(() => {
-    //     if (numberOfQuestions === 0) {
-    //         dispatch(incrementUserPoints(collectedPoints))
-    //     }
-    // }, [numberOfQuestions])
 
     const updateUserPoints = async () => {
         try {
