@@ -40,16 +40,19 @@
     display: grid;
     grid-gap: 5px;
     margin: auto;
-    grid-template-columns:  repeat(auto-fill, minmax(140px, 140px));
-    grid-template-rows:  repeat(auto-fill, minmax(140px, 140px));
+    grid-template-columns:  repeat(auto-fill, minmax(80px, 100px));
+    grid-template-rows:  repeat(auto-fill, minmax(80px, 100px));
     justify-content: center;
     //align-items: center;
+    max-width: $tabletDevice;
   }
   @media (min-width: $tabletDevice) {
     //max-width: $tabletDevice;
+    grid-template-columns:  repeat(auto-fill, minmax(140px, 140px));
+    grid-template-rows:  repeat(auto-fill, minmax(140px, 140px));
   }
   @media (min-width: $desktopDevice) {
-    //max-width: $desktopDevice;
+    max-width: $desktopDevice;
     max-height: 440px;
   }
   @media (min-width: $largeDesktopDevice) {
@@ -57,18 +60,18 @@
   }
 }
 
-.board-game__word {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @media (min-width: $mobileDevice) {
-    min-width: 120px;
-    min-height: 120px;
-    border: 1px $dark solid;
-  }
-  background-color: white;
-}
+//.board-game__word {
+//  cursor: pointer;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  @media (min-width: $mobileDevice) {
+//    min-width: 120px;
+//    min-height: 120px;
+//    border: 1px $dark solid;
+//  }
+//  background-color: white;
+//}
 
 .board-game_animated {
   animation-name: shake;
@@ -100,6 +103,12 @@
   border: none;
   padding: 0;
   @media (min-width: $mobileDevice) {
+    min-width: 80px;
+    min-height: 80px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  @media (min-width: $tabletDevice) {
     min-width: 120px;
     min-height: 120px;
     font-size: 30px;
