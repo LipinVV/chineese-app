@@ -103,7 +103,7 @@
     align-items: center;
     color: $dark;
     font-weight: 600;
-    background-color: $white;
+    background-color: $golden;
     border-radius: 5px;
     border: 2px solid $dark;
     min-width: 150px;
@@ -111,7 +111,7 @@
     padding: 0;
   }
   &:hover {
-    background-color: $golden;
+    background-color: $golden-rgb;
     color: $dark;
     border: none;
   }
@@ -129,7 +129,7 @@
   color: $dark;
   background-color: $red;
   &:hover {
-    background-color: $light-blue;
+    background-color: $golden;
   }
   &:active {
     color: $dark;
@@ -139,5 +139,5 @@
 
 .access__button_practice {
   border: none;
-  background-color: $light-blue ;
+  background-color: $golden ;
 }

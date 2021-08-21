@@ -20,6 +20,11 @@
 
 .practice__navigation {
   @media (min-width: $mobileDevice) {
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+  @media (min-width: $tabletDevice) {
     grid-gap: 20px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
@@ -27,6 +32,7 @@
 }
 
 .practice__navigation-link {
+  position: relative;
   text-decoration: none;
   display: flex;
   justify-content: center;
@@ -36,20 +42,36 @@
   font-size: 20px;
   text-align: center;
   color: $white;
+  background-size: cover;
+  border-radius: 24px;
+  @media (min-width: $tabletDevice) {
+    border-radius: 48px;
+    min-height: 190px;
+    font-size: 25px;
+  }
+  &:hover .practice__navigation-title {
+    background-color: $golden;
+  }
 }
 
 .practice__navigation-link:nth-child(1) {
-  background-color: $blue;
+  background-image: url('./../../src/Practice/img/word-definition.jfif');
+  background-position-x: 190px;
+  font-weight: 600;
 }
 .practice__navigation-link:nth-child(2) {
-  background-color: $green;
+  background-image: url('./../../src/Practice/img/dark1.jfif');
+  font-weight: 600;
 }
 .practice__navigation-link:nth-child(3) {
-  background-color: $red;
+  background-image: url('./../../src/Practice/img/sprint.jpg');
+  font-weight: 600;
 }
 .practice__navigation-link:nth-child(4) {
-  background-color: $purple;
+  background-image: url('./../../src/Practice/img/board-game.jpg');
+  font-weight: 600;
 }
+
 .practice__navigation-link:nth-child(5) {
   background-color: $golden;
 }
@@ -57,4 +79,17 @@
 .practice__header {
   text-align: center;
   color: $red;
+}
+
+.practice__navigation-title {
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  left: 0;
+  background-color: $grey;
+  color: $dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0 10px;
 }

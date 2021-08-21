@@ -59,8 +59,8 @@ function App() {
     }, [])
 
     const matchedUser= user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
+    const admin: any = server.auth.session()?.user?.id;
     const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
-
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -75,7 +75,7 @@ function App() {
                 <h1 className='app__label'>Chinese trainer</h1>
                 <h3 className='app__label-bottom'>{matchedUser ? `Welcome, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
                 {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
-                <Navigation accessFn={accessFn} state={state} />
+                <Navigation admin={admin} accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}
                         <Route path='/practice/definition-word'><DefinitionWord user={matchedUser}/></Route>
@@ -83,7 +83,7 @@ function App() {
                         <Route path='/practice/board-game'><BoardGame  user={matchedUser}/></Route>
                         <Route path='/practice'><Practice user={matchedUser}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
-                        <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>
+                        {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
                     </Switch>
             </Router>
         </div>

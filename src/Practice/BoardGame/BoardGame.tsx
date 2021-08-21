@@ -95,6 +95,7 @@ export const BoardGame = ({user}: any) => {
     return (
         <div className='board-game__global-wrapper'>
             <div className='board-game__task'>
+                <h1 style={{display: finalArray.length > 0 ? 'none' : 'flex'}} className='board-game__header'>In this task your should find all correct pairs of the word and it's pinyin</h1>
                 <div className='board-game__wrapper'>
                     <button
                         className='board-game__start'

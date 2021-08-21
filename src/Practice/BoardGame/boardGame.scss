@@ -283,7 +283,15 @@
   }
 }
 
-//.board-game__option {
-//  display: flex;
-//  width: 100%;
-//}
+.board-game__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  max-height: 200px;
+  max-width: $tabletDevice;
+  margin: 30px auto;
+  text-align: center;
+  background-color: $golden-rgb;
+  font-size: 20px;
+}
