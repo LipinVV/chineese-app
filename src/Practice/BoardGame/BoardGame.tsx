@@ -7,41 +7,37 @@ import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 import {shuffleHandler} from "../../Services/arrayShuffler";
-
+import {keyHandler} from "../../Services/keyHandler";
 
 export const BoardGame = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const [practice, setPractice] = useState<wordCard[]>([]);
-
-    const [randomNumber, setRandomNumber] = useState(0);
-    const generateCorrectAnswer = () => {
-        const randomInteger = Math.floor(Math.random() * 5);
-        setRandomNumber(randomInteger);
-    }
-
+    const [finalArray, setFinalArray]: any = useState<any>([]);
     const generateWords = () => {
-        setPractice(arrayShuffler(wordsFromStore).slice(0, 5));
-        generateCorrectAnswer()
+        setPractice(arrayShuffler(wordsFromStore).slice(0, 9));
+        let modifiedArray = practice.map((word: any) => {
+            return {...word, trans: !word.trans ? 'modified' : ''}
+        })
+        modifiedArray = [...practice, ...modifiedArray];
+        // let transformedArray: any = [...practice, ...modifiedArray];
+        setFinalArray(shuffleHandler(modifiedArray))
     }
+
+    const [charged, setCharged] = useState(false)
+    const [charged2, setCharged2] = useState(false)
+    const [globalCounter, setGlobalCounter]: any = useState(0)
 
     const [status, setStatus] = useState<any>(false);
-    const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const [startTask, setStartTask] = useState(false);
     const [collectedPoints, setCollectedPoints] = useState(0);
-
-    const [numberOfQuestions, setNumberOfQuestions] = useState(5);
     const [array, setArray] = useState<any>([]);
-    const [clickerCounter, setClickerCounter] = useState(0)
 
     const logic = (evt: any) => {
         const {value} = evt.target
         setArray([...array, value])
-        setClickerCounter(clickerCounter + 1)
         return array;
     }
-
-    const [selectedOne, setSelectedOne]: any = useState();
 
     const [matchedPair, setMatchedPair]: any = useState(false);
     const [completedPairs, setCompletedPairs]: any = useState([]);
@@ -58,12 +54,10 @@ export const BoardGame = ({user}: any) => {
             setFinalArray(toggled);
             setCompletedPairs([...completedPairs, array]);
             setCollectedPoints(collectedPoints + 1);
-            setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
             setCharged(false)
             setCharged2(false)
         }
-
         if (array.length === 2 && array[0] !== array[1]) {
             setMatchedPair(false);
             const toggled = finalArray.map((word: any) => {
@@ -74,13 +68,11 @@ export const BoardGame = ({user}: any) => {
             })
             setFinalArray(toggled);
             setCollectedPoints(collectedPoints);
-            setNumberOfQuestions(numberOfQuestions - 1);
             setArray([]);
             setCharged(false)
             setCharged2(false)
         }
     }, [array])
-
     const updateUserPoints = async () => {
         try {
             let {data: users}: any = await server
@@ -100,15 +92,11 @@ export const BoardGame = ({user}: any) => {
         }
     }
 
-    const modifiedArray = practice.map((word: any) => {
-        return {...word, trans: !word.trans ? 'modified' : ''}
-    })
+    // console.log('practice', practice)
+    // console.log('modifiedArray', modifiedArray)
+    // console.log('transformedArray', transformedArray)
+    // console.log('finalArray', finalArray)
 
-    let transformedArray: any = [...practice, ...modifiedArray];
-    const [finalArray, setFinalArray]: any = useState([]);
-    console.log(array)
-    const [charged, setCharged] = useState(false)
-    const [charged2, setCharged2] = useState(false)
     return (
         <div className='board-game__global-wrapper'>
             <div className='board-game__task'>
@@ -118,15 +106,18 @@ export const BoardGame = ({user}: any) => {
                         hidden={startTask} type='button'
                         onClick={() => {
                             generateWords()
-                            // setStartTask(true)
+                            console.log('practice', practice)
+                            console.log('finalArray', finalArray)
+                            // setFinalArray(shuffleHandler(transformedArray))
                             setMatchedPair(false)
                             setArray([])
-                            setFinalArray(shuffleHandler(transformedArray))
+                            setStartTask(false)
                         }}>Start
                     </button>
                 </div>
+                <div className='g'>
                 <div className='board-game'>
-                    {(finalArray).map((word: any, index: any) => (
+                    {finalArray?.map((word: any, index: any) => (
                             <>
                                 <button
                                     key={word.pinyin + word.word}
@@ -136,6 +127,7 @@ export const BoardGame = ({user}: any) => {
                                     onClick={(evt: any) => {
                                         logic(evt)
                                         setCharged(true)
+                                        setGlobalCounter(globalCounter + 1)
                                     }} className={word.correct ? `board-answer ${word.correct}` : 'basic'}
                                 >
                                     {word.trans === undefined && word.word}
@@ -148,6 +140,7 @@ export const BoardGame = ({user}: any) => {
                                     onClick={(evt: any) => {
                                         logic(evt)
                                         setCharged2(true)
+                                        setGlobalCounter(globalCounter + 1)
                                     }} className={word.correct ? `board-answer ${word.correct}` : 'basic'}
                                 >
                                     {word.trans !== undefined && word.pinyin}
@@ -156,8 +149,9 @@ export const BoardGame = ({user}: any) => {
                         )
                     )}
                 </div>
+                </div>
             </div>
-            {numberOfQuestions === 0 &&
+            {globalCounter === 18 &&
             <div style={{marginTop: '30px', paddingTop: '30px'}} className='board-game__winner-zone'>
                 <Link
                     to='/practice'
@@ -170,13 +164,13 @@ export const BoardGame = ({user}: any) => {
                     type='button'
                     className='board-game__restart'
                     onClick={() => {
+                        generateWords()
+                        setMatchedPair(false)
+                        setArray([])
+                        // setFinalArray(shuffleHandler(transformedArray))
                         dispatch(incrementUserPoints(collectedPoints))
                         updateUserPoints().then(data => data)
-                        setStatus(false)
-                        setWrongAnswer(false)
-                        setArray([])
-                        setCollectedPoints(0)
-                        generateWords()
+                        setGlobalCounter(0)
                     }}
                 >
                     Repeat

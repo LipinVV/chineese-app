@@ -38,20 +38,22 @@
 .board-game {
   @media (min-width: $mobileDevice) {
     display: grid;
-    max-width: $tabletDevice;
-    grid-gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    margin: 0 auto;
+    grid-gap: 5px;
+    margin: auto;
+    grid-template-columns:  repeat(auto-fill, minmax(140px, 140px));
+    grid-template-rows:  repeat(auto-fill, minmax(140px, 140px));
+    justify-content: center;
+    //align-items: center;
   }
   @media (min-width: $tabletDevice) {
-    max-width: $tabletDevice;
+    //max-width: $tabletDevice;
   }
   @media (min-width: $desktopDevice) {
-    max-width: $desktopDevice;
+    //max-width: $desktopDevice;
+    max-height: 440px;
   }
   @media (min-width: $largeDesktopDevice) {
-    max-width: $largeDesktopDevice;
+    //max-width: $largeDesktopDevice;
   }
 }
 
@@ -78,6 +80,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0;
   @media (min-width: $mobileDevice) {
     min-width: 120px;
     min-height: 120px;
@@ -95,6 +98,7 @@
   align-items: center;
   background-color: $white-light;
   border: none;
+  padding: 0;
   @media (min-width: $mobileDevice) {
     min-width: 120px;
     min-height: 120px;
@@ -152,15 +156,17 @@
 
 .correct-pair,
 .incorrect-pair {
+  width: 100%;
   pointer-events: none;
 }
 
 .basic {
+  width: 100%;
   &:hover {
     background-color: $section-bg;
   }
   &:disabled {
-    background-color: $section-deep-bg;
+    background-color:  $golden;
   }
 }
 
@@ -263,3 +269,8 @@
     font-size: 25px;
   }
 }
+
+//.board-game__option {
+//  display: flex;
+//  width: 100%;
+//}
