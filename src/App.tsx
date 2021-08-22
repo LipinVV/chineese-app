@@ -72,7 +72,7 @@ function App() {
     return (
         <div id='width' className="app">
             <Router>
-                <h1 className='app__label'>Chinese trainer</h1>
+                <div className='app__label'><span className='app__label-title'>Enlightenment</span></div>
                 <h3 className='app__label-bottom'>{matchedUser ? `Welcome, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
                 {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
                 <Navigation admin={admin} accessFn={accessFn} state={state} />

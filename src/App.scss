@@ -68,6 +68,7 @@ $section-super-deep-bg: rgb(12,102,110, 0.85);
 $browny: #ed8707;
 $golden: #ffd532;
 $golden-rgb: rgb(255, 213, 50, 0.6);
+$golden-rgb2: rgb(255, 213, 50, 0.7);
 // some needs:
 
 $navigation-padding-top: 30px;
@@ -79,6 +80,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .app {
+  color: $white;
   @media (min-width: $mobileDevice) {
     padding: 20px;
   }
@@ -93,11 +95,21 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .app__label {
   @media (min-width: $mobileDevice) {
-    font-family: "Old English Text MT";
     font-size: 30px;
     border-radius: 7px;
     margin: 0;
+    background-image: url('./img/yin-yang.svg');
+    background-repeat: no-repeat;
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    border: none;
   }
+}
+
+.app__label-title {
+  color: $white;
 }
 
 .app__label-bottom {
@@ -105,5 +117,4 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: $dark;
 }
