@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
 import {server, store} from "../../App";
-import './definitionWord.scss';
+import './wordMatchingTasks.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
@@ -11,7 +11,7 @@ import {incrementUserPoints} from "../../Actions/actions";
 export const DefinitionWord = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-    const [practice, setPractice] = useState<wordCard[]>([]);
+    const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
 
     const generateCorrectAnswer = () => {
@@ -20,7 +20,7 @@ export const DefinitionWord = ({user}: any) => {
     }
 
     const generateFourWords = () => {
-        setPractice(arrayShuffler(wordsFromStore).slice(0, 4));
+        setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 4));
         generateCorrectAnswer()
     }
     // hardcore version
@@ -30,42 +30,42 @@ export const DefinitionWord = ({user}: any) => {
     }
 
     const generateEightWordsAdvanced = () => {
-        setPractice(arrayShuffler(wordsFromStore).slice(0, 8));
+        setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 8));
         generateCorrectAnswerAdvanced()
     }
 
-    const [status, setStatus] = useState<any>(false);
+    const [rightAnswer, setRightAnswer] = useState<any>(false);
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const validation = (evt: any) => {
         const {value} = evt.target;
-        if (value === practice[randomNumber].word && wrongAnswer === false) {
+        if (value === wordsForTheTask[randomNumber].word && wrongAnswer === false) {
             setCollectedPoints(collectedPoints + 1)
         }
-        if (value === practice[randomNumber].word) {
-            setStatus(true)
-            const toggled = practice.map((word) => {
+        if (value === wordsForTheTask[randomNumber].word) {
+            setRightAnswer(true)
+            const toggled = wordsForTheTask.map((word) => {
                 return {
                     ...word,
                     correct: word.word === value ? 'correct' : word.correct
                 }
             })
-            setPractice(toggled);
+            setWordsForTheTask(toggled);
         }
-        if (value !== practice[randomNumber].word) {
-            setStatus(false)
+        if (value !== wordsForTheTask[randomNumber].word) {
+            setRightAnswer(false)
             setWrongAnswer(true)
             setCollectedPoints(collectedPoints)
-            const toggled = practice.map((word) => {
+            const toggled = wordsForTheTask.map((word) => {
                 return {
                     ...word,
                     correct: word.word === value ? 'incorrect' : word.correct,
                 }
             })
-            setPractice(toggled);
+            setWordsForTheTask(toggled);
         }
     }
     const [startTask, setStartTask] = useState(false);
-    const correctAnswer: any = practice[randomNumber]?.definition; // FIX IT
+    const correctAnswer: any = wordsForTheTask[randomNumber]?.definition; // FIX IT
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
 
@@ -107,8 +107,6 @@ export const DefinitionWord = ({user}: any) => {
             console.error(error)
         }
     }
-    console.log('collectedPoints', collectedPoints)
-    console.log('wrongAnswer', wrongAnswer)
     const [taskMode, setTaskMode] = useState(false);
     return (
         <div className='match-the-word__global-wrapper'>
@@ -116,8 +114,6 @@ export const DefinitionWord = ({user}: any) => {
             {numberOfQuestions === 0 && collectedPoints === 6 && <Fireworks options={options} style={style}/>}
             {numberOfQuestions !== 0 &&
             <div className='match-the-word__task'>
-                {!startTask ? <h1 style={{'textAlign': 'center'}}>Match a
-                    definition and a word</h1> : <h1 style={{'textAlign': 'center'}}>Choose correct answer</h1>}
                 <div className='match-the-word__wrapper'>
                     <button
                         className='match-the-word__start'
@@ -140,11 +136,11 @@ export const DefinitionWord = ({user}: any) => {
                 </div>
                 <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
                 <div className='match-the-word'>
-                    {practice.map((word: wordCard) => (
+                    {wordsForTheTask.map((word: wordCard) => (
                             <button
                                 type='button'
                                 data-unit={word.definition}
-                                disabled={status}
+                                disabled={rightAnswer}
                                 key={word.word}
                                 value={word.word}
                                 onClick={validation}
@@ -156,23 +152,23 @@ export const DefinitionWord = ({user}: any) => {
                         )
                     )}
                 </div>
-                <div style={status !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
+                <div style={rightAnswer !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
                      className='match-the-word__wrapper'>
                     <button
                         type='button'
                         className='match-the-word__next'
-                        hidden={status !== true || numberOfQuestions === 0}
+                        hidden={rightAnswer !== true || numberOfQuestions === 0}
                         onClick={
                             () => {
                                 !taskMode ? generateFourWords() : generateEightWordsAdvanced()
-                                setStatus(false)
+                                setRightAnswer(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
                                 setWrongAnswer(false)
                             }
                         }>Next
                     </button>
                 </div>
-                {wrongAnswer && !status &&
+                {wrongAnswer && !rightAnswer &&
                 <div className='match-the-word__wrapper'>
                     <button
                         type='button'
@@ -181,7 +177,7 @@ export const DefinitionWord = ({user}: any) => {
                         onClick={
                             () => {
                                 !taskMode ? generateFourWords() : generateEightWordsAdvanced()
-                                setStatus(false)
+                                setRightAnswer(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
                                 setWrongAnswer(false)
                             }

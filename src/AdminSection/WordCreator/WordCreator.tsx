@@ -42,12 +42,12 @@ export const WordCreator = () => {
                             isFavourite: isFavourite
                         }
                     ])
-                console.log('word was send =>', data)
+                console.log('word was send =>', data);
             } else {
                 setError(`${word} already in a database!`)
             }
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
     }
 
@@ -63,7 +63,6 @@ export const WordCreator = () => {
     return (
         <div>
             <div className='word__creator'>
-
                 <h1>
                     <Word word={word} tone={tone}/>
                 </h1>
@@ -120,7 +119,7 @@ export const dictionary = [
     {id: 6, word: '本', pinin: 'běn', definition: 'счётное слово для растений с корнем'},
     {id: 7, word: '不客气', pinin: 'bù kě qi', definition: 'ничего страшного; не стоит'},
     {id: 8, word: '不', pinin: 'bù', definition: 'отрицательная частица "не"'},
-        {id: 9, word: '菜', pinin: 'cài', definition: 'овощи; блюдо; пища; стол'},
+    {id: 9, word: '菜', pinin: 'cài', definition: 'овощи; блюдо; пища; стол'},
     {id: 10, word: '茶', pinin: 'chá', definition: 'чай'},
     {id: 11, word: '吃', pinin: 'chī', definition: 'есть, кушать'},
     {id: 12, word: '出租车', pinin: 'chū zū chē', definition: 'такси'},

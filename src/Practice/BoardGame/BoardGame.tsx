@@ -11,72 +11,72 @@ import {shuffleHandler} from "../../Services/arrayShuffler";
 export const BoardGame = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-    const [practice, setPractice] = useState<wordCard[]>([]);
+    const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [finalArray, setFinalArray]: any = useState<any>([]);
     const generateWords = () => {
-        setPractice(arrayShuffler(wordsFromStore).slice(0, 9));
-        let modifiedArray = practice.map((word: any) => {
+        setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 9));
+        let modifiedArray = wordsForTheTask.map((word: any) => {
             return {...word, trans: !word.trans ? 'modified' : ''}
         })
-        modifiedArray = [...practice, ...modifiedArray];
-        // let transformedArray: any = [...practice, ...modifiedArray];
+        modifiedArray = [...wordsForTheTask, ...modifiedArray];
+        // let transformedArray: any = [...wordsForTheTask, ...modifiedArray];
         setFinalArray(shuffleHandler(modifiedArray))
     }
 
-    const [charged, setCharged] = useState(false)
-    const [charged2, setCharged2] = useState(false)
-    const [globalCounter, setGlobalCounter]: any = useState(0)
+    const [firstChosenWord, setFirstChosenWord] = useState(false);
+    const [secondChosenWord, setSecondChosenWord] = useState(false);
+    const [globalCounter, setGlobalCounter]: any = useState(0);
 
-    const [status, setStatus] = useState<any>(false);
+    const [rightAnswer, setRightAnswer] = useState<any>(false);
     const [startTask, setStartTask] = useState(false);
     const [collectedPoints, setCollectedPoints] = useState(0);
-    const [array, setArray] = useState<any>([]);
+    const [arrayToCompareChosenWords, setArrayToCompareChosenWords] = useState<any>([]);
 
     const logic = (evt: any) => {
-        const {value} = evt.target
-        setArray([...array, value])
-        return array;
+        const {value} = evt.target;
+        setArrayToCompareChosenWords([...arrayToCompareChosenWords, value]);
+        return arrayToCompareChosenWords;
     }
 
     const [matchedPair, setMatchedPair]: any = useState(false);
     const [completedPairs, setCompletedPairs]: any = useState([]);
     useEffect(() => {
-        if (array.length === 2 && array[0] === array[1]) {
+        if (arrayToCompareChosenWords.length === 2 && arrayToCompareChosenWords[0] === arrayToCompareChosenWords[1]) {
             setMatchedPair(true);
-            setStatus(true)
+            setRightAnswer(true);
             const toggled = finalArray.map((word: any) => {
                 return {
                     ...word,
-                    correct: word.word === array[0] ? 'correct-pair' : word.correct
+                    correct: word.word === arrayToCompareChosenWords[0] ? 'correct-pair' : word.correct
                 }
             })
             setFinalArray(toggled);
-            setCompletedPairs([...completedPairs, array]);
+            setCompletedPairs([...completedPairs, arrayToCompareChosenWords]);
             setCollectedPoints(collectedPoints + 1);
-            setArray([]);
-            setCharged(false)
-            setCharged2(false)
+            setArrayToCompareChosenWords([]);
+            setFirstChosenWord(false);
+            setSecondChosenWord(false);
         }
-        if (array.length === 2 && array[0] !== array[1]) {
+        if (arrayToCompareChosenWords.length === 2 && arrayToCompareChosenWords[0] !== arrayToCompareChosenWords[1]) {
             setMatchedPair(false);
             const toggled = finalArray.map((word: any) => {
                 return {
                     ...word,
-                    correct: word.word === array[0] ? 'incorrect-pair' : word.correct,
+                    correct: word.word === arrayToCompareChosenWords[0] ? 'incorrect-pair' : word.correct,
                 }
             })
             setFinalArray(toggled);
             setCollectedPoints(collectedPoints);
-            setArray([]);
-            setCharged(false)
-            setCharged2(false)
+            setArrayToCompareChosenWords([]);
+            setFirstChosenWord(false);
+            setSecondChosenWord(false);
         }
-    }, [array])
+    }, [arrayToCompareChosenWords])
     const updateUserPoints = async () => {
         try {
             let {data: users}: any = await server
                 .from('users')
-            const chosenUser = users.find((person: any) => person.nickname === user)
+            const chosenUser = users.find((person: any) => person.nickname === user);
             const {data} = await server
                 .from('users')
                 .update([
@@ -85,28 +85,25 @@ export const BoardGame = ({user}: any) => {
                     }
                 ])
                 .match({nickname: user})
-            console.log('user is updated =>', data)
+            console.log('user is updated =>', data);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
     return (
         <div className='board-game__global-wrapper'>
             <div className='board-game__task'>
-                {/*<h1 style={{display: finalArray.length > 0 ? 'none' : 'flex'}} className='board-game__header'>In this task your should find all correct pairs of the word and it's pinyin</h1>*/}
                 <div className='board-game__wrapper'>
                     <button
                         className='board-game__start'
                         // hidden={startTask} type='button'
                         hidden={finalArray.length > 0} type='button'
                         onClick={() => {
-                            generateWords()
-                            console.log('practice', practice)
-                            console.log('finalArray', finalArray)
-                            setMatchedPair(false)
-                            setArray([])
-                            setStartTask(false)
+                            generateWords();
+                            setMatchedPair(false);
+                            setArrayToCompareChosenWords([]);
+                            setStartTask(false);
                         }}>Start
                     </button>
                 </div>
@@ -117,25 +114,25 @@ export const BoardGame = ({user}: any) => {
                                     key={word.pinyin + word.word}
                                     value={word.word}
                                     style={{display: word.trans ? "none" : 'inherit'}}
-                                    disabled={array[0] === word.word && word.trans === undefined && charged}
+                                    disabled={arrayToCompareChosenWords[0] === word.word && word.trans === undefined && firstChosenWord}
                                     onClick={(evt: any) => {
-                                        logic(evt)
-                                        setCharged(true)
-                                        setGlobalCounter(globalCounter + 1)
+                                        logic(evt);
+                                        setFirstChosenWord(true);
+                                        setGlobalCounter(globalCounter + 1);
                                     }}
                                     className={word.correct ? `board-answer ${word.correct}` : 'basic'}
                                 >
                                     {word.trans === undefined && word.word}
                                 </button>
                                 <button
-                                    disabled={word.trans && array[0] === word.word && charged2}
+                                    disabled={word.trans && arrayToCompareChosenWords[0] === word.word && secondChosenWord}
                                     key={word.word + word.pinyin}
                                     value={word.word}
                                     style={{display: !word.trans ? "none" : 'inherit'}}
                                     onClick={(evt: any) => {
-                                        logic(evt)
-                                        setCharged2(true)
-                                        setGlobalCounter(globalCounter + 1)
+                                        logic(evt);
+                                        setSecondChosenWord(true);
+                                        setGlobalCounter(globalCounter + 1);
                                     }}
                                     className={word.correct ? `board-answer ${word.correct}` : 'basic'}
                                 >
@@ -159,12 +156,12 @@ export const BoardGame = ({user}: any) => {
                     type='button'
                     className='board-game__restart'
                     onClick={() => {
-                        generateWords()
-                        setMatchedPair(false)
-                        setArray([])
-                        dispatch(incrementUserPoints(collectedPoints))
-                        updateUserPoints().then(data => data)
-                        setGlobalCounter(0)
+                        generateWords();
+                        setMatchedPair(false);
+                        setArrayToCompareChosenWords([]);
+                        dispatch(incrementUserPoints(collectedPoints));
+                        updateUserPoints().then(data => data);
+                        setGlobalCounter(0);
                     }}
                 >
                     Repeat

@@ -1,7 +1,6 @@
 import React from "react";
 
 export const Word =({word, tone} : any) => {
-
     const tones: any = {
         0: 'grey',
         1: 'red',
@@ -9,7 +8,6 @@ export const Word =({word, tone} : any) => {
         3: 'orange',
         4: 'blue'
     }
-
 
     return (
         <>

@@ -15,7 +15,7 @@ export const Access = ({accessFn, state, user}: any) => {
     const [textOfError, setTextOfError] = useState('');
 
     const mailCondition = (password: string, email: string) => {
-        return password.length < 5 || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+        return password.length < 5 || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     }
 
     const logIn = async () => {
@@ -44,7 +44,7 @@ export const Access = ({accessFn, state, user}: any) => {
             dispatch(isLoggedOut(userConnected));
             accessFn()
         } catch (error) {
-            console.error('error', error)
+            console.error('error', error);
         }
     }
     return (

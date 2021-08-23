@@ -23,24 +23,6 @@ $brown: #cfb093;
 $white: #fdfdfd;
 $white-light: rgba(253, 253, 253, 0.5);
 
-// for help
-:root {
-  --first: #08d9d6;
-  --second: #000000;
-  --third: #ff2e63;
-  --fourth: #eaeaea;
-  --test: #ffd532;
-
-  --one: #733c03;
-  --two: #ba6c17;
-  --three: #ed8707;
-  --four: #0c666e;
-  --five: #75b2b7;
-  --six: #b9d6d4;
-}
-
-//
-
 $dark: #10002B;
 $deep-purple: #240046;
 $dark-purple: #3C096C;
@@ -51,6 +33,7 @@ $light-violet: #C77DFF;
 $lavender: #E0AAFF;
 
 $red: #b04553;
+$red-dark: rgba(	176, 69, 83, 0.85);
 $red-light: rgba(	176, 69, 83, 0.5);
 $rose: #d98c9e;
 $amethyst: #d7eae5;
@@ -66,12 +49,11 @@ $section-bg-normal: rgb(12,102,110, 0.85);
 $section-bg: rgb(12,102,110, 0.5);
 $section-deep-bg: rgb(12,102,110, 0.7);
 $section-super-deep-bg: rgb(12,102,110, 0.85);
-$browny: #ed8707;
+$brown-light: #ed8707;
 $golden: #ffd532;
 $golden-rgb: rgb(255, 213, 50, 0.6);
 $golden-rgb2: rgb(255, 213, 50, 0.7);
 $golden-rgb3: rgb(255, 213, 50, 0.8);
-// some needs:
 
 $navigation-padding-top: 30px;
 

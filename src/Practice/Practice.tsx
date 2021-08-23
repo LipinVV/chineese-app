@@ -3,7 +3,7 @@ import './practice.scss'
 import {Link} from "react-router-dom";
 
 
-export const Practice = ({user}: any) => {
+export const Practice = () => {
     const [styleOfTheFirstPractice, setStyleOfTheFirstPractice] = useState({display: 'none'});
     const [styleOfTheSecondPractice, setStyleOfTheSecondPractice] = useState({display: 'none'});
     const [styleOfTheThirdPractice, setStyleOfTheThirdPractice] = useState({display: 'none'});

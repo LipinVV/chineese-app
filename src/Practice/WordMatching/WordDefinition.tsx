@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
 import {server, store} from "../../App";
-import './definitionWord.scss';
+import './wordMatchingTasks.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
@@ -11,7 +11,7 @@ import {incrementUserPoints} from "../../Actions/actions";
 export const WordDefinition = ({user}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-    const [practice, setPractice] = useState<wordCard[]>([]);
+    const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
 
     const generateCorrectAnswer = () => {
@@ -20,53 +20,53 @@ export const WordDefinition = ({user}: any) => {
     }
 
     const generateFourWords = () => {
-        setPractice(arrayShuffler(wordsFromStore).slice(0, 4));
-        generateCorrectAnswer()
+        setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 4));
+        generateCorrectAnswer();
     }
     // in case  to get rid of 'Start' button -> add useEffect and put this
     // useEffect(() => {
     //     generateFourWords()
     // }, [])
 
-    const [status, setStatus] = useState<any>(false);
+    const [rightAnswer, setRightAnswer] = useState<any>(false);
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const validation = (evt: any) => {
         const {value} = evt.target;
-        if (value === practice[randomNumber].definition && wrongAnswer === false) {
-            setCollectedPoints(collectedPoints + 1)
+        if (value === wordsForTheTask[randomNumber].definition && wrongAnswer === false) {
+            setCollectedPoints(collectedPoints + 1);
         }
-        if (value === practice[randomNumber].definition) {
-            setStatus(true)
-            const toggled = practice.map((word) => {
+        if (value === wordsForTheTask[randomNumber].definition) {
+            setRightAnswer(true)
+            const toggled = wordsForTheTask.map((word) => {
                 return {
                     ...word,
                     correct: word.definition === value ? 'correct' : word.correct
                 }
             })
-            setPractice(toggled);
+            setWordsForTheTask(toggled);
         }
-        if (value !== practice[randomNumber].definition) {
-            setStatus(false)
-            setWrongAnswer(true)
-            setCollectedPoints(collectedPoints)
-            const toggled = practice.map((word) => {
+        if (value !== wordsForTheTask[randomNumber].definition) {
+            setRightAnswer(false);
+            setWrongAnswer(true);
+            setCollectedPoints(collectedPoints);
+            const toggled = wordsForTheTask.map((word) => {
                 return {
                     ...word,
                     correct: word.definition === value ? 'incorrect' : word.correct,
                 }
             })
-            setPractice(toggled);
+            setWordsForTheTask(toggled);
         }
     }
     const [startTask, setStartTask] = useState(false);
-    const correctAnswer: any = practice[randomNumber]?.word; // FIX IT
+    const correctAnswer: any = wordsForTheTask[randomNumber]?.word; // FIX IT
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
 
     const [width, setWidth] = useState(window.innerWidth)
     useEffect(() => {
         const reportWindowSize = () => {
-            setWidth(window.innerWidth)
+            setWidth(window.innerWidth);
         }
         window.onresize = reportWindowSize;
         window.addEventListener('resize', reportWindowSize);
@@ -87,7 +87,7 @@ export const WordDefinition = ({user}: any) => {
         try {
             let {data: users}: any = await server
                 .from('users')
-            const chosenUser = users.find((person: any) => person.nickname === user)
+            const chosenUser = users.find((person: any) => person.nickname === user);
             const {data} = await server
                 .from('users')
                 .update([
@@ -101,8 +101,6 @@ export const WordDefinition = ({user}: any) => {
             console.error(error)
         }
     }
-    console.log('collectedPoints', collectedPoints)
-    console.log('wrongAnswer', wrongAnswer)
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
@@ -115,18 +113,17 @@ export const WordDefinition = ({user}: any) => {
                         className='match-the-word__start'
                         hidden={startTask} type='button'
                         onClick={() => {
-                            generateFourWords()
-                            setStartTask(true)
+                            generateFourWords();
+                            setStartTask(true);
                         }}>Start
                     </button>
                 </div>
                 <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
                 <div className='match-the-word'>
-                    {practice.map((word: wordCard) => (
+                    {wordsForTheTask.map((word: wordCard) => (
                             <button
                                 type='button'
-                                data-unit={word.word}
-                                disabled={status}
+                                disabled={rightAnswer}
                                 key={word.word}
                                 value={word.definition}
                                 onClick={validation}
@@ -138,31 +135,31 @@ export const WordDefinition = ({user}: any) => {
                         )
                     )}
                 </div>
-                <div style={status !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
+                <div style={rightAnswer !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
                      className='match-the-word__wrapper'>
                     <button
                         type='button'
                         className='match-the-word__next'
-                        hidden={status !== true || numberOfQuestions === 0}
+                        hidden={rightAnswer !== true || numberOfQuestions === 0}
                         onClick={() => {
-                            generateFourWords()
-                            setStatus(false)
-                            setNumberOfQuestions(prevState => prevState - 1)
-                            setWrongAnswer(false)
+                            generateFourWords();
+                            setRightAnswer(false);
+                            setNumberOfQuestions(prevState => prevState - 1);
+                            setWrongAnswer(false);
                         }}>Next
                     </button>
                 </div>
-                {wrongAnswer && !status &&
+                {wrongAnswer && !rightAnswer &&
                 <div className='match-the-word__wrapper'>
                     <button
                         type='button'
                         className='match-the-word__next'
                         disabled={wrongAnswer}
                         onClick={() => {
-                            generateFourWords()
-                            setStatus(false)
-                            setNumberOfQuestions(prevState => prevState - 1)
-                            setWrongAnswer(false)
+                            generateFourWords();
+                            setRightAnswer(false);
+                            setNumberOfQuestions(prevState => prevState - 1);
+                            setWrongAnswer(false);
                         }}>Incorrect answer
                     </button>
                 </div>
@@ -187,10 +184,10 @@ export const WordDefinition = ({user}: any) => {
                     type='button'
                     className='match-the-word__restart'
                     onClick={() => {
-                        setNumberOfQuestions(3)
-                        dispatch(incrementUserPoints(collectedPoints))
-                        setCollectedPoints(0)
-                        updateUserPoints().then(data => data)
+                        setNumberOfQuestions(3);
+                        dispatch(incrementUserPoints(collectedPoints));
+                        setCollectedPoints(0);
+                        updateUserPoints().then(data => data);
                     }}
                 >
                     Repeat

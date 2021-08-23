@@ -7,17 +7,15 @@ import {Link} from 'react-router-dom';
 
 export const Registration = () => {
     const history = useHistory();
-    // const userLoggedIn = Boolean(server.auth.session()?.user);
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');
     const [userPassword, setUserPassword] = useState('password');
-    // const [userConnected, setUserConnected] = useState(false);
     const [signInError, setSignInError] = useState(false);
     const [textOfError, setTextOfError] = useState('');
     const [status, setStatus] = useState(false);
     const [nickName, setNickName] = useState('Trainee');
 
     const mailCondition = (password: any, email: any) => {
-        return password.length < 5 || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+        return password.length < 5 || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     }
     const signUp = async () => {
         try {
@@ -38,23 +36,20 @@ export const Registration = () => {
                             sessionPoints: 0
                         }
                     ])
-                console.log('user is =>', data)
             }
             if (error) {
-                console.log('ERROR', error, typeof error)
-                setSignInError(true)
-                setTextOfError(`${error.message}. Try again`)
+                setSignInError(true);
+                setTextOfError(`${error.message}. Try again`);
             }
             if (user?.aud === 'authenticated') {
-                console.log('user', user)
-                setStatus(true)
-                setSignInError(false)
+                setStatus(true);
+                setSignInError(false);
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
-    console.log('reg =>', server.auth.session()?.user?.email)
+
     return (
         <div className='registration'>
             <h1 className='registration__header'>Sign In to your account</h1>
@@ -100,7 +95,6 @@ export const Registration = () => {
                 <button className='registration__button' onClick={() => history.goBack()}>Go back</button>
             </div>
             }
-
         </div>
     )
 }

@@ -17,7 +17,7 @@ export const Navigation = ({admin, state}: any) => {
         window.onresize = reportWindowSize;
         window.addEventListener('resize', reportWindowSize);
     }, [])
-    //style={!state ? {'gridTemplateColumns': 'repeat(6, 1fr)', 'gridTemplateRows' : '1fr'} : {'display' : 'grid', 'gridTemplateColumns': 'repeat(5, 1fr)', 'gridTemplateRows' : '1fr'}}
+
     return (
         <div className='navigation'>
             <div className={width < 1023 ? 'navigation__links' : 'navigation__links navigation__links_desktop'}>

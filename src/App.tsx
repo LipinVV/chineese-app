@@ -82,7 +82,7 @@ function App() {
                         <Route path='/practice/definition-word'><DefinitionWord user={matchedUser}/></Route>
                         <Route path='/practice/word-definition'><WordDefinition user={matchedUser}/></Route>
                         <Route path='/practice/board-game'><BoardGame  user={matchedUser}/></Route>
-                        <Route path='/practice'><Practice user={matchedUser}/></Route>
+                        <Route path='/practice'><Practice /></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
                     </Switch>
