@@ -204,7 +204,7 @@
 .match-the-word__result {
   @media screen and (min-width: $mobileDevice) {
     max-width: $tabletDevice;
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
     padding: 30px 0 30px 0;
     background-color: $section-super-deep-bg;
@@ -212,9 +212,11 @@
   }
   @media screen and (min-width: $tabletDevice) {
     max-width: $tabletDevice;
+    font-size: 25px;
   }
   @media (min-width: $desktopDevice) {
     max-width: $desktopDevice;
+    font-size: 30px;
   }
 }
 

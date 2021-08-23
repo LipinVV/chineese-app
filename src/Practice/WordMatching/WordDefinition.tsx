@@ -126,7 +126,7 @@ export const WordDefinition = ({user}: any) => {
                             <button
                                 type='button'
                                 data-unit={word.word}
-                                disabled={status || wrongAnswer === true}
+                                disabled={status}
                                 key={word.word}
                                 value={word.definition}
                                 onClick={validation}
@@ -157,6 +157,7 @@ export const WordDefinition = ({user}: any) => {
                     <button
                         type='button'
                         className='match-the-word__next'
+                        disabled={wrongAnswer}
                         onClick={() => {
                             generateFourWords()
                             setStatus(false)
