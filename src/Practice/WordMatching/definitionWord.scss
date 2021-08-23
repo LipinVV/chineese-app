@@ -90,8 +90,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $white-light;
+  background-color: $white;
   border: none;
+  color: $black;
   @media (min-width: $mobileDevice) {
     min-width: 120px;
     min-height: 120px;
@@ -105,7 +106,8 @@
 
 .correct {
   position: relative;
-  background-color: $section-light-bg;
+  background-color: $section-super-deep-bg;
+  color: $black;
   animation-name: correct;
   animation-duration: 1s;
 }
@@ -148,7 +150,7 @@
 
 .undefined {
   &:hover {
-    background-color: $section-bg;
+    background-color: $golden-rgb;
   }
   &:disabled {
     //background-color: $section-deep-bg;
@@ -193,6 +195,8 @@
   @media screen and (min-width: $tabletDevice) {
     font-size: $large-font;
     &:hover {
+      background-color: $golden;
+      color: $black;
     }
   }
 }

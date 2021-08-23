@@ -7,10 +7,10 @@
     max-width: $tabletDevice;
   }
   @media (min-width: $tabletDevice) {
-    max-width: $tabletDevice;
+    max-width: $desktopDevice;
   }
   @media (min-width: $desktopDevice) {
-    max-width: $desktopDevice;
+    max-width: $largeDesktopDevice;
   }
 }
 
@@ -19,6 +19,7 @@
 }
 
 .practice__navigation {
+  position: relative;
   @media (min-width: $mobileDevice) {
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr;
@@ -26,8 +27,8 @@
   }
   @media (min-width: $tabletDevice) {
     grid-gap: 20px;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 380px;
   }
 }
 
@@ -38,36 +39,35 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100px;
   font-size: 20px;
   text-align: center;
   color: $white;
   background-size: cover;
   border-radius: 24px;
+  min-height: 60px;
   @media (min-width: $tabletDevice) {
     border-radius: 48px;
-    min-height: 190px;
     font-size: 25px;
+    min-height: 80px;
   }
   &:hover .practice__navigation-title {
     background-color: $golden;
   }
 }
 
-.practice__navigation-link:nth-child(1) {
-  background-image: url('./../../src/Practice/img/word-definition.jfif');
-  background-position-x: 190px;
+.practice__navigation-link:nth-of-type(1) {
+  background-image: url('./../../src/Practice/img/sprint2.jpg');
   font-weight: 600;
 }
-.practice__navigation-link:nth-child(2) {
+.practice__navigation-link:nth-of-type(2) {
   background-image: url('./../../src/Practice/img/dark1.jfif');
   font-weight: 600;
 }
-.practice__navigation-link:nth-child(3) {
+.practice__navigation-link:nth-of-type(3) {
   background-image: url('./../../src/Practice/img/sprint.jpg');
   font-weight: 600;
 }
-.practice__navigation-link:nth-child(4) {
+.practice__navigation-link:nth-of-type(4) {
   background-image: url('./../../src/Practice/img/board-game.jpg');
   font-weight: 600;
 }
@@ -92,4 +92,29 @@
   justify-content: center;
   align-items: center;
   padding: 0 10px 0 10px;
+}
+
+.practice__navigation__task-description {
+  display: flex;
+  border: 5px solid  $white;
+  position: absolute;
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: $golden-rgb3;
+  color: $black;
+  font-size: $big-font;
+}
+
+.practice__navigation__task-header {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.practice__navigation__task-text {
+  padding: 20px;
+  font-size: 20px;
+  width: 100% ;
 }

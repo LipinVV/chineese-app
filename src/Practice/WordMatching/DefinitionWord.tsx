@@ -164,9 +164,7 @@ export const DefinitionWord = ({user}: any) => {
                         hidden={status !== true || numberOfQuestions === 0}
                         onClick={
                             () => {
-                                {
-                                    !taskMode ? generateFourWords() : generateEightWordsAdvanced()
-                                }
+                                !taskMode ? generateFourWords() : generateEightWordsAdvanced()
                                 setStatus(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
                                 setWrongAnswer(false)
@@ -182,9 +180,7 @@ export const DefinitionWord = ({user}: any) => {
                         disabled={wrongAnswer}
                         onClick={
                             () => {
-                                {
-                                    !taskMode ? generateFourWords() : generateEightWordsAdvanced()
-                                }
+                                !taskMode ? generateFourWords() : generateEightWordsAdvanced()
                                 setStatus(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
                                 setWrongAnswer(false)
@@ -215,9 +211,7 @@ export const DefinitionWord = ({user}: any) => {
                     type='button'
                     className='match-the-word__restart'
                     onClick={() => {
-                        {
-                            !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)
-                        }
+                        !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)
                         dispatch(incrementUserPoints(collectedPoints))
                         setCollectedPoints(0)
                         updateUserPoints().then(data => data)

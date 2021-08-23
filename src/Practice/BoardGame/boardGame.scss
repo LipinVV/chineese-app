@@ -40,8 +40,10 @@
     display: grid;
     grid-gap: 5px;
     margin: auto;
-    grid-template-columns:  repeat(auto-fill, minmax(80px, 100px));
-    grid-template-rows:  repeat(auto-fill, minmax(80px, 100px));
+    //grid-template-columns:  repeat(auto-fill, minmax(80px, 100px));
+    //grid-template-rows:  repeat(auto-fill, minmax(80px, 100px));
+    grid-template-rows: auto;
+    grid-template-columns: auto;
     justify-content: center;
     //align-items: center;
     max-width: $tabletDevice;
@@ -53,26 +55,10 @@
     max-height: 600px;
   }
   @media (min-width: $desktopDevice) {
-    max-width: $desktopDevice;
+    max-width: $largeDesktopDevice;
     max-height: 440px;
   }
-  @media (min-width: $largeDesktopDevice) {
-    //max-width: $largeDesktopDevice;
-  }
 }
-
-//.board-game__word {
-//  cursor: pointer;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  @media (min-width: $mobileDevice) {
-//    min-width: 120px;
-//    min-height: 120px;
-//    border: 1px $dark solid;
-//  }
-//  background-color: white;
-//}
 
 .board-game_animated {
   animation-name: shake;
@@ -119,7 +105,7 @@
 
 .correct-pair {
   position: relative;
-  background-color: $section-light-bg;
+  background-color: $section-super-deep-bg;
   animation-name: correct;
   animation-duration: 1s;
 }
@@ -171,9 +157,11 @@
 }
 
 .basic {
+  background-color: $white;
+  border: 1px solid $black;
   width: 100%;
   &:hover {
-    background-color: $section-bg;
+    background-color: $golden-rgb;
   }
   &:disabled {
     background-color:  $golden;

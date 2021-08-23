@@ -33,6 +33,7 @@ import {useDispatch} from "react-redux";
 import {DefinitionWord} from "./Practice/WordMatching/DefinitionWord";
 import {WordDefinition} from "./Practice/WordMatching/WordDefinition";
 import {BoardGame} from "./Practice/BoardGame/BoardGame";
+import {Link} from "react-router-dom";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -72,8 +73,8 @@ function App() {
     return (
         <div id='width' className="app">
             <Router>
-                <div className='app__label'><span className='app__label-title'>Enlightenment</span></div>
-                <h3 className='app__label-bottom'>{matchedUser ? `Welcome, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
+                <div className='app__label'><Link to='/home' className='app__label-title'>Wisdom</Link></div>
+                <h3 className='app__label-bottom'>{matchedUser ? `May the power be with you, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
                 {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
                 <Navigation admin={admin} accessFn={accessFn} state={state} />
                     <Switch>
