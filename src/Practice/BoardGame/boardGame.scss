@@ -54,7 +54,7 @@
   }
   @media (min-width: $desktopDevice) {
     max-width: $largeDesktopDevice;
-    max-height: 440px;
+    max-height: 400px;
   }
 }
 
@@ -198,15 +198,13 @@
     margin: 0 auto;
     min-width: 200px;
     &:hover {
-      background-color: $section-bg;
+      background-color: $golden;
     }
   }
   @media screen and (min-width: $tabletDevice) {
     font-size: $large-font;
     min-height: 60px;
     min-width: 200px;
-    &:hover {
-    }
   }
 }
 
@@ -217,7 +215,7 @@
     text-align: center;
     padding: 30px 0 30px 0;
     background-color: $section-super-deep-bg;
-    margin: 0 auto 30px;
+    margin: 0 auto;
   }
   @media screen and (min-width: $tabletDevice) {
     max-width: $tabletDevice;
@@ -231,6 +229,8 @@
 }
 
 .board-game__winner-zone {
+  position: absolute;
+  width: 100%;
   @media screen and (min-width: $mobileDevice) {
     max-width: $tabletDevice;
     display: grid;
@@ -238,13 +238,14 @@
     margin: 0 auto;
     background-color: $section-bg;
     padding: 15px 0 15px 0;
+    top: 0;
   }
   @media screen and (min-width: $tabletDevice) {
-    max-width: $tabletDevice;
+    max-width: $desktopDevice;
     padding: 30px 0 30px 0;
   }
   @media (min-width: $desktopDevice) {
-    max-width: $desktopDevice;
+    max-width: $largeDesktopDevice;
   }
   @media (min-width: $largeDesktopDevice) {
     max-width: $largeDesktopDevice;
