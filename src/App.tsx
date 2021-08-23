@@ -55,13 +55,10 @@ function App() {
          setState(!state);
     }
     const [user, setUser] = useState<userInterface[]>([]);
-    useEffect(() => {
-        statusOfPersonalInfo().then(person => setUser(person));
-    }, [])
-
+    const [userPoints, setUserPoints]:any = useState(0);
     const matchedUser= user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
-    const admin: any = server.auth.session()?.user?.id;
     const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
+    const admin: any = server.auth.session()?.user?.id;
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -69,6 +66,10 @@ function App() {
             dispatch(getAllWords(wordSets));
             setWords(wordSets);
         })
+    }, [])
+
+    useEffect(() => {
+        statusOfPersonalInfo().then(person => setUser(person));
     }, [])
     return (
         <div id='width' className="app">
