@@ -15,25 +15,24 @@
 // let pinyin = require('pinyin')
 // console.log(pinyin)
 
+import {createClient} from '@supabase/supabase-js';
 import React, {useEffect, useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {createStore} from 'redux';
+import {getAllWords} from './Actions/actions';
+import {Access} from './AdminSection/Access/Access';
+import {Registration} from './AdminSection/Access/Registration/Registration';
+import {Admin} from './AdminSection/Admin';
 import './App.scss';
-import {Admin} from "./AdminSection/Admin";
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {createClient} from "@supabase/supabase-js";
-import {Registration} from "./AdminSection/Access/Registration/Registration";
-import {Access} from "./AdminSection/Access/Access";
-import {Navigation} from "./Navigation/Navigation";
-import {allReducers} from "./Reducers/reducers";
-import {createStore} from "redux";
-import {getWordsDataBase, statusOfPersonalInfo, userInterface} from "./Services/dataGetter";
-import {Practice} from "./Practice/Practice";
-import {wordCard} from "./types/types";
-import {getAllWords} from "./Actions/actions";
-import {useDispatch} from "react-redux";
-import {DefinitionWord} from "./Practice/WordMatching/DefinitionWord";
-import {WordDefinition} from "./Practice/WordMatching/WordDefinition";
-import {BoardGame} from "./Practice/BoardGame/BoardGame";
-import {Link} from "react-router-dom";
+import {Navigation} from './Navigation/Navigation';
+import {BoardGame} from './Practice/BoardGame/BoardGame';
+import {Practice} from './Practice/Practice';
+import {DefinitionWord} from './Practice/WordMatching/DefinitionWord';
+import {WordDefinition} from './Practice/WordMatching/WordDefinition';
+import {allReducers} from './Reducers/reducers';
+import {getWordsDataBase, statusOfPersonalInfo, userInterface} from './Services/dataGetter';
+import {wordCard} from './types/types';
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -55,12 +54,14 @@ function App() {
          setState(!state);
     }
     const [user, setUser] = useState<userInterface[]>([]);
-    const [userPoints, setUserPoints]:any = useState(0);
-    const matchedUser= user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
+
+    const matchedUser = user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
     const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
+
     const admin: any = server.auth.session()?.user?.id;
     const [words, setWords] = useState<wordCard[]>([]);
     const dispatch = useDispatch();
+
     useEffect(() => {
         getWordsDataBase().then(wordSets => {
             dispatch(getAllWords(wordSets));
@@ -68,9 +69,15 @@ function App() {
         })
     }, [])
 
+    const getUser = async () => {
+        const user = await statusOfPersonalInfo()
+        setUser(user)
+    }
+
     useEffect(() => {
-        statusOfPersonalInfo().then(person => setUser(person));
+        getUser()
     }, [])
+
 // const getBucketHandler = async () => {
 //         try {
 //             const { data, error } = await server
@@ -92,6 +99,9 @@ function App() {
 //   }
 //
 // bucketCreator().then(x => console.log(x))
+
+    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+
     return (
         <div id='width' className="app">
             <Router>
@@ -101,9 +111,11 @@ function App() {
                 <Navigation admin={admin} accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}
-                        <Route path='/practice/definition-word'><DefinitionWord user={matchedUser}/></Route>
+                        <Route path='/practice/definition-word'><DefinitionWord user={matchedUser} onGameFinish={() => {
+                            getUser()
+                        }}/></Route>
                         <Route path='/practice/word-definition'><WordDefinition user={matchedUser}/></Route>
-                        <Route path='/practice/board-game'><BoardGame  user={matchedUser}/></Route>
+                        <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser}/></Route>
                         <Route path='/practice'><Practice /></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
