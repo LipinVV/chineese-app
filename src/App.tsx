@@ -71,6 +71,27 @@ function App() {
     useEffect(() => {
         statusOfPersonalInfo().then(person => setUser(person));
     }, [])
+// const getBucketHandler = async () => {
+//         try {
+//             const { data, error } = await server
+//                 .storage.listBuckets()
+//             console.log(data, error)
+//         }
+//         catch (error) {
+//             console.log(error)
+//         }
+// }
+// useEffect(() => {
+//     getBucketHandler().then(x => console.log(x))
+// })
+//
+//   const bucketCreator = async () => {
+//       const { data, error } = await server
+//           .storage
+//           .createBucket('avatars', { public: false })
+//   }
+//
+// bucketCreator().then(x => console.log(x))
     return (
         <div id='width' className="app">
             <Router>

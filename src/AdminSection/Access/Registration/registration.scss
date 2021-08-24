@@ -56,7 +56,8 @@
 }
 
 .registration__button,
-.registration__button_disabled {
+.registration__button_disabled,
+.registration__link__success {
   text-decoration: none;
   cursor: pointer;
   padding: 0;
@@ -75,7 +76,7 @@
     font-size: inherit;
   }
   &:hover {
-    background-color: $calm-green;
+    background-color: $golden;
   }
 }
 
@@ -94,9 +95,22 @@
 }
 
 .registration__error-message {
-  color: $red;
+  color: $black;
   font-size: 20px;
   font-weight: 600;
   text-align: center;
-  background-color: $white;
+  background-color: $golden;
+}
+
+.registration__success {
+  display: grid;
+  text-align: center;
+  grid-gap: 20px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  color: $golden;
+}
+
+.registration__link__success {
+  font-size: 15px;
 }

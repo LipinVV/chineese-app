@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import './navigation.scss';
 
-export const Navigation = ({admin, state}: any) => {
+export const Navigation = ({state}: any) => {
 
     const [menu, setMenu] = useState(true);
     const [width, setWidth] = useState(window.innerWidth)

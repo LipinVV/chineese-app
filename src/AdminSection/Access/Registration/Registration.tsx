@@ -90,9 +90,10 @@ export const Registration = () => {
                 {textOfError}
             </div>
             }
-            {status && <div className={signInError ? '' : ''}>
+            {status && <div className={signInError ? '' : 'registration__success'}>
                 Account was created
                 <button className='registration__button' onClick={() => history.goBack()}>Go back</button>
+                <Link className='registration__link__success' to='/'>To the homepage</Link>
             </div>
             }
         </div>

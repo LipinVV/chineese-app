@@ -13,13 +13,18 @@ export const BoardGame = ({user}: any) => {
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [finalArray, setFinalArray]: any = useState<any>([]);
+    useEffect(() => {
+        if(wordsFromStore.length > 0) {
+            setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 9));
+        }
+    }, [])
     const generateWords = () => {
-        setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 9));
         let modifiedArray = wordsForTheTask.map((word: any) => {
             return {...word, trans: !word.trans ? 'modified' : ''}
         })
         modifiedArray = [...wordsForTheTask, ...modifiedArray];
-        // let transformedArray: any = [...wordsForTheTask, ...modifiedArray];
+        console.log('wordsFromStore', wordsFromStore)
+        console.log('modifiedArray', modifiedArray)
         setFinalArray(shuffleHandler(modifiedArray))
     }
 
@@ -104,6 +109,7 @@ export const BoardGame = ({user}: any) => {
                             setMatchedPair(false);
                             setArrayToCompareChosenWords([]);
                             setStartTask(false);
+
                         }}>Start
                     </button>
                 </div>
