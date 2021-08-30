@@ -3,7 +3,7 @@ import './practice.scss'
 import {Link} from "react-router-dom";
 
 
-export const Practice = () => {
+export const Practice = ({setMenuIsOpen} : any) => {
     const [styleOfTheFirstPractice, setStyleOfTheFirstPractice] = useState({display: 'none'});
     const [styleOfTheSecondPractice, setStyleOfTheSecondPractice] = useState({display: 'none'});
     const [styleOfTheThirdPractice, setStyleOfTheThirdPractice] = useState({display: 'none'});
@@ -16,10 +16,12 @@ export const Practice = () => {
         window.onresize = reportWindowSize;
         window.addEventListener('resize', reportWindowSize);
     }, [])
+
     return (
         <div className='practice'>
             <div className='practice__navigation'>
                 <Link
+                    onClick={() => setMenuIsOpen(true)}
                     onMouseEnter={() => {
                         if(width > 1023)
                         setStyleOfTheFirstPractice({display: 'flex'});
@@ -35,6 +37,7 @@ export const Practice = () => {
                         <div className='practice__navigation__task-text'>Match a definition with it's character</div>
                 </div>
                 <Link
+                    onClick={() => setMenuIsOpen(true)}
                     onMouseEnter={() => {
                         if(width > 1023)
                         setStyleOfTheSecondPractice({display: 'flex'});
@@ -49,6 +52,7 @@ export const Practice = () => {
                     <div className='practice__navigation__task-text'>Match a character with it's definition</div>
                 </div>
                 <Link
+                    onClick={() => setMenuIsOpen(true)}
                     onMouseEnter={() => {
                         if(width > 1023)
                         setStyleOfTheThirdPractice({display: 'flex'});
@@ -63,6 +67,7 @@ export const Practice = () => {
                     <div className='practice__navigation__task-text'>Type a right answer before the time ends</div>
                 </div>
                 <Link
+                    onClick={() => setMenuIsOpen(true)}
                     onMouseEnter={() => {
                         if(width > 1023)
                         setStyleOfTheFourthPractice({display: 'flex'});

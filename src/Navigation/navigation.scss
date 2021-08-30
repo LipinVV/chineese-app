@@ -21,6 +21,14 @@
   }
 }
 
+.navigation__wrapper {
+  display: flex;
+}
+
+.navigation__wrapper__hidden {
+  display: none;
+}
+
 .navigation__links {
   list-style: none;
   margin: 0;

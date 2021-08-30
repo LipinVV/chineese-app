@@ -77,6 +77,13 @@ function App() {
         getUser()
     }, [])
 
+    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+
+    const [menuIsOpen, setMenuIsOpen] = useState(true);
+    const menuShowHandler= () => {
+        setMenuIsOpen(prevState => !prevState);
+    }
+
 // const getBucketHandler = async () => {
 //         try {
 //             const { data, error } = await server
@@ -98,16 +105,13 @@ function App() {
 //   }
 //
 // bucketCreator().then(x => console.log(x))
-
-    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-
     return (
         <div id='width' className="app">
             <Router>
                 <div className='app__label'><Link to='/home' className='app__label-title'>Wisdom</Link></div>
                 <h3 className='app__label-bottom'>{matchedUser ? `May the power be with you, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
                 {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
-                <Navigation admin={admin} accessFn={accessFn} state={state} />
+                <Navigation setMenuIsOpen={setMenuIsOpen} menuFn={menuShowHandler} menuIsOpen={menuIsOpen} admin={admin} accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}
                         <Route path='/practice/definition-word'><DefinitionWord user={matchedUser} onGameFinish={() => {
@@ -119,7 +123,7 @@ function App() {
                         <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {
                             getUser()
                         }}/></Route>
-                        <Route path='/practice'><Practice /></Route>
+                        <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
                     </Switch>
