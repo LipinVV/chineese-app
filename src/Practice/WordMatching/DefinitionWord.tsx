@@ -8,7 +8,7 @@ import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 
-export const DefinitionWord = ({user}: any) => {
+export const DefinitionWord = ({user, onGameFinish}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
@@ -107,7 +107,18 @@ export const DefinitionWord = ({user}: any) => {
             console.error(error)
         }
     }
+
     const [taskMode, setTaskMode] = useState(false);
+
+    const repeatHandler = async () => {
+        !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)
+        setCollectedPoints(0)
+
+        await updateUserPoints()
+        onGameFinish()
+        dispatch(incrementUserPoints(collectedPoints))
+    }
+
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
@@ -206,12 +217,7 @@ export const DefinitionWord = ({user}: any) => {
                 <button
                     type='button'
                     className='match-the-word__restart'
-                    onClick={() => {
-                        !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)
-                        dispatch(incrementUserPoints(collectedPoints))
-                        setCollectedPoints(0)
-                        updateUserPoints().then(data => data)
-                    }}
+                    onClick={repeatHandler}
                 >
                     Repeat
                 </button>

@@ -8,6 +8,7 @@ export const ACTIONS = {
     GET_ALL_WORDS: 'GET_ALL_WORDS',
     // users points:
     INCREMENT_USER_POINTS: 'INCREMENT_USER_POINTS',
+    GET_TOTAL_POINTS: 'GET_TOTAL_POINTS',
 }
 
 export const isLoggedOut = (status: boolean) => {

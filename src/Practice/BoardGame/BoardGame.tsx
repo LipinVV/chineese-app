@@ -8,24 +8,37 @@ import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 import {shuffleHandler} from "../../Services/arrayShuffler";
 
-export const BoardGame = ({user}: any) => {
+interface BoardGameProps {
+    user: any,
+    words: any[]
+}
+
+export const BoardGame = ({user, words}: BoardGameProps) => {
     const dispatch = useDispatch();
-    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+
+
+    // console.log('wordsFromStore', wordsFromStore)
+
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [finalArray, setFinalArray]: any = useState<any>([]);
+
     useEffect(() => {
-        if(wordsFromStore.length > 0) {
-            setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 9));
+
+        if(words.length > 0) {
+            setWordsForTheTask(arrayShuffler(words).slice(0, 9));
         }
-    }, [])
+    }, [words])
+
     const generateWords = () => {
         let modifiedArray = wordsForTheTask.map((word: any) => {
             return {...word, trans: !word.trans ? 'modified' : ''}
         })
         modifiedArray = [...wordsForTheTask, ...modifiedArray];
-        console.log('wordsFromStore', wordsFromStore)
-        console.log('modifiedArray', modifiedArray)
-        setFinalArray(shuffleHandler(modifiedArray))
+
+        const preparedFinalArray = shuffleHandler(modifiedArray).map((i: any, index: number) => ({...i, id: index + 1}))
+        
+
+        setFinalArray(preparedFinalArray)
     }
 
     const [firstChosenWord, setFirstChosenWord] = useState(false);
@@ -114,10 +127,11 @@ export const BoardGame = ({user}: any) => {
                     </button>
                 </div>
                 <div className='board-game'>
-                    {finalArray?.map((word: any, index: any) => (
-                            <>
+                    {finalArray?.map((word: any) => {
+                        return (
+                            <div key={word.id}>
                                 <button
-                                    key={word.pinyin + word.word}
+
                                     value={word.word}
                                     style={{display: word.trans ? "none" : 'inherit'}}
                                     disabled={arrayToCompareChosenWords[0] === word.word && word.trans === undefined && firstChosenWord}
@@ -144,8 +158,9 @@ export const BoardGame = ({user}: any) => {
                                 >
                                     {word.trans !== undefined && word.pinyin}
                                 </button>
-                            </>
+                            </div>
                         )
+                        }
                     )}
                 </div>
             </div>
