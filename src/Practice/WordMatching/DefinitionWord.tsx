@@ -119,6 +119,12 @@ export const DefinitionWord = ({user, onGameFinish}: any) => {
         dispatch(incrementUserPoints(collectedPoints))
     }
 
+    const collectedPointsHandler = async () => {
+        await updateUserPoints()
+        onGameFinish()
+        dispatch(incrementUserPoints(collectedPoints))
+    }
+
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
@@ -210,7 +216,7 @@ export const DefinitionWord = ({user, onGameFinish}: any) => {
                 <Link
                     to='/practice'
                     className='match-the-word__exit'
-                    onClick={updateUserPoints}
+                    onClick={collectedPointsHandler}
                 >
                     To practice page
                 </Link>

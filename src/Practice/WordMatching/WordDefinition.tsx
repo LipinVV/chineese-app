@@ -8,7 +8,7 @@ import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 
-export const WordDefinition = ({user}: any) => {
+export const WordDefinition = ({user, onGameFinish}: any) => {
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
@@ -101,6 +101,22 @@ export const WordDefinition = ({user}: any) => {
             console.error(error)
         }
     }
+
+    const repeatHandler = async () => {
+        setNumberOfQuestions(3)
+        setCollectedPoints(0)
+
+        await updateUserPoints()
+        onGameFinish()
+        dispatch(incrementUserPoints(collectedPoints))
+    }
+
+    const collectedPointsHandler = async () => {
+        await updateUserPoints()
+        onGameFinish()
+        dispatch(incrementUserPoints(collectedPoints))
+    }
+
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
@@ -176,19 +192,14 @@ export const WordDefinition = ({user}: any) => {
                 <Link
                     to='/practice'
                     className='match-the-word__exit'
-                    onClick={updateUserPoints}
+                    onClick={collectedPointsHandler}
                 >
                     To practice page
                 </Link>
                 <button
                     type='button'
                     className='match-the-word__restart'
-                    onClick={() => {
-                        setNumberOfQuestions(3);
-                        dispatch(incrementUserPoints(collectedPoints));
-                        setCollectedPoints(0);
-                        updateUserPoints().then(data => data);
-                    }}
+                    onClick={repeatHandler}
                 >
                     Repeat
                 </button>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../types/types";
-import {server, store} from "../../App";
+import {server} from "../../App";
 import './boardGame.scss'
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import {Link} from "react-router-dom";
@@ -13,11 +13,8 @@ interface BoardGameProps {
     words: any[]
 }
 
-export const BoardGame = ({user, words}: BoardGameProps) => {
+export const BoardGame = ({user, words, onGameFinish} : any) => {
     const dispatch = useDispatch();
-
-
-    // console.log('wordsFromStore', wordsFromStore)
 
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [finalArray, setFinalArray]: any = useState<any>([]);
@@ -109,6 +106,24 @@ export const BoardGame = ({user, words}: BoardGameProps) => {
         }
     }
 
+    const repeatHandler = async () => {
+        setCollectedPoints(0)
+        await updateUserPoints()
+        onGameFinish()
+        dispatch(incrementUserPoints(collectedPoints))
+        generateWords();
+        setMatchedPair(false);
+        setArrayToCompareChosenWords([]);
+        setGlobalCounter(0);
+    }
+
+
+    const collectedPointsHandler = async () => {
+        await updateUserPoints()
+        onGameFinish()
+        dispatch(incrementUserPoints(collectedPoints))
+    }
+
     return (
         <div className='board-game__global-wrapper'>
             <div className='board-game__task'>
@@ -169,21 +184,14 @@ export const BoardGame = ({user, words}: BoardGameProps) => {
                 <Link
                     to='/practice'
                     className='board-game__exit'
-                    onClick={updateUserPoints}
+                    onClick={collectedPointsHandler}
                 >
                     To practice page
                 </Link>
                 <button
                     type='button'
                     className='board-game__restart'
-                    onClick={() => {
-                        generateWords();
-                        setMatchedPair(false);
-                        setArrayToCompareChosenWords([]);
-                        dispatch(incrementUserPoints(collectedPoints));
-                        updateUserPoints().then(data => data);
-                        setGlobalCounter(0);
-                    }}
+                    onClick={repeatHandler}
                 >
                     Repeat
                 </button>

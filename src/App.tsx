@@ -7,7 +7,6 @@
 // npm install react-confetti
 // npm install --save react-snowstorm
 // npm install fireworks-js
-
 // //  npm install pinyin
 // let dictionary: any = []
 // import ('./../../dictionaryInEnglish.json').then((data) => dictionary.push(data))
@@ -114,8 +113,12 @@ function App() {
                         <Route path='/practice/definition-word'><DefinitionWord user={matchedUser} onGameFinish={() => {
                             getUser()
                         }}/></Route>
-                        <Route path='/practice/word-definition'><WordDefinition user={matchedUser}/></Route>
-                        <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser}/></Route>
+                        <Route path='/practice/word-definition'><WordDefinition user={matchedUser} onGameFinish={() => {
+                            getUser()
+                        }}/></Route>
+                        <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {
+                            getUser()
+                        }}/></Route>
                         <Route path='/practice'><Practice /></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
