@@ -29,9 +29,10 @@ import {BoardGame} from './Practice/BoardGame/BoardGame';
 import {Practice} from './Practice/Practice';
 import {WordMatching} from './Practice/WordMatching/WordMatching';
 import {allReducers} from './Reducers/reducers';
-import {getWordsDataBase, statusOfPersonalInfo, userInterface} from './Services/dataGetter';
-import {wordCard} from './types/types';
+import {statusOfPersonalInfo, userInterface} from './Services/dataGetter';
+import {wordInterface} from "./AdminSection/WordCreator/WordCreatorFireBase";
 import {Dictionary} from "./Dictionary/Dictionary";
+import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -58,11 +59,11 @@ function App() {
     const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
 
     const admin: any = server.auth.session()?.user?.id;
-    const [words, setWords] = useState<wordCard[]>([]);
+    const [words, setWords] = useState<wordInterface[]>([]);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        getWordsDataBase().then(wordSets => {
+        getWordsFromFireBase().then(wordSets => {
             dispatch(getAllWords(wordSets));
             setWords(wordSets);
         })
@@ -84,16 +85,6 @@ function App() {
         setMenuIsOpen(prevState => !prevState);
     }
 
-const getBucketHandler = () => {
-        try {
-            const { publicURL, error } = server
-                .storage.from('audio').getPublicUrl('words/dianshi.mp3')
-            console.log(publicURL, error)
-        }
-        catch (error) {
-            console.log(error)
-        }
-}
     return (
         <div id='width' className="app">
             <Router>

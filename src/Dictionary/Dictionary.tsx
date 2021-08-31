@@ -28,13 +28,6 @@ export const Dictionary = ({menuIsOpen, setMenuIsOpen}: any) => {
         console.log('words', words)
     }, [])
 
-    const [play, setPlay] = useState(false)
-    const playerHandler = () => {
-        if (!play) {
-            setPlay(true)
-        }
-    }
-
     let soundOutput = (src: any) => {
         const sound = new Audio(`${src}`);
         return sound.play();

@@ -1,5 +1,4 @@
 import {server} from "../App";
-import {wordCard} from "../types/types";
 
 export interface userInterface  {
     id: number,
@@ -17,11 +16,4 @@ export const statusOfPersonalInfo = async () => {
     if(data.length !== 0) {
         return data
     }
-}
-
-export const getWordsDataBase = async () => {
-    const { data }: any = await server
-        .from<wordCard>('database')
-        .select('*')
-    return data
 }

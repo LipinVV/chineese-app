@@ -108,6 +108,7 @@ export const WordCreatorFireBase = () => {
             <button
                 type='button'
                 onClick={uploadData}
+                disabled={word === '' || definition === '' || pinyin === ''}
             >UploadDictionary
             </button>
             <button
@@ -147,6 +148,7 @@ export const dictionary = [
     {id: 25, word: '多少', pinin: 'duō shao', definition: 'сколько?'},
     {id: 26, word: '儿子', pinin: 'érzi', definition: 'сын'},
     {id: 27, word: '二', pinin: 'èr', definition: 'два; второй'},
+    //  不客气, 北京, 出租车 are missed mp3
     {id: 28, word: '饭馆', pinin: 'fàn guǎn', definition: 'ресторан; столовая'},
     {id: 29, word: '飞机', pinin: 'fēijī', definition: 'самолёт'},
     {id: 30, word: '分钟', pinin: 'fēn zhōng', definition: 'минута'},
