@@ -1,23 +1,27 @@
 import React, {useState} from "react";
-import {server} from "../../App";
+import {fireBaseData} from "../../Services/firebase";
 import './wordcreator.scss'
-import {wordCard} from "../../types/types";
 import {Word} from "../../Word/Word";
+import {fireBaseStorage} from "../../Services/firebase";
 
 export interface wordInterface {
+    key: string,
     word: string,
     pinyin: string,
-    definition: string
+    definition: string,
+    tone: number,
+    audioUrl: string
 }
 
-export const WordCreator = () => {
+export const WordCreatorFireBase = () => {
     const [word, setWord] = useState('');
     const [pinyin, setPinyin] = useState('');
     const [definition, setDefinition] = useState('');
     const [tone, setTone] = useState('');
     const [toLearn, setIstoLearn] = useState(false);
     const [isFavourite, setIsFavourite] = useState(false);
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
+    const [audioUrl, setAudioUrl] = useState('');
 
     const clearHandler = () => {
         setWord('');
@@ -25,40 +29,39 @@ export const WordCreator = () => {
         setDefinition('');
         setTone('');
     }
-    // const uploadDictionary = async () => {
-    //     try {
-    //         const {data} = await server
-    //             .from<wordCard>('database')
-    //         if (!data?.map((user: wordCard) => user).find((values: any) => values.word === word)) {
-    //             const {data} = await server
-    //                 .from<wordCard>('database')
-    //                 .insert([
-    //                     {
-    //                         word: word,
-    //                         pinyin: pinyin,
-    //                         definition: definition,
-    //                         tone: tone,
-    //                         toLearn: toLearn,
-    //                         isFavourite: isFavourite
-    //                     }
-    //                 ])
-    //             console.log('word was send =>', data);
-    //         } else {
-    //             setError(`${word} already in a database!`)
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }
-    //
-    //
-    // const tones: any = {
-    //     0: 'grey',
-    //     1: 'white',
-    //     2: 'green',
-    //     3: 'yellow',
-    //     4: 'blue'
-    // }
+
+
+    const tones: any = {
+        0: 'grey',
+        1: 'white',
+        2: 'green',
+        3: 'yellow',
+        4: 'blue'
+    }
+
+    const uploadData = async () => {
+        const preparedWord = {
+            word:  word,
+            pinyin: pinyin,
+            definition: definition ,
+            tone: tone,
+            toLearn: toLearn,
+            isFavourite: isFavourite,
+            audioUrl: audioUrl,
+        }
+        const newDoc = await fireBaseData.collection('Dictionary').add(preparedWord);
+        console.log('newDoc', newDoc)
+    }
+
+    const uploadFile = async (evt: any) => {
+        const { files } = evt.target;
+        const snapshotRef = fireBaseStorage.child(`/audio/${files[0].name}`)
+        const snapshot = await snapshotRef.put(files[0]);
+        const fileUrl = await snapshot.ref.getDownloadURL();
+        const {origin, pathname} = new URL(fileUrl);
+        const preparedAudioUrl = `${origin}${pathname}?alt=media`
+        setAudioUrl(preparedAudioUrl)
+    }
 
     return (
         <div>
@@ -94,11 +97,17 @@ export const WordCreator = () => {
                         onChange={(evt) => setTone(evt.target.value)}
                     />
                 </label>
+                <label className='word__label'>Upload audio file
+                    <input
+                        type='file'
+                        onChange={uploadFile}
+                    />
+                </label>
             </div>
             <div>{error}</div>
             <button
                 type='button'
-                // onClick={uploadDictionary}
+                onClick={uploadData}
             >UploadDictionary
             </button>
             <button

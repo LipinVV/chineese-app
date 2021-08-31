@@ -1,0 +1,30 @@
+@import "src/App";
+
+.word-template {
+  display: grid;
+  list-style: none;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  max-width: 150px;
+  padding: 0;
+  background-color: $golden;
+  color: $black;
+  text-align: center;
+}
+
+.word-template-field:last-child {
+  cursor: pointer;
+  &:hover {
+    background-color: $white;
+  }
+}
+
+.word-template-field:nth-child(1) {
+  grid-column-start: 1;
+  grid-column-end: span 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  width: 100%;
+  text-align: center;
+}

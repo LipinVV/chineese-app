@@ -1,6 +1,6 @@
 import React from "react";
 import './admin.scss';
-import {WordCreator} from "./WordCreator/WordCreator";
+import {WordCreatorFireBase} from "./WordCreator/WordCreatorFireBase";
 
 
 export const Admin = ({matchedUser}: any) => {
@@ -8,7 +8,7 @@ export const Admin = ({matchedUser}: any) => {
 
     return (
         <div className='admin'>Admin is: {matchedUser}
-            <WordCreator/>
+            <WordCreatorFireBase/>
         </div>
     )
 }

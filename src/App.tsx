@@ -27,11 +27,11 @@ import './App.scss';
 import {Navigation} from './Navigation/Navigation';
 import {BoardGame} from './Practice/BoardGame/BoardGame';
 import {Practice} from './Practice/Practice';
-import {DefinitionWord} from './Practice/WordMatching/DefinitionWord';
-import {WordDefinition} from './Practice/WordMatching/WordDefinition';
+import {WordMatching} from './Practice/WordMatching/WordMatching';
 import {allReducers} from './Reducers/reducers';
 import {getWordsDataBase, statusOfPersonalInfo, userInterface} from './Services/dataGetter';
 import {wordCard} from './types/types';
+import {Dictionary} from "./Dictionary/Dictionary";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -84,27 +84,16 @@ function App() {
         setMenuIsOpen(prevState => !prevState);
     }
 
-// const getBucketHandler = async () => {
-//         try {
-//             const { data, error } = await server
-//                 .storage.listBuckets()
-//             console.log(data, error)
-//         }
-//         catch (error) {
-//             console.log(error)
-//         }
-// }
-// useEffect(() => {
-//     getBucketHandler().then(x => console.log(x))
-// })
-//
-//   const bucketCreator = async () => {
-//       const { data, error } = await server
-//           .storage
-//           .createBucket('avatars', { public: false })
-//   }
-//
-// bucketCreator().then(x => console.log(x))
+const getBucketHandler = () => {
+        try {
+            const { publicURL, error } = server
+                .storage.from('audio').getPublicUrl('words/dianshi.mp3')
+            console.log(publicURL, error)
+        }
+        catch (error) {
+            console.log(error)
+        }
+}
     return (
         <div id='width' className="app">
             <Router>
@@ -114,16 +103,17 @@ function App() {
                 <Navigation setMenuIsOpen={setMenuIsOpen} menuFn={menuShowHandler} menuIsOpen={menuIsOpen} admin={admin} accessFn={accessFn} state={state} />
                     <Switch>
                         {!state && <Route path='/registration'><Registration/></Route>}
-                        <Route path='/practice/definition-word'><DefinitionWord user={matchedUser} onGameFinish={() => {
+                        <Route path='/practice/definition-word'><WordMatching mainEntity={'word'} user={matchedUser} onGameFinished={() => {
                             getUser()
                         }}/></Route>
-                        <Route path='/practice/word-definition'><WordDefinition user={matchedUser} onGameFinish={() => {
+                        <Route path='/practice/word-definition'><WordMatching mainEntity={'definition'} user={matchedUser} onGameFinished={() => {
                             getUser()
                         }}/></Route>
                         <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {
                             getUser()
                         }}/></Route>
                         <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
+                        <Route path='/dictionary'><Dictionary menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
                     </Switch>

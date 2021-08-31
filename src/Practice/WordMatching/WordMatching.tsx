@@ -8,7 +8,15 @@ import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 
-export const WordDefinition = ({user, onGameFinish}: any) => {
+
+interface definitionWordProps {
+    user: string | undefined,
+    onGameFinished: () => void,
+    mainEntity: 'word' | 'definition'
+}
+
+export const WordMatching = ({user, onGameFinished, mainEntity}: definitionWordProps) => {
+
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
@@ -21,52 +29,59 @@ export const WordDefinition = ({user, onGameFinish}: any) => {
 
     const generateFourWords = () => {
         setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 4));
-        generateCorrectAnswer();
+        generateCorrectAnswer()
     }
-    // in case  to get rid of 'Start' button -> add useEffect and put this
-    // useEffect(() => {
-    //     generateFourWords()
-    // }, [])
+    // hardcore version
+    const generateCorrectAnswerAdvanced = () => {
+        const randomInteger = Math.floor(Math.random() * 8);
+        setRandomNumber(randomInteger);
+    }
+
+    const generateEightWordsAdvanced = () => {
+        setWordsForTheTask(arrayShuffler(wordsFromStore).slice(0, 8));
+        generateCorrectAnswerAdvanced()
+    }
 
     const [rightAnswer, setRightAnswer] = useState<any>(false);
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
     const validation = (evt: any) => {
         const {value} = evt.target;
-        if (value === wordsForTheTask[randomNumber].definition && wrongAnswer === false) {
-            setCollectedPoints(collectedPoints + 1);
+        if (value === wordsForTheTask[randomNumber].word && wrongAnswer === false) {
+            setCollectedPoints(collectedPoints + 1)
         }
-        if (value === wordsForTheTask[randomNumber].definition) {
+        if (value === wordsForTheTask[randomNumber].word) {
             setRightAnswer(true)
             const toggled = wordsForTheTask.map((word) => {
                 return {
                     ...word,
-                    correct: word.definition === value ? 'correct' : word.correct
+                    correct: word.word === value ? 'correct' : word.correct
                 }
             })
             setWordsForTheTask(toggled);
         }
-        if (value !== wordsForTheTask[randomNumber].definition) {
-            setRightAnswer(false);
-            setWrongAnswer(true);
-            setCollectedPoints(collectedPoints);
+        if (value !== wordsForTheTask[randomNumber].word) {
+            setRightAnswer(false)
+            setWrongAnswer(true)
+            setCollectedPoints(collectedPoints)
             const toggled = wordsForTheTask.map((word) => {
                 return {
                     ...word,
-                    correct: word.definition === value ? 'incorrect' : word.correct,
+                    correct: word.word === value ? 'incorrect' : word.correct,
                 }
             })
             setWordsForTheTask(toggled);
         }
     }
     const [startTask, setStartTask] = useState(false);
-    const correctAnswer: any = wordsForTheTask[randomNumber]?.word; // FIX IT
+    const correctAnswer: any = mainEntity === 'word' ? wordsForTheTask[randomNumber]?.definition : wordsForTheTask[randomNumber]?.word; // FIX IT
+
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
 
     const [width, setWidth] = useState(window.innerWidth)
     useEffect(() => {
         const reportWindowSize = () => {
-            setWidth(window.innerWidth);
+            setWidth(window.innerWidth)
         }
         window.onresize = reportWindowSize;
         window.addEventListener('resize', reportWindowSize);
@@ -87,7 +102,7 @@ export const WordDefinition = ({user, onGameFinish}: any) => {
         try {
             let {data: users}: any = await server
                 .from('users')
-            const chosenUser = users.find((person: any) => person.nickname === user);
+            const chosenUser = users.find((person: any) => person.nickname === user)
             const {data} = await server
                 .from('users')
                 .update([
@@ -102,53 +117,66 @@ export const WordDefinition = ({user, onGameFinish}: any) => {
         }
     }
 
+    const [taskMode, setTaskMode] = useState(false);
+
     const repeatHandler = async () => {
-        setNumberOfQuestions(3)
+        !taskMode ? setNumberOfQuestions(3) : setNumberOfQuestions(6)
         setCollectedPoints(0)
 
         await updateUserPoints()
-        onGameFinish()
+        onGameFinished()
         dispatch(incrementUserPoints(collectedPoints))
     }
 
     const collectedPointsHandler = async () => {
         await updateUserPoints()
-        onGameFinish()
+        onGameFinished()
         dispatch(incrementUserPoints(collectedPoints))
     }
 
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
+            {numberOfQuestions === 0 && collectedPoints === 6 && <Fireworks options={options} style={style}/>}
             {numberOfQuestions !== 0 &&
             <div className='match-the-word__task'>
-                {!startTask ? <h1 style={{'textAlign': 'center'}}>Match a
-                    word</h1> : <h1 style={{'textAlign': 'center'}}>Choose correct answer</h1>}
                 <div className='match-the-word__wrapper'>
                     <button
                         className='match-the-word__start'
                         hidden={startTask} type='button'
                         onClick={() => {
-                            generateFourWords();
-                            setStartTask(true);
-                        }}>Start
+                            generateFourWords()
+                            setStartTask(true)
+                        }}>Normal mode
+                    </button>
+                    <button
+                        className='match-the-word__start'
+                        hidden={startTask} type='button'
+                        onClick={() => {
+                            generateEightWordsAdvanced()
+                            setStartTask(true)
+                            setTaskMode(true)
+                            setNumberOfQuestions(6)
+                        }}>Advanced mode
                     </button>
                 </div>
                 <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
                 <div className='match-the-word'>
-                    {wordsForTheTask.map((word: wordCard) => (
-                            <button
+                    {wordsForTheTask.map((word: wordCard) => {
+                        console.log('word[mainEntity]', word[mainEntity])
+                        return <button
                                 type='button'
+                                data-unit={word[mainEntity]}
                                 disabled={rightAnswer}
                                 key={word.word}
-                                value={word.definition}
+                                value={word[mainEntity]}
                                 onClick={validation}
                                 className={`answer ${word.correct}`}
                             >
                                 {/*<Word word={word.word} tone={word.tone}/>*/}
-                                {word.definition}
+                                {word[mainEntity]}
                             </button>
-                        )
+                        }
                     )}
                 </div>
                 <div style={rightAnswer !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
@@ -157,12 +185,14 @@ export const WordDefinition = ({user, onGameFinish}: any) => {
                         type='button'
                         className='match-the-word__next'
                         hidden={rightAnswer !== true || numberOfQuestions === 0}
-                        onClick={() => {
-                            generateFourWords();
-                            setRightAnswer(false);
-                            setNumberOfQuestions(prevState => prevState - 1);
-                            setWrongAnswer(false);
-                        }}>Next
+                        onClick={
+                            () => {
+                                !taskMode ? generateFourWords() : generateEightWordsAdvanced()
+                                setRightAnswer(false)
+                                setNumberOfQuestions(prevState => prevState - 1)
+                                setWrongAnswer(false)
+                            }
+                        }>Next
                     </button>
                 </div>
                 {wrongAnswer && !rightAnswer &&
@@ -171,12 +201,14 @@ export const WordDefinition = ({user, onGameFinish}: any) => {
                         type='button'
                         className='match-the-word__next'
                         disabled={wrongAnswer}
-                        onClick={() => {
-                            generateFourWords();
-                            setRightAnswer(false);
-                            setNumberOfQuestions(prevState => prevState - 1);
-                            setWrongAnswer(false);
-                        }}>Incorrect answer
+                        onClick={
+                            () => {
+                                !taskMode ? generateFourWords() : generateEightWordsAdvanced()
+                                setRightAnswer(false)
+                                setNumberOfQuestions(prevState => prevState - 1)
+                                setWrongAnswer(false)
+                            }
+                        }>Incorrect answer
                     </button>
                 </div>
                 }
@@ -184,9 +216,11 @@ export const WordDefinition = ({user, onGameFinish}: any) => {
             {numberOfQuestions === 0 &&
             <div className='match-the-word__winner-zone'>
                 <div>
-                    {numberOfQuestions === 0 && collectedPoints === 3 ?
-                    <h1 className='match-the-word__header-winner'>Congratulations, {user}, you've earned {collectedPoints} points</h1> :
-                        <h1 className='match-the-word__header-winner'>You've earned {collectedPoints} points</h1>
+                    {taskMode && numberOfQuestions === 0 &&
+                    <h1 className='match-the-word__header-winner'>{collectedPoints === 3 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
+                    }
+                    {!taskMode && numberOfQuestions === 0 &&
+                    <h1 className='match-the-word__header-winner'>{collectedPoints === 6 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
                     }
                 </div>
                 <Link

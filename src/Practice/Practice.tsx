@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './practice.scss'
 import {Link} from "react-router-dom";
-
+import {Dictionary} from "../Dictionary/Dictionary";
 
 export const Practice = ({setMenuIsOpen} : any) => {
     const [styleOfTheFirstPractice, setStyleOfTheFirstPractice] = useState({display: 'none'});
