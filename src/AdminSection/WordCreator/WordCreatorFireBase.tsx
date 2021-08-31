@@ -30,15 +30,6 @@ export const WordCreatorFireBase = () => {
         setTone('');
     }
 
-
-    const tones: any = {
-        0: 'grey',
-        1: 'white',
-        2: 'green',
-        3: 'yellow',
-        4: 'blue'
-    }
-
     const uploadData = async () => {
         const preparedWord = {
             word:  word,

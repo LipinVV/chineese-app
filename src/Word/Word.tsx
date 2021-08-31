@@ -11,7 +11,7 @@ export const Word =({word, tone} : any) => {
 
     return (
         <>
-            {word.split('').map((letter: string , index: number ) => <span style={{color : tones[tone.toString().split('')[index]]}}>{letter}</span>)}
+            {word.split('').map((letter: string , index: number ) => <span key={word.word} style={{color : tones[tone.toString().split('')[index]]}}>{letter}</span>)}
         </>
     )
 }

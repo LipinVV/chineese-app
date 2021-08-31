@@ -44,36 +44,66 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: definitionWordP
 
     const [rightAnswer, setRightAnswer] = useState<any>(false);
     const [wrongAnswer, setWrongAnswer] = useState<any>(false);
+    const correctAnswer: any = mainEntity === 'word' ? wordsForTheTask[randomNumber]?.definition : wordsForTheTask[randomNumber]?.word; // FIX IT
     const validation = (evt: any) => {
         const {value} = evt.target;
-        if (value === wordsForTheTask[randomNumber].word && wrongAnswer === false) {
-            setCollectedPoints(collectedPoints + 1)
+        if(mainEntity === 'word') {
+            if (value === wordsForTheTask[randomNumber].word && wrongAnswer === false) {
+                setCollectedPoints(collectedPoints + 1)
+            }
+            if (value === wordsForTheTask[randomNumber].word) {
+                setRightAnswer(true)
+                const toggled = wordsForTheTask.map((word) => {
+                    return {
+                        ...word,
+                        correct: word.word === value ? 'correct' : word.correct
+                    }
+                })
+                setWordsForTheTask(toggled);
+            }
+            if (value !== wordsForTheTask[randomNumber].word) {
+                setRightAnswer(false)
+                setWrongAnswer(true)
+                setCollectedPoints(collectedPoints)
+                const toggled = wordsForTheTask.map((word) => {
+                    return {
+                        ...word,
+                        correct: word.word === value ? 'incorrect' : word.correct,
+                    }
+                })
+                setWordsForTheTask(toggled);
+            }
         }
-        if (value === wordsForTheTask[randomNumber].word) {
-            setRightAnswer(true)
-            const toggled = wordsForTheTask.map((word) => {
-                return {
-                    ...word,
-                    correct: word.word === value ? 'correct' : word.correct
-                }
-            })
-            setWordsForTheTask(toggled);
-        }
-        if (value !== wordsForTheTask[randomNumber].word) {
-            setRightAnswer(false)
-            setWrongAnswer(true)
-            setCollectedPoints(collectedPoints)
-            const toggled = wordsForTheTask.map((word) => {
-                return {
-                    ...word,
-                    correct: word.word === value ? 'incorrect' : word.correct,
-                }
-            })
-            setWordsForTheTask(toggled);
+        if(mainEntity === 'definition') {
+            if (value === wordsForTheTask[randomNumber].definition && wrongAnswer === false) {
+                setCollectedPoints(collectedPoints + 1)
+            }
+            if (value === wordsForTheTask[randomNumber].definition) {
+                setRightAnswer(true)
+                const toggled = wordsForTheTask.map((word) => {
+                    return {
+                        ...word,
+                        correct: word.definition === value ? 'correct' : word.correct
+                    }
+                })
+                setWordsForTheTask(toggled);
+            }
+            if (value !== wordsForTheTask[randomNumber].definition) {
+                setRightAnswer(false)
+                setWrongAnswer(true)
+                setCollectedPoints(collectedPoints)
+                const toggled = wordsForTheTask.map((word) => {
+                    return {
+                        ...word,
+                        correct: word.definition === value ? 'incorrect' : word.correct,
+                    }
+                })
+                setWordsForTheTask(toggled);
+            }
         }
     }
     const [startTask, setStartTask] = useState(false);
-    const correctAnswer: any = mainEntity === 'word' ? wordsForTheTask[randomNumber]?.definition : wordsForTheTask[randomNumber]?.word; // FIX IT
+
 
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
@@ -163,10 +193,9 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: definitionWordP
                 <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
                 <div className='match-the-word'>
                     {wordsForTheTask.map((word: wordCard) => {
-                        console.log('word[mainEntity]', word[mainEntity])
                         return <button
                                 type='button'
-                                data-unit={word[mainEntity]}
+                                data-unit={mainEntity === 'word' ? word.definition : word.word}
                                 disabled={rightAnswer}
                                 key={word.word}
                                 value={word[mainEntity]}

@@ -1,30 +1,53 @@
 @import "src/App";
 
-.word-template {
+.dictionary {
   display: grid;
+  align-content: space-around;
+  align-items: flex-start;
+  @media (min-width: $mobileDevice) {
+    max-width: $tabletDevice;
+    grid-gap: 5px;
+  }
+  @media (min-width: $tabletDevice) {
+    grid-template-columns:  repeat(3, 1fr);
+    grid-template-rows:   repeat(3, 1fr);
+  }
+  @media (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
+}
+
+.dictionary__word {
+  //display: grid;
   list-style: none;
-  grid-gap: 10px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  max-width: 150px;
+  border: 3px solid $black;
+  @media (min-width: $mobileDevice) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
   padding: 0;
   background-color: $golden;
   color: $black;
   text-align: center;
+  margin: 0;
 }
 
-.word-template-field:last-child {
+.dictionary__word-field:last-child {
   cursor: pointer;
+  grid-column-start: 1;
+  grid-column-end: span 2;
   &:hover {
     background-color: $white;
   }
 }
 
-.word-template-field:nth-child(1) {
+.dictionary__word-field:nth-child(1) {
   grid-column-start: 1;
   grid-column-end: span 2;
+
   grid-row-start: 1;
   grid-row-end: 1;
   width: 100%;
   text-align: center;
+  font-size: 50px;
 }

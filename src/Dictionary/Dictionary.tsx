@@ -13,7 +13,6 @@ export const Dictionary = ({menuIsOpen, setMenuIsOpen}: any) => {
     const getAllWords = async () => {
         try {
             const allWordsFromServer = await getWordsFromFireBase()
-            console.log(allWordsFromServer)
             // @ts-ignore
             setWords(allWordsFromServer)
             // @ts-ignore
@@ -25,7 +24,6 @@ export const Dictionary = ({menuIsOpen, setMenuIsOpen}: any) => {
 
     useEffect(() => {
         getAllWords()
-        console.log('words', words)
     }, [])
 
     let soundOutput = (src: any) => {
@@ -34,16 +32,15 @@ export const Dictionary = ({menuIsOpen, setMenuIsOpen}: any) => {
     }
 
     return (
-        <div>Dictionary
+        <div className='dictionary'>
             {            //@ts-ignore
                 Boolean(words.length) && words.map((word: wordInterface) => {
                     return (
-                        <ul className='word-template' key={word.word}>
-                            <li className='word-template-field'><Word word={word.word} tone={word.tone}/></li>
-                            <li className='word-template-field'>{word.pinyin}</li>
-                            <li className='word-template-field'>{word.definition}</li>
-                            <li className='word-template-field'>tone: {word.tone}</li>
-                            <li className='word-template-field' onClick={() => soundOutput(word.audioUrl)} >play</li>
+                        <ul className='dictionary__word' key={word.word}>
+                            <li className='dictionary__word-field'><Word word={word.word} tone={word.tone}/></li>
+                            <li className='dictionary__word-field'>{word.pinyin}</li>
+                            <li className='dictionary__word-field'>{word.definition}</li>
+                            <li className='dictionary__word-field' onClick={() => soundOutput(word.audioUrl)} >play</li>
                         </ul>
                     )
                 })}
