@@ -4,7 +4,7 @@ import './dictionary.scss';
 import {wordInterface} from "../AdminSection/WordCreator/WordCreatorFireBase";
 import {Word} from "../Word/Word";
 
-export const Dictionary = () => {
+export const Dictionary = ({menuIsOpen} : any) => {
     const [words, setWords] = useState([]);
 
     const [filtered, setFiltered] = useState([]);
