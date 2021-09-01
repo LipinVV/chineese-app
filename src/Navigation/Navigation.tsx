@@ -18,7 +18,7 @@ export const Navigation = ({state, setMenuIsOpen, menuIsOpen}: any) => {
 
     return (
         <div className='navigation'>
-            <div  className={menuIsOpen ? 'navigation__wrapper__hidden' : 'navigation__wrapper'}>
+            <div  className={menuIsOpen && width < 1023 ? 'navigation__wrapper__hidden' : 'navigation__wrapper'}>
                 <div className={width < 1023 ? 'navigation__links' : 'navigation__links navigation__links_desktop'}>
                     {width < 1023 ? <Link className={!menuIsOpen ? 'navigation__link' : 'navigation__link navigation__link_hidden' } to='/'>Home</Link> : <Link className='navigation__link' to='/'>Home</Link>}
                     {width < 1023 ? <Link className={!menuIsOpen ? 'navigation__link' : 'navigation__link navigation__link_hidden' } to='/dictionary' onClick={() => setMenuIsOpen(true)}>Dictionary</Link> : <Link className='navigation__link' to='/dictionary' onClick={() => setMenuIsOpen(true)}>Dictionary</Link>}

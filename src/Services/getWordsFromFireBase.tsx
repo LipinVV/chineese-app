@@ -13,6 +13,7 @@ export const getWordsFromFireBase = async () => {
         allWordsSnapShot.forEach((doc) => {
             const unpackedWord = doc.data()
             allWords.push({
+                id: unpackedWord.id,
                 key: doc.id,
                 word: unpackedWord.word,
                 definition: unpackedWord.definition,

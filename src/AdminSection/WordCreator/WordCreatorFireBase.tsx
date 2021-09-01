@@ -5,6 +5,7 @@ import {Word} from "../../Word/Word";
 import {fireBaseStorage} from "../../Services/firebase";
 
 export interface wordInterface {
+    id: number,
     key: string,
     word: string,
     pinyin: string,
