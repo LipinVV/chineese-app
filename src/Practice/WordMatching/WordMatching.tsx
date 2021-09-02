@@ -202,7 +202,6 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                                 onClick={validation}
                                 className={`answer ${word.correct}`}
                             >
-                                {/*<Word word={word.word} tone={word.tone}/>*/}
                                 {word[mainEntity]}
                             </button>
                         }
@@ -246,10 +245,10 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
             <div className='match-the-word__winner-zone'>
                 <div>
                     {taskMode && numberOfQuestions === 0 &&
-                    <h1 className='match-the-word__header-winner'>{collectedPoints === 3 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
+                    <h1 className='match-the-word__header-winner'>{collectedPoints === 3 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've got ${collectedPoints} points`}</h1>
                     }
                     {!taskMode && numberOfQuestions === 0 &&
-                    <h1 className='match-the-word__header-winner'>{collectedPoints === 6 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've earned ${collectedPoints} points`}</h1>
+                    <h1 className='match-the-word__header-winner'>{collectedPoints === 6 ? `Congratulations, ${user}, you've earned {collectedPoints} points` : `You've got ${collectedPoints} points`}</h1>
                     }
                 </div>
                 <Link

@@ -146,7 +146,6 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                         return (
                             <div key={word.id}>
                                 <button
-
                                     value={word.word}
                                     style={{display: word.trans ? "none" : 'inherit'}}
                                     disabled={arrayToCompareChosenWords[0] === word.word && word.trans === undefined && firstChosenWord}

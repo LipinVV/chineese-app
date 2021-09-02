@@ -9,6 +9,8 @@ import {Link} from "react-router-dom";
 
 
 export const AudioMatching = ({user, onGameFinished}: any) => {
+    const [wordsRenderedForTheTask, setWordsRenderedForTheTask] = useState<wordInterface[]>([]);
+    const [correctAnswers, setCorrectAnswers] = useState<any[]>([]);
     const dispatch = useDispatch();
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
@@ -26,9 +28,9 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
         getAllWords()
     }, [])
 
-    const numberGenerator = Math.floor(Math.random() * 20);
+    const numberGenerator = Math.floor(Math.random() * 20) + 1;
     const [num, setNum] = useState(numberGenerator);
-
+    console.log('num', num)
     const showRandomWordUrl = (allWords: wordInterface[], num: number) => {
         const foundWord = allWords.find((word) => word.id === num);
         return foundWord?.audioUrl;
@@ -40,7 +42,6 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                 return word.word;
             }
         }
-        // return words.map((word: any) => word.id === num)
     }
 
     const handleGenerator = () => {
@@ -54,15 +55,15 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
         setAnswer(value);
         if (value === showRandomWord(num)) {
             setCollectedPoints(collectedPoints + 1)
-            setWrongAnswer(false)
+            setWrongAnswer(false);
         } else {
             setCollectedPoints(collectedPoints)
-            setWrongAnswer(true)
+            setWrongAnswer(true);
         }
     }
     const [wrongAnswer, setWrongAnswer] = useState(false);
     const handleKeyPress = (evt: any) => {
-        if (evt.keyCode === 13 && answer === showRandomWord(num)) {
+        if (evt.keyCode === 13) {
             setCollectedPoints(collectedPoints + 1);
             setNumberOfQuestions(numberOfQuestions - 1);
             nextAudio();
@@ -113,17 +114,23 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
         onGameFinished()
         dispatch(incrementUserPoints(collectedPoints));
         setNumberOfQuestions(3);
+        setWordsRenderedForTheTask([]);
+        setCorrectAnswers([]);
     }
 
     const collectedPointsHandler = async () => {
-        await updateUserPoints()
-        onGameFinished()
-        dispatch(incrementUserPoints(collectedPoints))
+        await updateUserPoints();
+        onGameFinished();
+        dispatch(incrementUserPoints(collectedPoints));
+        setWordsRenderedForTheTask([]);
     }
 
     return (
         <div className='audio-matching'>
-            {numberOfQuestions !== 0 && <div className='audio-matching__questions-left'>Words left: {numberOfQuestions}</div>}
+            {numberOfQuestions !== 0 &&
+            <div className='audio-matching__questions-left'>Words left: {numberOfQuestions}</div>}
+            {numberOfQuestions === 0 &&
+            <div className='audio-matching__questions-left'>You've got: {collectedPoints} points</div>}
             {numberOfQuestions !== 0 && <>
                 <div className='audio-matching__current-word'>
                     {Boolean(showRandomWordUrl(words, num)) && isShowPlayer && numberOfQuestions !== 0 && (
@@ -147,10 +154,24 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                     onClick={() => {
                         setNumberOfQuestions(prevState => prevState - 1)
                         nextAudio()
+                        // @ts-ignore
+                        wordsRenderedForTheTask.push(answer);
+                        setCorrectAnswers([...correctAnswers, showRandomWord(num)])
                     }}
                 >Next
                 </button>
             </>}
+            {numberOfQuestions === 0 && <div className='audio-matching__words-rendered-for-the-task'>
+                {wordsRenderedForTheTask.map((word: wordInterface, index: number) => {
+                    return (
+                        // @ts-ignore
+                        <div key={word} className={ word === answer ? 'audio-matching__answer-rendered-for-the-task' : 'audio-matching__answer-rendered-for-the-task audio-matching__answer-rendered-for-the-task'}>
+                            <span className='audio-matching__correct-answer'>answer №{index + 1}: {correctAnswers[index]}</span>
+                            <span className={correctAnswers[index] === word ? 'audio-matching__user-answer':  'audio-matching__user-answer-wrong'}>{word}</span>
+                        </div>
+                    )
+                })}
+            </div>}
             {numberOfQuestions === 0 && <button
                 type='button'
                 className='audio-matching__restart'
