@@ -33,6 +33,7 @@ import {statusOfPersonalInfo, userInterface} from './Services/dataGetter';
 import {wordInterface} from "./AdminSection/WordCreator/WordCreatorFireBase";
 import {Dictionary} from "./Dictionary/Dictionary";
 import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
+import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -101,6 +102,9 @@ function App() {
                             getUser()
                         }}/></Route>
                         <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {
+                            getUser()
+                        }}/></Route>
+                        <Route path='/practice/audio-matching'><AudioMatching user={matchedUser} onGameFinished={() => {
                             getUser()
                         }}/></Route>
                         <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>

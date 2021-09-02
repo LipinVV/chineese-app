@@ -55,21 +55,6 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     onClick={() => setMenuIsOpen(true)}
                     onMouseEnter={() => {
                         if(width > 1023)
-                        setStyleOfTheThirdPractice({display: 'flex'});
-                    }}
-                    onMouseLeave={() => {
-                        if(width > 1023)
-                        setStyleOfTheThirdPractice({display: 'none'})
-                    }} className='practice__navigation-link' to='/practice/word-matching'><span
-                    className='practice__navigation-title'>Sprint </span></Link>
-                <div className='practice__navigation__task-description' style={styleOfTheThirdPractice}>
-                    <h4 className='practice__navigation__task-header'>Description of the task:</h4>
-                    <div className='practice__navigation__task-text'>Type a right answer before the time ends</div>
-                </div>
-                <Link
-                    onClick={() => setMenuIsOpen(true)}
-                    onMouseEnter={() => {
-                        if(width > 1023)
                         setStyleOfTheFourthPractice({display: 'flex'});
                     }}
                     onMouseLeave={() => {
@@ -80,6 +65,21 @@ export const Practice = ({setMenuIsOpen} : any) => {
                 <div className='practice__navigation__task-description' style={styleOfTheFourthPractice}>
                     <h4 className='practice__navigation__task-header'>Description of the task:</h4>
                     <div className='practice__navigation__task-text'>Find all correct pairs of word and pinyin</div>
+                </div>
+                <Link
+                    onClick={() => setMenuIsOpen(true)}
+                    onMouseEnter={() => {
+                        if(width > 1023)
+                            setStyleOfTheThirdPractice({display: 'flex'});
+                    }}
+                    onMouseLeave={() => {
+                        if(width > 1023)
+                            setStyleOfTheThirdPractice({display: 'none'})
+                    }} className='practice__navigation-link' to='/practice/audio-matching'><span
+                    className='practice__navigation-title'>Audio sprint </span></Link>
+                <div className='practice__navigation__task-description' style={styleOfTheThirdPractice}>
+                    <h4 className='practice__navigation__task-header'>Description of the task:</h4>
+                    <div className='practice__navigation__task-text'>Type a right answer before the time ends</div>
                 </div>
             </div>
         </div>

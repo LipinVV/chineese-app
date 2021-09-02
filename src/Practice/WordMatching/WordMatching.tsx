@@ -9,13 +9,13 @@ import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
 
 
-interface definitionWordProps {
+interface matchingWordProps {
     user: string | undefined,
     onGameFinished: () => void,
     mainEntity: 'word' | 'definition'
 }
 
-export const WordMatching = ({user, onGameFinished, mainEntity}: definitionWordProps) => {
+export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordProps) => {
 
     const dispatch = useDispatch();
     const wordsFromStore: any = Object.values(store.getState().wordsGetter);

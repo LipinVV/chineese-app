@@ -5,16 +5,13 @@ import {wordInterface} from "../AdminSection/WordCreator/WordCreatorFireBase";
 import {Word} from "../Word/Word";
 
 export const Dictionary = ({menuIsOpen} : any) => {
-    const [words, setWords] = useState([]);
-
-    const [filtered, setFiltered] = useState([]);
+    const [words, setWords] = useState<wordInterface[]>([]);
+    const [filtered, setFiltered] = useState<wordInterface[]>([]);
 
     const getAllWords = async () => {
         try {
             const allWordsFromServer = await getWordsFromFireBase()
-            // @ts-ignore
             setWords(allWordsFromServer)
-            // @ts-ignore
             setFiltered(allWordsFromServer)
         } catch (error) {
             console.error(error)
@@ -40,7 +37,6 @@ export const Dictionary = ({menuIsOpen} : any) => {
                 return value;
             }
         })
-        // @ts-ignore
         setFiltered(arrangedWords)
     }
 
