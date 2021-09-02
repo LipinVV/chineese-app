@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {getWordsFromFireBase} from "../../Services/getWordsFromFireBase";
-import { Link } from 'react-router-dom';
 import './audioMatching.scss';
 import {wordInterface} from "../../AdminSection/WordCreator/WordCreatorFireBase";
+import {server} from "../../App";
+import {incrementUserPoints} from "../../Actions/actions";
+import {useDispatch} from "react-redux";
+import {Link} from "react-router-dom";
 
 
-export const AudioMatching = ({user} : any) => {
+export const AudioMatching = ({user, onGameFinished}: any) => {
+    const dispatch = useDispatch();
+    const [numberOfQuestions, setNumberOfQuestions] = useState(3);
+    const [collectedPoints, setCollectedPoints] = useState(0);
 
     const [words, setWords] = useState<wordInterface[]>([]);
     const getAllWords = async () => {
@@ -20,22 +26,21 @@ export const AudioMatching = ({user} : any) => {
         getAllWords()
     }, [])
 
-    const numberGenerator = Math.floor(Math.random() * 12);
+    const numberGenerator = Math.floor(Math.random() * 20);
     const [num, setNum] = useState(numberGenerator);
 
-    const showRandomWordUrl = (allWords : wordInterface[], num : number) => {
-        const foundWord = allWords.find((word) => word.id === num)
-        return foundWord?.audioUrl
+    const showRandomWordUrl = (allWords: wordInterface[], num: number) => {
+        const foundWord = allWords.find((word) => word.id === num);
+        return foundWord?.audioUrl;
     }
 
-    const showRandomWord = (num : number) => {
+    const showRandomWord = (num: number) => {
         for (let word of words) {
             if (word.id === num) {
                 return word.word;
-            } else {
-                continue
             }
         }
+        // return words.map((word: any) => word.id === num)
     }
 
     const handleGenerator = () => {
@@ -44,14 +49,27 @@ export const AudioMatching = ({user} : any) => {
     }
 
     const [answer, setAnswer] = useState('');
-    const handleChanger = (evt : any) => {
-        const { value } = evt.target;
+    const handleChanger = (evt: any) => {
+        const {value} = evt.target;
         setAnswer(value);
+        if (value === showRandomWord(num)) {
+            setCollectedPoints(collectedPoints + 1)
+            setWrongAnswer(false)
+        } else {
+            setCollectedPoints(collectedPoints)
+            setWrongAnswer(true)
+        }
     }
-
-    const handleKeyPress = (evt : any) => {
+    const [wrongAnswer, setWrongAnswer] = useState(false);
+    const handleKeyPress = (evt: any) => {
         if (evt.keyCode === 13 && answer === showRandomWord(num)) {
+            setCollectedPoints(collectedPoints + 1);
+            setNumberOfQuestions(numberOfQuestions - 1);
             nextAudio();
+        } else {
+            setWrongAnswer(true);
+            setCollectedPoints(collectedPoints);
+            setNumberOfQuestions(numberOfQuestions);
         }
     }
 
@@ -70,12 +88,47 @@ export const AudioMatching = ({user} : any) => {
         return sound.play();
     }
 
+    const updateUserPoints = async () => {
+        try {
+            let {data: users}: any = await server
+                .from('users')
+            const chosenUser = users.find((person: any) => person.nickname === user)
+            const {data} = await server
+                .from('users')
+                .update([
+                    {
+                        globalPoints: chosenUser.globalPoints + collectedPoints,
+                    }
+                ])
+                .match({nickname: user})
+            console.log('user is updated =>', data)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const repeatHandler = async () => {
+        setCollectedPoints(0);
+        await updateUserPoints();
+        onGameFinished()
+        dispatch(incrementUserPoints(collectedPoints));
+        setNumberOfQuestions(3);
+    }
+
+    const collectedPointsHandler = async () => {
+        await updateUserPoints()
+        onGameFinished()
+        dispatch(incrementUserPoints(collectedPoints))
+    }
+
     return (
         <div className='audio-matching'>
+            {numberOfQuestions !== 0 && <div className='audio-matching__questions-left'>Words left: {numberOfQuestions}</div>}
+            {numberOfQuestions !== 0 && <>
                 <div className='audio-matching__current-word'>
-                    {Boolean(showRandomWordUrl(words, num)) && isShowPlayer && (
+                    {Boolean(showRandomWordUrl(words, num)) && isShowPlayer && numberOfQuestions !== 0 && (
                         <audio id={showRandomWord(num)} autoPlay>
-                            <source src={showRandomWordUrl(words, num)} />
+                            <source src={showRandomWordUrl(words, num)}/>
                         </audio>
                     )}
                     <button className='audio-matching__play' onClick={soundOutput}>Play the word</button>
@@ -91,8 +144,27 @@ export const AudioMatching = ({user} : any) => {
                 </label>
                 <button
                     className='audio-matching__next-question'
-                    onClick={nextAudio}
-                >Next</button>
+                    onClick={() => {
+                        setNumberOfQuestions(prevState => prevState - 1)
+                        nextAudio()
+                    }}
+                >Next
+                </button>
+            </>}
+            {numberOfQuestions === 0 && <button
+                type='button'
+                className='audio-matching__restart'
+                onClick={repeatHandler}
+            >
+                Repeat
+            </button>}
+            {numberOfQuestions === 0 && <Link
+                to='/practice'
+                className='audio-matching__exit'
+                onClick={collectedPointsHandler}
+            >
+                To practice page
+            </Link>}
         </div>
     )
 }
