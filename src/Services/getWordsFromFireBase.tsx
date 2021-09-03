@@ -19,7 +19,10 @@ export const getWordsFromFireBase = async () => {
                 definition: unpackedWord.definition,
                 pinyin: unpackedWord.pinyin,
                 tone: unpackedWord.tone,
-                audioUrl: unpackedWord.audioUrl
+                audioUrl: unpackedWord.audioUrl,
+                correct: unpackedWord.correct,
+                isFavourite: unpackedWord.isFavourite,
+                toLearn: unpackedWord.toLearn
                 // audioUrl: unpackedWord?.audioUrl?.audioUrl,
             })
         });

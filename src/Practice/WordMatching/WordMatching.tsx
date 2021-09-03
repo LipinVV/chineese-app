@@ -7,12 +7,13 @@ import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
+import {wordInterface} from "../../AdminSection/WordCreator/WordCreatorFireBase";
 
 
 interface matchingWordProps {
     user: string | undefined,
     onGameFinished: () => void,
-    mainEntity: 'word' | 'definition'
+    mainEntity: 'word' | 'definition' | 'audioUrl'
 }
 
 export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordProps) => {
@@ -47,7 +48,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
     const correctAnswer: any = mainEntity === 'word' ? wordsForTheTask[randomNumber]?.definition : wordsForTheTask[randomNumber]?.word; // FIX IT
     const validation = (evt: any) => {
         const {value} = evt.target;
-        if(mainEntity === 'word') {
+        if (mainEntity === 'word' || mainEntity === 'audioUrl') {
             if (value === wordsForTheTask[randomNumber].word && wrongAnswer === false) {
                 setCollectedPoints(collectedPoints + 1)
             }
@@ -74,7 +75,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                 setWordsForTheTask(toggled);
             }
         }
-        if(mainEntity === 'definition') {
+        if (mainEntity === 'definition') {
             if (value === wordsForTheTask[randomNumber].definition && wrongAnswer === false) {
                 setCollectedPoints(collectedPoints + 1)
             }
@@ -164,6 +165,20 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
         dispatch(incrementUserPoints(collectedPoints))
     }
 
+    const [isShowPlayer, setShowPlayer] = useState(true);
+    const nextAudio = () => {
+        setShowPlayer(false);
+
+        setTimeout(() => {
+            setShowPlayer(true);
+        }, 300)
+    }
+
+    const soundOutput = () => {
+        const sound = new Audio(`${wordsForTheTask[randomNumber].audioUrl}`);
+        return sound.play();
+    }
+
     return (
         <div className='match-the-word__global-wrapper'>
             {numberOfQuestions === 0 && collectedPoints === 3 && <Fireworks options={options} style={style}/>}
@@ -190,23 +205,50 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                         }}>Advanced mode
                     </button>
                 </div>
-                <div hidden={!startTask} className='match-the-word__result'>{correctAnswer}</div>
-                <div className='match-the-word'>
-                    {wordsForTheTask.map((word: wordCard) => {
-                        return <button
-                                type='button'
-                                data-unit={mainEntity === 'word' ? word.definition : word.word}
-                                disabled={rightAnswer}
-                                key={word.word}
-                                value={word[mainEntity]}
-                                onClick={validation}
-                                className={`answer ${word.correct}`}
-                            >
-                                {word[mainEntity]}
-                            </button>
-                        }
-                    )}
+                <div hidden={!startTask}
+                     className='match-the-word__result'>{mainEntity === 'word' || mainEntity === 'definition' ? correctAnswer :
+                    <div>
+                        {isShowPlayer && <audio id={String(wordsForTheTask[randomNumber]?.id)} autoPlay>
+                            <source src={wordsForTheTask[randomNumber]?.audioUrl}/>
+                        </audio>}
+                        <button className='audio-matching__play' onClick={soundOutput}>Play the word</button>
+                    </div>
+                }
                 </div>
+                {mainEntity === 'word' || mainEntity === 'definition' ? <div className='match-the-word'>
+                        {wordsForTheTask.map((word: wordCard) => {
+                                return <button
+                                    type='button'
+                                    data-unit={mainEntity === 'word' ? word.definition : word.word}
+                                    disabled={rightAnswer}
+                                    key={word.word}
+                                    value={word[mainEntity]}
+                                    onClick={validation}
+                                    className={`answer ${word.correct}`}
+                                >
+                                    {word[mainEntity]}
+                                </button>
+                            }
+                        )}
+                    </div>
+                    :
+                    <div className='match-the-word'>
+                        {wordsForTheTask.map((word: wordCard) => {
+                                return <button
+                                    type='button'
+                                    data-unit={mainEntity === 'audioUrl' && word.word}
+                                    disabled={rightAnswer}
+                                    key={word.word}
+                                    value={word.word}
+                                    onClick={validation}
+                                    className={`answer ${word.correct}`}
+                                >
+                                    {word.word}
+                                </button>
+                            }
+                        )}
+                    </div>
+                }
                 <div style={rightAnswer !== true || numberOfQuestions === 0 ? {'display': 'none'} : {}}
                      className='match-the-word__wrapper'>
                     <button
@@ -219,6 +261,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                                 setRightAnswer(false)
                                 setNumberOfQuestions(prevState => prevState - 1)
                                 setWrongAnswer(false)
+                                mainEntity === 'audioUrl' && nextAudio()
                             }
                         }>Next
                     </button>

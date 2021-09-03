@@ -76,10 +76,25 @@ export const Practice = ({setMenuIsOpen} : any) => {
                         if(width > 1023)
                             setStyleOfTheThirdPractice({display: 'none'})
                     }} className='practice__navigation-link' to='/practice/audio-matching'><span
-                    className='practice__navigation-title'>Audio sprint </span></Link>
+                    className='practice__navigation-title'>Audio-word</span></Link>
                 <div className='practice__navigation__task-description' style={styleOfTheThirdPractice}>
                     <h4 className='practice__navigation__task-header'>Description of the task:</h4>
-                    <div className='practice__navigation__task-text'>Type a right answer before the time ends</div>
+                    <div className='practice__navigation__task-text'>Type a word in accordance to the audio <br/>Play audio a few times is necessary</div>
+                </div>
+                <Link
+                    onClick={() => setMenuIsOpen(true)}
+                    onMouseEnter={() => {
+                        if(width > 1023)
+                            setStyleOfTheThirdPractice({display: 'flex'});
+                    }}
+                    onMouseLeave={() => {
+                        if(width > 1023)
+                            setStyleOfTheThirdPractice({display: 'none'})
+                    }} className='practice__navigation-link' to='/practice/audio-definition'><span
+                    className='practice__navigation-title'>Audio-matching</span></Link>
+                <div className='practice__navigation__task-description' style={styleOfTheThirdPractice}>
+                    <h4 className='practice__navigation__task-header'>Description of the task:</h4>
+                    <div className='practice__navigation__task-text'>Match the audio with it's definition <br/>Play audio a few times is necessary</div>
                 </div>
             </div>
         </div>

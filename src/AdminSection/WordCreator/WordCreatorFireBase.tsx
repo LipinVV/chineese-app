@@ -11,7 +11,10 @@ export interface wordInterface {
     pinyin: string,
     definition: string,
     tone: number,
-    audioUrl: string
+    audioUrl: string,
+    correct: string,
+    isFavourite: boolean | undefined,
+    toLearn: boolean | undefined,
 }
 
 export const WordCreatorFireBase = () => {

@@ -1,5 +1,6 @@
 import {createClient} from "@supabase/supabase-js";
-
+import {ACTIONS} from "../Actions/actions";
+// ***
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
     'eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODc1MjMyMSwiZXhwIjoxOTQ0MzI4MzIxfQ.' +
@@ -8,8 +9,8 @@ export const status = Boolean(server.auth.session()?.user);
 
 export const logOutReducer = (state = !status, action: any) => {
     switch (action.type) {
-        case 'IS_NOT_LOGGED': {
-            return false;
+        case ACTIONS.IS_LOGGED_OUT: {
+            return !state;
         }
         default: {
             return state
@@ -19,8 +20,8 @@ export const logOutReducer = (state = !status, action: any) => {
 
 export const logInReducer = (state = status, action: any) => {
     switch (action.type) {
-        case 'IS_LOGGED': {
-            return true;
+        case ACTIONS.IS_LOGGED_IN: {
+            return !state;
         }
         default: {
             return state

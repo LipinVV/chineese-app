@@ -59,7 +59,7 @@ function App() {
     const matchedUser = user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
     const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
 
-    const admin: any = server.auth.session()?.user?.id;
+    const admin: string | undefined = server.auth.session()?.user?.id;
     const [words, setWords] = useState<wordInterface[]>([]);
     const dispatch = useDispatch();
 
@@ -99,6 +99,9 @@ function App() {
                             getUser()
                         }}/></Route>
                         <Route path='/practice/word-definition'><WordMatching mainEntity={'definition'} user={matchedUser} onGameFinished={() => {
+                            getUser()
+                        }}/></Route>
+                        <Route path='/practice/audio-definition'><WordMatching mainEntity={'audioUrl'} user={matchedUser} onGameFinished={() => {
                             getUser()
                         }}/></Route>
                         <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {

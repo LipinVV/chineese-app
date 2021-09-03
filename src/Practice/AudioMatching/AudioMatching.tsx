@@ -6,6 +6,7 @@ import {server} from "../../App";
 import {incrementUserPoints} from "../../Actions/actions";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
+import {type} from "os";
 
 
 export const AudioMatching = ({user, onGameFinished}: any) => {
@@ -30,7 +31,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
 
     const numberGenerator = Math.floor(Math.random() * 20) + 1;
     const [num, setNum] = useState(numberGenerator);
-    console.log('num', num)
+
     const showRandomWordUrl = (allWords: wordInterface[], num: number) => {
         const foundWord = allWords.find((word) => word.id === num);
         return foundWord?.audioUrl;
@@ -63,15 +64,18 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
     }
     const [wrongAnswer, setWrongAnswer] = useState(false);
     const handleKeyPress = (evt: any) => {
-        if (evt.keyCode === 13) {
-            setCollectedPoints(collectedPoints + 1);
+        if (evt.keyCode === 13 && evt.target.value === showRandomWord(num)) {
+                setCollectedPoints(collectedPoints + 1);
+                console.log('+1')
             setNumberOfQuestions(numberOfQuestions - 1);
             nextAudio();
-        } else {
-            setWrongAnswer(true);
-            setCollectedPoints(collectedPoints);
-            setNumberOfQuestions(numberOfQuestions);
         }
+        console.log('collectedPoints', collectedPoints)
+        // else {
+        //     setWrongAnswer(true);
+        //     setCollectedPoints(collectedPoints);
+        //     setNumberOfQuestions(numberOfQuestions);
+        // }
     }
 
     const [isShowPlayer, setShowPlayer] = useState(true);
@@ -146,7 +150,13 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                         type='text'
                         value={answer}
                         onChange={handleChanger}
-                        onKeyDown={handleKeyPress}
+                        onKeyDown={(evt) => {
+                        handleKeyPress(evt);
+                            // @ts-ignore
+                            wordsRenderedForTheTask.push(answer);
+                            setCorrectAnswers([...correctAnswers, showRandomWord(num)])
+                        }
+                        }
                     />
                 </label>
                 <button
@@ -165,7 +175,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                 {wordsRenderedForTheTask.map((word: wordInterface, index: number) => {
                     return (
                         // @ts-ignore
-                        <div key={word} className={ word === answer ? 'audio-matching__answer-rendered-for-the-task' : 'audio-matching__answer-rendered-for-the-task audio-matching__answer-rendered-for-the-task'}>
+                        <div key={word + index} className={ word === answer ? 'audio-matching__answer-rendered-for-the-task' : 'audio-matching__answer-rendered-for-the-task audio-matching__answer-rendered-for-the-task'}>
                             <span className='audio-matching__correct-answer'>answer №{index + 1}: {correctAnswers[index]}</span>
                             <span className={correctAnswers[index] === word ? 'audio-matching__user-answer':  'audio-matching__user-answer-wrong'}>{word}</span>
                         </div>
