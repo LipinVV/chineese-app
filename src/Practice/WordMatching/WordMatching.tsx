@@ -7,7 +7,6 @@ import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
-import {wordInterface} from "../../AdminSection/WordCreator/WordCreatorFireBase";
 
 
 interface matchingWordProps {
@@ -211,7 +210,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                         {isShowPlayer && <audio id={String(wordsForTheTask[randomNumber]?.id)} autoPlay>
                             <source src={wordsForTheTask[randomNumber]?.audioUrl}/>
                         </audio>}
-                        <button className='audio-matching__play' onClick={soundOutput}>Play the word</button>
+                        <button className='match-the-word__audio' onClick={soundOutput}>Play the word</button>
                     </div>
                 }
                 </div>
@@ -243,7 +242,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                                     onClick={validation}
                                     className={`answer ${word.correct}`}
                                 >
-                                    {word.word}
+                                    {word.definition}
                                 </button>
                             }
                         )}

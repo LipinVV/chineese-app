@@ -6,17 +6,17 @@ import {server} from "../../App";
 import {incrementUserPoints} from "../../Actions/actions";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
-import {type} from "os";
+import {wordCard} from "../../types/types";
 
 
 export const AudioMatching = ({user, onGameFinished}: any) => {
-    const [wordsRenderedForTheTask, setWordsRenderedForTheTask] = useState<wordInterface[]>([]);
+    const [wordsRenderedForTheTask, setWordsRenderedForTheTask] = useState<wordCard[]>([]);
     const [correctAnswers, setCorrectAnswers] = useState<any[]>([]);
     const dispatch = useDispatch();
     const [numberOfQuestions, setNumberOfQuestions] = useState(3);
     const [collectedPoints, setCollectedPoints] = useState(0);
 
-    const [words, setWords] = useState<wordInterface[]>([]);
+    const [words, setWords] = useState<wordCard[]>([]);
     const getAllWords = async () => {
         try {
             const allWordsFromServer = await getWordsFromFireBase()
@@ -32,7 +32,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
     const numberGenerator = Math.floor(Math.random() * 20) + 1;
     const [num, setNum] = useState(numberGenerator);
 
-    const showRandomWordUrl = (allWords: wordInterface[], num: number) => {
+    const showRandomWordUrl = (allWords: wordCard[], num: number) => {
         const foundWord = allWords.find((word) => word.id === num);
         return foundWord?.audioUrl;
     }
@@ -150,14 +150,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                         type='text'
                         value={answer}
                         onChange={handleChanger}
-                        onKeyDown={(evt) => {
-                        handleKeyPress(evt);
-                            // @ts-ignore
-                            wordsRenderedForTheTask.push(answer);
-                            setCorrectAnswers([...correctAnswers, showRandomWord(num)])
-                        }
-                        }
-                    />
+                        onKeyDown={handleKeyPress}/>
                 </label>
                 <button
                     className='audio-matching__next-question'

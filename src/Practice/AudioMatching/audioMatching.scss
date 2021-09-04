@@ -5,6 +5,8 @@
   display: flex;
   flex-direction: column;
   margin: 30px auto 0;
+  background-color: $section-deep-bg;
+  padding: 40px;
   @media (min-width: $mobileDevice) {
     max-width: $mobileDevice;
     grid-gap: 25px;
@@ -21,8 +23,8 @@
 .audio-matching__play {
   background-color: $black;
   cursor: pointer;
-  border: 3px solid $golden;
-  color: $golden;
+  border: none;
+  color: $white;
   font-size: 15px;
   font-weight: 600;
   @media (min-width: $mobileDevice) {

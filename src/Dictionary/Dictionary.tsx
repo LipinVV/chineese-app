@@ -73,13 +73,13 @@ export const Dictionary = ({menuIsOpen} : any) => {
         }
         return 'слов';
     }
-    console.log('filtered', filtered)
+
     return (
         <div className='dictionary'>
             <input
                 className='dictionary__input'
                 type='text'
-                placeholder='Поиск по слову...'
+                placeholder='Type a word...'
                 onChange={(evt) => filter(evt.target.value, words)}
             />
             {

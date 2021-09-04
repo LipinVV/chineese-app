@@ -12,7 +12,9 @@ body {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: black url("./img/main-bg.jpg") no-repeat center center fixed;
+  //background: black url("./img/main-bg.jpg") no-repeat center center fixed;
+  background-color: $black;
+  height: 100%;
   @media (min-width: $mobileDevice) {
     background-size: 100%;
     background-position-y: 65%;

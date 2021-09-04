@@ -13,8 +13,8 @@ export interface wordInterface {
     tone: number,
     audioUrl: string,
     correct: string,
-    isFavourite: boolean | undefined,
-    toLearn: boolean | undefined,
+    isFavourite: boolean,
+    toLearn: boolean,
 }
 
 export const WordCreatorFireBase = () => {

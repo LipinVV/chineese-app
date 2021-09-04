@@ -10,12 +10,14 @@
     max-width: $desktopDevice;
   }
   @media (min-width: $desktopDevice) {
-    max-width: $largeDesktopDevice;
+    //max-width: $largeDesktopDevice;
+    width: 100%;
   }
 }
 
 .practice {
-  margin: 30px auto 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .practice__navigation {
@@ -43,10 +45,9 @@
   text-align: center;
   color: $white;
   background-size: cover;
-  border-radius: 24px;
   min-height: 60px;
+  font-weight: 600;
   @media (min-width: $tabletDevice) {
-    border-radius: 48px;
     font-size: 25px;
     min-height: 80px;
   }
@@ -58,26 +59,22 @@
 
 .practice__navigation-link:nth-of-type(1) {
   background-image: url('img/definition-word.jpg');
-  font-weight: 600;
 }
 
 .practice__navigation-link:nth-of-type(2) {
   background-image: url('img/word-definition.jfif');
-  font-weight: 600;
 }
 
 .practice__navigation-link:nth-of-type(3) {
   background-image: url('img/board-game.jpg');
-  font-weight: 600;
 }
 
 .practice__navigation-link:nth-of-type(4) {
-  background-image: url('./../../src/Practice/img/sprint.jpg');
-  font-weight: 600;
+  background-image: url('img/sprint.jpg');
 }
 
-.practice__navigation-link:nth-child(5) {
-  background-color: $golden;
+.practice__navigation-link:nth-of-type(5) {
+  background-image: url('img/audio-definition.jpg');
 }
 
 .practice__header {

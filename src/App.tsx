@@ -34,6 +34,7 @@ import {wordInterface} from "./AdminSection/WordCreator/WordCreatorFireBase";
 import {Dictionary} from "./Dictionary/Dictionary";
 import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
 import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
+import {Footer} from "./Footer/Footer";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -115,6 +116,7 @@ function App() {
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
                     </Switch>
+                <Footer/>
             </Router>
         </div>
     );

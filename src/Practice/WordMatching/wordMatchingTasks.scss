@@ -169,6 +169,12 @@
 .match-the-word__global-wrapper {
   margin-top: 30px;
   position: relative;
+  @media screen and (min-width: $mobileDevice) {
+    min-height: 180px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    min-height: 280px;
+  }
 }
 
 .match-the-word__wrapper:last-of-type {
@@ -178,7 +184,8 @@
 .match-the-word__start,
 .match-the-word__next,
 .match-the-word__restart,
-.match-the-word__exit {
+.match-the-word__exit,
+.match-the-word__audio {
   position: relative;
   @media screen and (min-width: $mobileDevice) {
     cursor: pointer;
@@ -259,4 +266,9 @@
   @media screen and (min-width: $tabletDevice) {
     font-size: 25px;
   }
+}
+
+.match-the-word__audio {
+  background-color: $white;
+  color: $black;
 }
