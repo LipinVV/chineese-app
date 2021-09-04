@@ -68,16 +68,16 @@ input[type="number"]::-webkit-inner-spin-button {
   min-height: 100vh;
   color: $white;
   width: 100%;
-  @media (min-width: $mobileDevice) {
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-  @media (min-width: $tabletDevice) {
-    padding-top: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
-  }
+  //@media (min-width: $mobileDevice) {
+  //  padding-top: 20px;
+  //  padding-left: 20px;
+  //  padding-right: 20px;
+  //}
+  //@media (min-width: $tabletDevice) {
+  //  padding-top: 30px;
+  //  padding-left: 30px;
+  //  padding-right: 30px;
+  //}
 }
 
 .app__label {
@@ -89,6 +89,7 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
     position: relative;
+    padding-left: 20px;
   }
 }
 
@@ -116,4 +117,5 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  padding-left: 20px;
 }

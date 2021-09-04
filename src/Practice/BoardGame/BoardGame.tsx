@@ -179,7 +179,7 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                 </div>}
             </div>
             {globalCounter === 18 &&
-            <div style={{marginTop: '30px'}} className='board-game__winner-zone'>
+            <div className='board-game__winner-zone'>
                 <Link
                     to='/practice'
                     className='board-game__exit'

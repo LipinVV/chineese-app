@@ -232,7 +232,7 @@
   position: absolute;
   width: 100%;
   @media screen and (min-width: $mobileDevice) {
-    max-width: $tabletDevice;
+
     display: grid;
     grid-gap: 30px;
     margin: 0 auto;
@@ -241,14 +241,14 @@
     top: 0;
   }
   @media screen and (min-width: $tabletDevice) {
-    max-width: $desktopDevice;
+
     padding: 30px 0 30px 0;
   }
   @media (min-width: $desktopDevice) {
-    max-width: $largeDesktopDevice;
+
   }
   @media (min-width: $largeDesktopDevice) {
-    max-width: $largeDesktopDevice;
+
   }
 }
 
