@@ -3,13 +3,9 @@
 @import "src/App";
 
 .footer {
-  display: flex;
-  flex-direction: column;
   background-color: $black;
-  bottom: 0;
-  @media (min-width: $desktopDevice) {
-    max-width: $largeDesktopDevice;
-  }
+  width: 100%;
+  padding-left: 20px;
 }
 
 .footer-main {
@@ -58,7 +54,7 @@
 .footer-underline__item,
 .footer-shop__text{
   list-style: none;
-  padding-bottom: 15px;
+  padding-bottom: 7px;
   margin: 0;
   font-style: normal;
   font-weight: normal;
@@ -94,30 +90,29 @@
 
 .footer-underline {
   display: grid;
-
   @media(min-width: $desktopDevice) {
     padding: 10px 20px 20px 20px;
   }
 
   @media (min-width: $largeDesktopDevice) {
     max-width: $largeDesktopDevice;
-    margin: 0 auto;
+    padding: 0 0 20px 0;
   }
 }
 
 .footer-underline__list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px;
+  grid-gap: 10px;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 
   @media (min-width: $largeTabletDevice) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
   }
 
   @media (min-width: $desktopDevice) {
-    grid-template-columns: 5fr repeat(3, 1fr) 0.5fr;
     padding: 0;
   }
 }

@@ -16,7 +16,7 @@ export const Footer = () => {
                         <li className='footer-contacts__mail'><a className='footer-contacts__mail-link'  href = "mailto: vit.lipin@gmail.com">Mail a manager</a></li>
                         <li className='footer-contacts__phone'><a className='footer-contacts__phone-number' href='tel:+79086983282'>79086983282</a></li>
                     </ul>
-                    <ul>
+                    <ul style={{margin: 0, padding: 0}}>
                         <li className='footer-contacts__social-media'>
                             <span className='footer-contacts__social-media-item'><a href='https://facebook.com' className='footer-contacts__social-media-item-fb'></a></span>
                             <span className='footer-contacts__social-media-item'><a href='https://twitter.com' className='footer-contacts__social-media-item-twitter'></a></span>

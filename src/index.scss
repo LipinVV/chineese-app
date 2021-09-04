@@ -4,7 +4,10 @@
   box-sizing: border-box;
 }
 
+
 body {
+  min-height: 100%;
+  height: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Arial', 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -13,15 +16,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   //background: black url("./img/main-bg.jpg") no-repeat center center fixed;
-  background-color: $black;
-  height: 100%;
-  @media (min-width: $mobileDevice) {
-    background-size: 100%;
-    background-position-y: 65%;
-  }
-  @media (min-width: $desktopDevice) {
-    background-position-y: 45%;
-  }
+  background: $black url('./img/8.jpg') no-repeat 100% fixed;
 }
 
 code {

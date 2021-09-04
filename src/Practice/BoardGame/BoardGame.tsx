@@ -141,42 +141,42 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                         }}>Start
                     </button>
                 </div>
-                <div className='board-game'>
+                {finalArray.length > 0 && <div className='board-game'>
                     {finalArray?.map((word: any) => {
-                        return (
-                            <div key={word.id}>
-                                <button
-                                    value={word.word}
-                                    style={{display: word.trans ? "none" : 'inherit'}}
-                                    disabled={arrayToCompareChosenWords[0] === word.word && word.trans === undefined && firstChosenWord}
-                                    onClick={(evt: any) => {
-                                        logic(evt);
-                                        setFirstChosenWord(true);
-                                        setGlobalCounter(globalCounter + 1);
-                                    }}
-                                    className={word.correct ? `board-answer ${word.correct}` : 'basic'}
-                                >
-                                    {word.trans === undefined && word.word}
-                                </button>
-                                <button
-                                    disabled={word.trans && arrayToCompareChosenWords[0] === word.word && secondChosenWord}
-                                    key={word.word + word.pinyin}
-                                    value={word.word}
-                                    style={{display: !word.trans ? "none" : 'inherit'}}
-                                    onClick={(evt: any) => {
-                                        logic(evt);
-                                        setSecondChosenWord(true);
-                                        setGlobalCounter(globalCounter + 1);
-                                    }}
-                                    className={word.correct ? `board-answer ${word.correct}` : 'basic'}
-                                >
-                                    {word.trans !== undefined && word.pinyin}
-                                </button>
-                            </div>
-                        )
+                            return (
+                                <div key={word.id}>
+                                    <button
+                                        value={word.word}
+                                        style={{display: word.trans ? "none" : 'inherit'}}
+                                        disabled={arrayToCompareChosenWords[0] === word.word && word.trans === undefined && firstChosenWord}
+                                        onClick={(evt: any) => {
+                                            logic(evt);
+                                            setFirstChosenWord(true);
+                                            setGlobalCounter(globalCounter + 1);
+                                        }}
+                                        className={word.correct ? `board-answer ${word.correct}` : 'basic'}
+                                    >
+                                        {word.trans === undefined && word.word}
+                                    </button>
+                                    <button
+                                        disabled={word.trans && arrayToCompareChosenWords[0] === word.word && secondChosenWord}
+                                        key={word.word + word.pinyin}
+                                        value={word.word}
+                                        style={{display: !word.trans ? "none" : 'inherit'}}
+                                        onClick={(evt: any) => {
+                                            logic(evt);
+                                            setSecondChosenWord(true);
+                                            setGlobalCounter(globalCounter + 1);
+                                        }}
+                                        className={word.correct ? `board-answer ${word.correct}` : 'basic'}
+                                    >
+                                        {word.trans !== undefined && word.pinyin}
+                                    </button>
+                                </div>
+                            )
                         }
                     )}
-                </div>
+                </div>}
             </div>
             {globalCounter === 18 &&
             <div style={{marginTop: '30px'}} className='board-game__winner-zone'>
