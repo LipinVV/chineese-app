@@ -91,35 +91,35 @@ function App() {
     return (
         <div  className="app">
             <div className='app-content'>
-            <Router>
-                <div className='app__label'><Link to='/home' className='app__label-title'>Wisdom</Link></div>
-                <h3 className='app__label-bottom'>{matchedUser ? `May the power be with you, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
-                {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
-                <Navigation setMenuIsOpen={setMenuIsOpen} menuFn={menuShowHandler} menuIsOpen={menuIsOpen} admin={admin} accessFn={accessFn} state={state} />
-                    <Switch>
-                        {!state && <Route path='/registration'><Registration/></Route>}
-                        <Route path='/practice/definition-word'><WordMatching mainEntity={'word'} user={matchedUser} onGameFinished={() => {
-                            getUser()
-                        }}/></Route>
-                        <Route path='/practice/word-definition'><WordMatching mainEntity={'definition'} user={matchedUser} onGameFinished={() => {
-                            getUser()
-                        }}/></Route>
-                        <Route path='/practice/audio-definition'><WordMatching mainEntity={'audioUrl'} user={matchedUser} onGameFinished={() => {
-                            getUser()
-                        }}/></Route>
-                        <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {
-                            getUser()
-                        }}/></Route>
-                        <Route path='/practice/audio-matching'><AudioMatching user={matchedUser} onGameFinished={() => {
-                            getUser()
-                        }}/></Route>
-                        <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
-                        <Route path='/dictionary'><Dictionary menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
-                        <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
-                        <Route path='/'><Landing/></Route>
-                        {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
-                    </Switch>
-            </Router>
+                <Router>
+                    <div className='app__label'><Link to='/home' className='app__label-title'>Wisdom</Link></div>
+                    <h3 className='app__label-bottom'>{matchedUser ? `May the power be with you, ${matchedUser}!` : 'Greetings, Stranger...'}</h3>
+                    {state && <h3 className='app__label-bottom'>{`You've got  ${matchedUserPoints} points`}</h3>}
+                    <Navigation setMenuIsOpen={setMenuIsOpen} menuFn={menuShowHandler} menuIsOpen={menuIsOpen} admin={admin} accessFn={accessFn} state={state} />
+                        <Switch>
+                            {!state && <Route path='/registration'><Registration/></Route>}
+                            <Route path='/practice/definition-word'><WordMatching mainEntity={'word'} user={matchedUser} onGameFinished={() => {
+                                getUser()
+                            }}/></Route>
+                            <Route path='/practice/word-definition'><WordMatching mainEntity={'definition'} user={matchedUser} onGameFinished={() => {
+                                getUser()
+                            }}/></Route>
+                            <Route path='/practice/audio-definition'><WordMatching mainEntity={'audioUrl'} user={matchedUser} onGameFinished={() => {
+                                getUser()
+                            }}/></Route>
+                            <Route path='/practice/board-game'><BoardGame words={wordsFromStore}  user={matchedUser} onGameFinish={() => {
+                                getUser()
+                            }}/></Route>
+                            <Route path='/practice/audio-matching'><AudioMatching user={matchedUser} onGameFinished={() => {
+                                getUser()
+                            }}/></Route>
+                            <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
+                            <Route path='/dictionary'><Dictionary menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
+                            <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
+                            <Route path='/'><Landing/></Route>
+                            {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
+                        </Switch>
+                </Router>
             </div>
             <Footer />
         </div>
