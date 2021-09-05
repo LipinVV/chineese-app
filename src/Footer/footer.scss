@@ -90,7 +90,8 @@
 .footer-underline {
   display: grid;
   @media(min-width: $desktopDevice) {
-    padding: 10px 20px 20px 20px;
+    padding-bottom: 20px;
+    grid-gap: 35px;
   }
 
   @media (min-width: $largeDesktopDevice) {

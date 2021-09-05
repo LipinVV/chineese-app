@@ -8,7 +8,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    padding-left: 20px;
   }
   @media (min-width: 400px) {
     max-width: $desktopDevice;
@@ -116,17 +115,12 @@
   }
 }
 
-//.navigation__animated-link {
-//  animation-name: bounce;
-//  animation-duration: 1s;
-//}
-
 .navigation__menu-button {
   cursor: pointer;
   position: absolute;
   @media (min-width: $mobileDevice) {
     padding: 0;
-    right: 40px;
+    right: 20px;
     top: -10px;
     transform: translateX(20px);
     display: flex;
@@ -143,7 +137,6 @@
     }
   }
   @media (min-width: 400px) {
-    //right: 20px;
     top: -30px;
   }
   @media (min-width: $desktopDevice) {

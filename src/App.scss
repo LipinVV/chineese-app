@@ -63,21 +63,18 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 0;
 }
 
+
 .app {
-  position: relative;
-  min-height: 100vh;
   color: $white;
   width: 100%;
-  //@media (min-width: $mobileDevice) {
-  //  padding-top: 20px;
-  //  padding-left: 20px;
-  //  padding-right: 20px;
-  //}
-  //@media (min-width: $tabletDevice) {
-  //  padding-top: 30px;
-  //  padding-left: 30px;
-  //  padding-right: 30px;
-  //}
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1;
+  padding: 20px;
 }
 
 .app__label {
@@ -89,7 +86,6 @@ input[type="number"]::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
     position: relative;
-    padding-left: 20px;
   }
 }
 
@@ -117,5 +113,4 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 20px;
 }

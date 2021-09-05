@@ -35,6 +35,7 @@ import {Dictionary} from "./Dictionary/Dictionary";
 import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
 import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
 import {Footer} from "./Footer/Footer";
+import {Landing} from "./Landing/Landing";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -88,7 +89,8 @@ function App() {
     }
 
     return (
-        <div id='width' className="app">
+        <div  className="app">
+            <div className='app-content'>
             <Router>
                 <div className='app__label'><Link to='/home' className='app__label-title'>Wisdom</Link></div>
                 <h3 className='app__label-bottom'>{matchedUser ? `May the power be with you, ${matchedUser}!` : 'Greetings, stranger...'}</h3>
@@ -114,10 +116,12 @@ function App() {
                         <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
                         <Route path='/dictionary'><Dictionary menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
                         <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
+                        <Route path='/'><Landing/></Route>
                         {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
                     </Switch>
-                <Footer />
             </Router>
+            </div>
+            <Footer />
         </div>
     );
 }

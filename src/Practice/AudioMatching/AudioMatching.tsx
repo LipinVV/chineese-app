@@ -142,7 +142,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                             <source src={showRandomWordUrl(words, num)}/>
                         </audio>
                     )}
-                    <button className='audio-matching__play' onClick={soundOutput}>Play the word</button>
+                    <button className='audio-matching__play' onClick={soundOutput}>Listen to the word</button>
                 </div>
                 <label className='audio-matching__answer-label'>
                     <input

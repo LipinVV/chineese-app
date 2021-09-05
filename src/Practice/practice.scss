@@ -10,7 +10,6 @@
     max-width: $desktopDevice;
   }
   @media (min-width: $desktopDevice) {
-    //max-width: $largeDesktopDevice;
     width: 100%;
   }
 }
@@ -23,8 +22,6 @@
 
 .practice__navigation {
   position: relative;
-  padding-left: 20px;
-  padding-right: 20px;
   @media (min-width: $mobileDevice) {
     grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr;

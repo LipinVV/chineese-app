@@ -210,7 +210,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
                         {isShowPlayer && <audio id={String(wordsForTheTask[randomNumber]?.id)} autoPlay>
                             <source src={wordsForTheTask[randomNumber]?.audioUrl}/>
                         </audio>}
-                        <button className='match-the-word__audio' onClick={soundOutput}>Listen the word</button>
+                        <button className='match-the-word__audio' onClick={soundOutput}>Listen to the word</button>
                     </div>
                 }
                 </div>
