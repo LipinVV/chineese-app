@@ -1,7 +1,7 @@
 import React from "react";
-
-export const Word =({word, tone} : any) => {
-    const tones: any = {
+// FIX IT
+export const Word =({word, tone} : any ) => {
+    const tones : any = {
         0: 'grey',
         1: 'red',
         2: 'orange',

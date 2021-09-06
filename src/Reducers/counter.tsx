@@ -1,5 +1,5 @@
 import {ACTIONS} from "../Actions/actions";
-
+// FIX IT
 export const counterReducer = (state = 0, action: any) => {
     switch(action.type) {
         case ACTIONS.INCREMENT_USER_POINTS: {

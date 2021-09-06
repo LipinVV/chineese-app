@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {isLoggedIn, isLoggedOut} from "../../Actions/actions";
 
-
+// FIX IT
 export const Access = ({accessFn, state, user}: any) => {
     const dispatch = useDispatch();
     const [userMail, setUserMail] = useState('vit.lipin@gmail.com');

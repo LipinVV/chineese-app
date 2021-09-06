@@ -3,6 +3,7 @@ import {server} from "../../../App";
 import './registration.scss'
 import {useHistory} from "react-router";
 import {Link} from 'react-router-dom';
+import {userInterface} from "../../../Services/dataGetter";
 
 
 export const Registration = () => {
@@ -14,7 +15,7 @@ export const Registration = () => {
     const [status, setStatus] = useState(false);
     const [nickName, setNickName] = useState('Trainee');
 
-    const mailCondition = (password: any, email: any) => {
+    const mailCondition = (password: string, email: string) => {
         return password.length < 5 || !email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     }
     const signUp = async () => {
@@ -25,7 +26,7 @@ export const Registration = () => {
             })
             const {data} = await server
                 .from('users')
-            if (!data?.map((user: any) => user).find((values: any) => values.nickname === nickName || values.mail === userMail)) {
+            if (!data?.map((user: userInterface) => user).find((values: userInterface) => values.nickname === nickName || values.mail === userMail)) {
                 const {data} = await server
                     .from('users')
                     .insert([

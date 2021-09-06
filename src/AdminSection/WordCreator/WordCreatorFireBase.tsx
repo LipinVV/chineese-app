@@ -47,7 +47,7 @@ export const WordCreatorFireBase = () => {
         const newDoc = await fireBaseData.collection('Dictionary').add(preparedWord);
         console.log('newDoc', newDoc)
     }
-
+// FIX IT
     const uploadFile = async (evt: any) => {
         const { files } = evt.target;
         const snapshotRef = fireBaseStorage.child(`/audio/${files[0].name}`)

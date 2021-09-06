@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import './navigation.scss';
-
+// FIX IT
 export const Navigation = ({state, setMenuIsOpen, menuIsOpen}: any) => {
     const [width, setWidth] = useState(window.innerWidth)
     const menuHandler = () => {
-        setMenuIsOpen((prevState: any) => !prevState)
+        setMenuIsOpen((prevState: number) => !prevState)
     }
 
     useEffect(() => {

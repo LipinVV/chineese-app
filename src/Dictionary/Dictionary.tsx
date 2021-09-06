@@ -3,7 +3,7 @@ import {getWordsFromFireBase} from "../Services/getWordsFromFireBase";
 import './dictionary.scss';
 import {wordInterface} from "../AdminSection/WordCreator/WordCreatorFireBase";
 import {Word} from "../Word/Word";
-
+// FIX IT
 export const Dictionary = ({menuIsOpen} : any) => {
     const [words, setWords] = useState<wordInterface[]>([]);
     const [filtered, setFiltered] = useState<wordInterface[]>([]);
@@ -22,13 +22,13 @@ export const Dictionary = ({menuIsOpen} : any) => {
         getAllWords()
     }, [])
 
-    const soundOutput = (src: any) => {
+    const soundOutput = (src : string) => {
         const sound = new Audio(`${src}`);
         return sound.play();
     }
 
     const filter = (word: string, allWords: wordInterface[]) => {
-        const arrangedWords = allWords.filter((value : any) => {
+        const arrangedWords = allWords.filter((value : wordInterface) => {
             if (word === '') {
                 return value;
             }
@@ -42,11 +42,12 @@ export const Dictionary = ({menuIsOpen} : any) => {
 
     const [checked, setChecked] = useState([]);
 
-    const handleChanger = (evt: any) => {
+    const handleChanger = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = evt.target;
+        // FIX IT
         setChecked((prevState: any) => {
             if (prevState.includes(Number(value))) {
-                return prevState.filter((element: any) => element !== Number(value))
+                return prevState.filter((element: string | number) => element !== Number(value))
             } else {
                 return [...prevState, Number(value)]
             }

@@ -9,7 +9,7 @@ export interface userInterface  {
 }
 
 export const statusOfPersonalInfo = async () => {
-    // FIX IT -> data: any
+    // FIX IT
     const { data }: any = await server
         .from<userInterface>('users')
         .select('*')

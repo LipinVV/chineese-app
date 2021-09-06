@@ -1,23 +1,12 @@
 import React, {useState} from "react";
-import {server} from "../../App";
 import './wordcreator.scss'
-import {wordCard} from "../../types/types";
 import {Word} from "../../Word/Word";
-
-export interface wordInterface {
-    word: string,
-    pinyin: string,
-    definition: string
-}
 
 export const WordCreator = () => {
     const [word, setWord] = useState('');
     const [pinyin, setPinyin] = useState('');
     const [definition, setDefinition] = useState('');
     const [tone, setTone] = useState('');
-    const [toLearn, setIstoLearn] = useState(false);
-    const [isFavourite, setIsFavourite] = useState(false);
-    const [error, setError] = useState('')
 
     const clearHandler = () => {
         setWord('');
@@ -25,40 +14,6 @@ export const WordCreator = () => {
         setDefinition('');
         setTone('');
     }
-    // const uploadDictionary = async () => {
-    //     try {
-    //         const {data} = await server
-    //             .from<wordCard>('database')
-    //         if (!data?.map((user: wordCard) => user).find((values: any) => values.word === word)) {
-    //             const {data} = await server
-    //                 .from<wordCard>('database')
-    //                 .insert([
-    //                     {
-    //                         word: word,
-    //                         pinyin: pinyin,
-    //                         definition: definition,
-    //                         tone: tone,
-    //                         toLearn: toLearn,
-    //                         isFavourite: isFavourite
-    //                     }
-    //                 ])
-    //             console.log('word was send =>', data);
-    //         } else {
-    //             setError(`${word} already in a database!`)
-    //         }
-    //     } catch (error) {
-    //         console.log(error.message);
-    //     }
-    // }
-    //
-    //
-    // const tones: any = {
-    //     0: 'grey',
-    //     1: 'white',
-    //     2: 'green',
-    //     3: 'yellow',
-    //     4: 'blue'
-    // }
 
     return (
         <div>
@@ -95,7 +50,6 @@ export const WordCreator = () => {
                     />
                 </label>
             </div>
-            <div>{error}</div>
             <button
                 type='button'
                 // onClick={uploadDictionary}

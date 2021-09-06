@@ -23,7 +23,6 @@ export const getWordsFromFireBase = async () => {
                 correct: unpackedWord.correct,
                 isFavourite: unpackedWord.isFavourite,
                 toLearn: unpackedWord.toLearn
-                // audioUrl: unpackedWord?.audioUrl?.audioUrl,
             })
         });
 

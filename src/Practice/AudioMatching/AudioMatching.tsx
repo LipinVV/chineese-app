@@ -7,8 +7,9 @@ import {incrementUserPoints} from "../../Actions/actions";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {wordCard} from "../../types/types";
+import {userInterface} from "../../Services/dataGetter";
 
-
+// FIX IT
 export const AudioMatching = ({user, onGameFinished}: any) => {
     const [wordsRenderedForTheTask, setWordsRenderedForTheTask] = useState<wordCard[]>([]);
     const [correctAnswers, setCorrectAnswers] = useState<any[]>([]);
@@ -51,7 +52,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
     }
 
     const [answer, setAnswer] = useState('');
-    const handleChanger = (evt: any) => {
+    const handleChanger = (evt: React.ChangeEvent<any>) => {
         const {value} = evt.target;
         setAnswer(value);
         if (value === showRandomWord(num)) {
@@ -63,6 +64,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
         }
     }
     const [wrongAnswer, setWrongAnswer] = useState(false);
+    // FIX IT
     const handleKeyPress = (evt: any) => {
         if (evt.keyCode === 13 && evt.target.value === showRandomWord(num)) {
                 setCollectedPoints(collectedPoints + 1);
@@ -95,9 +97,10 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
 
     const updateUserPoints = async () => {
         try {
+            //FIX IT
             let {data: users}: any = await server
                 .from('users')
-            const chosenUser = users.find((person: any) => person.nickname === user)
+            const chosenUser = users.find((person: userInterface) => person.nickname === user)
             const {data} = await server
                 .from('users')
                 .update([

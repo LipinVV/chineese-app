@@ -7,9 +7,10 @@ import {Link} from "react-router-dom";
 import {Fireworks} from "fireworks-js/dist/react";
 import {useDispatch} from "react-redux";
 import {incrementUserPoints} from "../../Actions/actions";
+import {userInterface} from "../../Services/dataGetter";
 
 
-interface matchingWordProps {
+export interface matchingWordProps {
     user: string | undefined,
     onGameFinished: () => void,
     mainEntity: 'word' | 'definition' | 'audioUrl'
@@ -18,7 +19,7 @@ interface matchingWordProps {
 export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordProps) => {
 
     const dispatch = useDispatch();
-    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+    const wordsFromStore: wordCard[] = Object.values(store.getState().wordsGetter);
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
     const [randomNumber, setRandomNumber] = useState(0);
 
@@ -42,10 +43,10 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
         generateCorrectAnswerAdvanced()
     }
 
-    const [rightAnswer, setRightAnswer] = useState<any>(false);
-    const [wrongAnswer, setWrongAnswer] = useState<any>(false);
-    const correctAnswer: any = mainEntity === 'word' ? wordsForTheTask[randomNumber]?.definition : wordsForTheTask[randomNumber]?.word; // FIX IT
-    const validation = (evt: any) => {
+    const [rightAnswer, setRightAnswer] = useState<boolean>(false);
+    const [wrongAnswer, setWrongAnswer] = useState<boolean>(false);
+    const correctAnswer: string = mainEntity === 'word' ? wordsForTheTask[randomNumber]?.definition : wordsForTheTask[randomNumber]?.word; // FIX IT
+    const validation = (evt: React.ChangeEvent<any>) => {
         const {value} = evt.target;
         if (mainEntity === 'word' || mainEntity === 'audioUrl') {
             if (value === wordsForTheTask[randomNumber].word && wrongAnswer === false) {
@@ -120,7 +121,7 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
     const options = {
         speed: 5
     }
-    const style: any = {
+    const style: {} = {
         left: 0,
         top: 0,
         width: '100%',
@@ -130,9 +131,10 @@ export const WordMatching = ({user, onGameFinished, mainEntity}: matchingWordPro
 
     const updateUserPoints = async () => {
         try {
+            // FIX IT
             let {data: users}: any = await server
                 .from('users')
-            const chosenUser = users.find((person: any) => person.nickname === user)
+            const chosenUser = users.find((person: userInterface) => person.nickname === user)
             const {data} = await server
                 .from('users')
                 .update([

@@ -5,7 +5,7 @@ import './wordcard.scss';
 import {store} from "../../App";
 
 export const WordCard = () => {
-    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
+    const wordsFromStore: wordCard[] = Object.values(store.getState().wordsGetter);
     return (
         <div className='word-card__wrapper'>
             {wordsFromStore?.map((word: wordCard, index: number) => {

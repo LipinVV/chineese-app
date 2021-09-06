@@ -1,6 +1,5 @@
 import firebase from "firebase/compat";
 import 'firebase/storage';
-import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCc65LEKEp4zI6OBLBgcsV7-OH0b8rp1rs",
@@ -13,11 +12,5 @@ const firebaseConfig = {
 };
 
 const app = firebase.initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 export const fireBaseData = app.firestore();
 export const fireBaseStorage = app.storage().ref();
-
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
-// // Your web app's Firebase configuration
-// // For Firebase JS SDK v7.20.0 and later, measurementId is optional

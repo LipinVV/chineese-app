@@ -8,11 +8,6 @@
 // npm install --save react-snowstorm
 // npm install fireworks-js
 // //  npm install pinyin
-// let dictionary: any = []
-// import ('./../../dictionaryInEnglish.json').then((data) => dictionary.push(data))
-// console.log(dictionary)
-// let pinyin = require('pinyin')
-// console.log(pinyin)
 
 import {createClient} from '@supabase/supabase-js';
 import React, {useEffect, useState} from 'react';
@@ -58,8 +53,8 @@ function App() {
     }
     const [user, setUser] = useState<userInterface[]>([]);
 
-    const matchedUser = user?.find(user => user.mail === server.auth.session()?.user?.email)?.nickname;
-    const matchedUserPoints = user?.find(user => user.mail === server.auth.session()?.user?.email)?.globalPoints;
+    const matchedUser = user?.find((user : userInterface) => user.mail === server.auth.session()?.user?.email)?.nickname;
+    const matchedUserPoints = user?.find((user : userInterface) => user.mail === server.auth.session()?.user?.email)?.globalPoints;
 
     const admin: string | undefined = server.auth.session()?.user?.id;
     const [words, setWords] = useState<wordInterface[]>([]);
@@ -81,9 +76,10 @@ function App() {
         getUser()
     }, [])
 
-    const wordsFromStore: any = Object.values(store.getState().wordsGetter);
-
+    const wordsFromStore = Object.values(store.getState().wordsGetter);
+    // FIX IT
     const [menuIsOpen, setMenuIsOpen] = useState(true);
+    //    const [menuIsOpen, setMenuIsOpen] : [boolean, React.Dispatch<React.SetStateAction<boolean>>] = useState<boolean>(true);
     const menuShowHandler= () => {
         setMenuIsOpen(prevState => !prevState);
     }
@@ -117,7 +113,7 @@ function App() {
                             <Route path='/dictionary'><Dictionary menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
                             <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                             <Route path='/'><Landing/></Route>
-                            {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin accessFn={accessFn} state={state} matchedUser={matchedUser}/></Route>}
+                            {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin matchedUser={matchedUser}/></Route>}
                         </Switch>
                 </Router>
             </div>
