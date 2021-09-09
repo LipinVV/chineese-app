@@ -29,8 +29,8 @@
   }
   @media (min-width: $tabletDevice) {
     grid-gap: 20px;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
-    grid-template-columns: 380px;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -100,10 +100,8 @@
   border: 5px solid $white;
   position: absolute;
   flex-direction: column;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
+  width: inherit;
+  min-height: 60px;
   background-color: $golden-rgb3;
   color: $black;
   font-size: $big-font;

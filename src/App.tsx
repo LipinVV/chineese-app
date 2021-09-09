@@ -31,6 +31,7 @@ import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
 import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
 import {Footer} from "./Footer/Footer";
 import {Landing} from "./Landing/Landing";
+import {Sentences} from "./Practice/Sentences/Sentences";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -107,6 +108,9 @@ function App() {
                                 getUser()
                             }}/></Route>
                             <Route path='/practice/audio-matching'><AudioMatching user={matchedUser} onGameFinished={() => {
+                                getUser()
+                            }}/></Route>
+                            <Route path='/practice/sentences'><Sentences user={matchedUser} onGameFinished={() => {
                                 getUser()
                             }}/></Route>
                             <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
