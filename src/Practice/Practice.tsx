@@ -9,7 +9,6 @@ export const Practice = ({setMenuIsOpen} : any) => {
     const [textOfTheFourthPractice, setTextOfTheFourthPractice] = useState(false);
     const [textOfTheFifthPractice, setTextOfTheFifthPractice] = useState(false);
     const [textOfTheSixthPractice, setTextOfTheSixthPractice] = useState(false);
-    const [status, setStatus] = useState(false)
     const [width, setWidth] = useState(window.innerWidth);
     useEffect(() => {
         const reportWindowSize = () => {
@@ -18,7 +17,6 @@ export const Practice = ({setMenuIsOpen} : any) => {
         window.onresize = reportWindowSize;
         window.addEventListener('resize', reportWindowSize);
     }, [])
-    console.log('status', status)
     return (
         <div className='practice'>
             <div className='practice__navigation'>
@@ -30,7 +28,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     }}
                     onMouseLeave={() => {
                         if(width > 1023)
-                            setTextOfTheFirstPractice(false)
+                            setTextOfTheFirstPractice(false);
                     }}
                     className='practice__navigation-link' to='/practice/definition-word'>
                     <span className='practice__navigation-title'>{!textOfTheFirstPractice ? 'Definition-Word' : `Match a definition with it's character`}</span></Link>
@@ -39,12 +37,10 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     onMouseEnter={() => {
                         if(width > 1023)
                             setTextOfTheSecondPractice(true);
-                        setStatus(true)
                     }}
                     onMouseLeave={() => {
                         if(width > 1023)
-                            setStatus(false)
-                        setTextOfTheSecondPractice(false)
+                        setTextOfTheSecondPractice(false);
                     }} className='practice__navigation-link' to='/practice/word-definition'><span
                     className='practice__navigation-title'>{!textOfTheSecondPractice ? 'Word-Definition' : `Match a character with it's definition`}</span> </Link>
                 <Link
@@ -55,7 +51,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     }}
                     onMouseLeave={() => {
                         if(width > 1023)
-                            setTextOfTheThirdPractice(false)
+                            setTextOfTheThirdPractice(false);
                     }} className='practice__navigation-link' to='/practice/board-game'><span
                     className='practice__navigation-title'>{!textOfTheThirdPractice ? 'Board game' : 'Find all correct pairs of word and pinyin'}</span></Link>
                 <Link
@@ -66,7 +62,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     }}
                     onMouseLeave={() => {
                         if(width > 1023)
-                            setTextOfTheFourthPractice(false)
+                            setTextOfTheFourthPractice(false);
                     }} className='practice__navigation-link' to='/practice/audio-matching'><span
                     className='practice__navigation-title'>{!textOfTheFourthPractice ? 'Audio-word' : 'Play an audio and choose the right answer'}</span></Link>
                 <Link
@@ -77,7 +73,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     }}
                     onMouseLeave={() => {
                         if(width > 1023)
-                            setTextOfTheFifthPractice(false)
+                            setTextOfTheFifthPractice(false);
                     }} className='practice__navigation-link' to='/practice/audio-definition'><span
                     className='practice__navigation-title'>{!textOfTheFifthPractice ? 'Audio-definition' : 'Play an audio and choose the right answer'}</span></Link>
                 <Link
