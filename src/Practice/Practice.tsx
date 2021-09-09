@@ -85,7 +85,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     onMouseLeave={() => {
                         if(width > 1023)
                             setTextOfTheSixthPractice(false);
-                    }} className='practice__navigation-link' to='/practice/audio-definition'><span
+                    }} className='practice__navigation-link' to='/practice/sentences'><span
                     className='practice__navigation-title'>{!textOfTheSixthPractice ? 'Sentences' : 'Put all parts of the sentence in a correct order'}</span></Link>
             </div>
         </div>
