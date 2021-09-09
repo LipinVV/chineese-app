@@ -83,7 +83,6 @@
   }
 }
 
-
 .undefined,
 .incorrect,
 .correct {
@@ -153,10 +152,6 @@
 .undefined {
   &:hover {
     background-color: $golden-rgb;
-  }
-
-  &:disabled {
-    //background-color: $section-deep-bg;
   }
 }
 

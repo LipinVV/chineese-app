@@ -1,4 +1,4 @@
-export type wordCard = {
+export interface wordCard {
     correct: string;
     id: number,
     word: string,
@@ -9,4 +9,5 @@ export type wordCard = {
     toLearn: boolean,
     audioUrl: string,
     key: string,
+    trans?: string
 }
