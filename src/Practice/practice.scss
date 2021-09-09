@@ -77,6 +77,11 @@
   background-image: url('img/audio-definition.jpg');
 }
 
+.practice__navigation-link:nth-of-type(6) {
+  background-image: url('img/sentences.jpg');
+  background-position: bottom left;
+}
+
 .practice__header {
   text-align: center;
   color: $red;
