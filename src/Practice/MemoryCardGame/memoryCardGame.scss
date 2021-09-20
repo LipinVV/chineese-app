@@ -1,0 +1,73 @@
+@import "src/App";
+
+@keyframes correct {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  10%, 100% {
+    transform: translateY(-5px);
+    background-color: $section-deep-bg;
+    content: 'CONTENT'
+  }
+  35%, 75% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes color {
+  0% {
+    background-color: $red-light;
+  }
+  50% {
+    background-color: $red;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+}
+
+.memory-game {
+  @media (min-width: $mobileDevice) {
+    display: grid;
+    grid-gap: 5px;
+    margin: auto;
+    grid-template-columns:  repeat(auto-fill, minmax(40px, 80px));
+    grid-template-rows:  repeat(auto-fill, minmax(40px, 80px));
+    justify-content: center;
+    max-width: $tabletDevice;
+    max-height: 540px;
+  }
+  @media (min-width: $tabletDevice) {
+    grid-template-columns:  repeat(auto-fill, minmax(140px, 140px));
+    grid-template-rows:  repeat(auto-fill, minmax(140px, 140px));
+    max-height: 600px;
+  }
+  @media (min-width: $desktopDevice) {
+    max-width: $largeDesktopDevice;
+    max-height: 400px;
+  }
+}
+
+.memory-game__word {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  background: $blue none;
+  border: none;
+  outline: none;
+  font-size: 30px;
+}
+
+.memory-game__word-flipped{
+  --rotate-y: 180deg;
+  transform: rotateY(180deg);
+}

@@ -85,7 +85,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                     onMouseLeave={() => {
                         if(width > 1023)
                             setTextOfTheSixthPractice(false);
-                    }} className='practice__navigation-link' to='/practice/sentences'><span
+                    }} className='practice__navigation-link' to='/practice/memory-game'><span
                     className='practice__navigation-title'>{!textOfTheSixthPractice ? 'Memory game' : 'Find all correct pairs'}</span></Link>
             </div>
         </div>

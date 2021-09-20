@@ -28,10 +28,7 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
             return {...word, trans: !word.trans ? 'modified' : ''}
         })
         modifiedArray = [...wordsForTheTask, ...modifiedArray];
-
         const preparedFinalArray = shuffleHandler(modifiedArray).map((word: wordInterface, index: number) => ({...word, id: index + 1}))
-        
-
         setFinalArray(preparedFinalArray)
     }
 
@@ -63,6 +60,7 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                     correct: word.word === arrayToCompareChosenWords[0] ? 'correct-pair' : word.correct
                 }
             })
+            console.log(finalArray)
             setFinalArray(toggled);
             setCompletedPairs([...completedPairs, arrayToCompareChosenWords]);
             setCollectedPoints(collectedPoints + 1);
@@ -136,7 +134,6 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                             setMatchedPair(false);
                             setArrayToCompareChosenWords([]);
                             setStartTask(false);
-
                         }}>Start
                     </button>
                 </div>

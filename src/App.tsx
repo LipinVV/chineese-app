@@ -111,7 +111,7 @@ function App() {
                             <Route path='/practice/audio-matching'><AudioMatching user={matchedUser} onGameFinished={() => {
                                 getUser()
                             }}/></Route>
-                            <Route path='/practice/sentences'><MemoryCardGame user={matchedUser} words={wordsFromStore}  onGameFinished={() => {
+                            <Route path='/practice/memory-game'><MemoryCardGame user={matchedUser} words={wordsFromStore}  onGameFinished={() => {
                                 getUser()
                             }}/></Route>
                             <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
