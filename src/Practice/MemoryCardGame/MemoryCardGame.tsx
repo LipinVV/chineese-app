@@ -48,9 +48,9 @@ export const MemoryCardGame = ({user, words}: any) => {
                         className={`word-card ${isFlipped ? "flipped" : ""} `}
                         key={index}
                         onClick={() => flipCard(index)}
-                    >{word.word}
+                    >
                         <div className="inner">
-                            <div className="front">
+                            <div className="front">{index % 2 === 0 ? word.word : word.definition}
                             </div>
                             <div className="back"></div>
                         </div>
