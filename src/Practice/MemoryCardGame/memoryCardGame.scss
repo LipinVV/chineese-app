@@ -1,29 +1,6 @@
 @import "src/App";
 
-.memory-game {
-  @media (min-width: $mobileDevice) {
-    display: grid;
-    grid-gap: 5px;
-    margin: auto;
-    grid-template-columns:  repeat(auto-fill, minmax(40px, 80px));
-    grid-template-rows:  repeat(auto-fill, minmax(40px, 80px));
-    justify-content: center;
-    max-width: $tabletDevice;
-    max-height: 540px;
-  }
-  @media (min-width: $tabletDevice) {
-    grid-template-columns:  repeat(auto-fill, minmax(140px, 140px));
-    grid-template-rows:  repeat(auto-fill, minmax(140px, 140px));
-    max-height: 600px;
-  }
-  @media (min-width: $desktopDevice) {
-    max-width: $largeDesktopDevice;
-    max-height: 400px;
-  }
-}
-
-
-.word-cards {
+.memory-cards {
   display: grid;
   grid-gap: 10px;
   padding: 20px 0 20px 0;
@@ -31,7 +8,6 @@
     margin: 20px 0 20px 0;
     grid-template: repeat(6, 1fr) / repeat(3, 1fr);
   }
-
   @media (min-width: $tabletDevice) {
     grid-template: repeat(4, 1fr) / repeat(5, 1fr);
   }
@@ -43,12 +19,11 @@
   }
 }
 
-.word-card {
+.memory-card {
   @media (min-width: $mobileDevice) {
     min-height: 80px;
     min-width: 80px;
   }
-
   @media (min-width: $tabletDevice) {
     min-height: 120px;
     min-width: 120px;
@@ -63,16 +38,19 @@
   }
   border-radius: 2px;
   cursor: pointer;
-  //background: none;
   border: none;
   outline: none;
 }
 
-.word-card.flipped .inner {
+.memory-card.flipped {
+  pointer-events: none;
+}
+
+.memory-card.flipped .memory-card__inner {
   transform: rotateY(180deg);
 }
 
-.inner {
+.memory-card__inner {
   position: relative;
   width: 100%;
   height: 100%;
@@ -80,8 +58,8 @@
   transition: 0.6s cubic-bezier(0.38, 0.02, 0.09, 1.66) all;
 }
 
-.word-card .front,
-.word-card .back {
+.memory-card .memory-card__front,
+.memory-card .memory-card__back {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,7 +72,22 @@
   backface-visibility: hidden;
 }
 
-.word-card .front {
+.memory-card__word {
+  @media (min-width: $mobileDevice) {
+    font-size: 20px;
+  }
+  @media (min-width: $tabletDevice) {
+    font-size: 35px;
+  }
+  @media (min-width: $desktopDevice) {
+    font-size: 45px;
+  }
+  @media (min-width: $largeDesktopDevice) {
+    font-size: 55px;
+  }
+}
+
+.memory-card .memory-card__front {
   background: #fff;
   transform: rotateY(180deg);
   color: black;
@@ -113,15 +106,15 @@
   }
 }
 
-.word-card .back {
-  background: #51dce0;
+.memory-card .memory-card__back {
+  background: $piaoliang;
   color: $black;
   font-size: 50px;
   transition: 0.3s ease all;
 }
 
-.word-card .back:hover {
-  background: #dba8b1;
-  color: #fff;
+.memory-card .memory-card__back:hover {
+  background: $golden-rgb2;
+  color: $white;
   transform: scale(1.02);
 }
