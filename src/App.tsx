@@ -31,7 +31,6 @@ import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
 import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
 import {Footer} from "./Footer/Footer";
 import {Landing} from "./Landing/Landing";
-import {Sentences} from "./Practice/Sentences/Sentences";
 import {MemoryCardGame} from "./Practice/MemoryCardGame/MemoryCardGame";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
