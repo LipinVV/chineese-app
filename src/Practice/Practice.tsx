@@ -86,7 +86,7 @@ export const Practice = ({setMenuIsOpen} : any) => {
                         if(width > 1023)
                             setTextOfTheSixthPractice(false);
                     }} className='practice__navigation-link' to='/practice/sentences'><span
-                    className='practice__navigation-title'>{!textOfTheSixthPractice ? 'Sentences' : 'Put all parts of the sentence in a correct order'}</span></Link>
+                    className='practice__navigation-title'>{!textOfTheSixthPractice ? 'Memory game' : 'Find all correct pairs'}</span></Link>
             </div>
         </div>
     )

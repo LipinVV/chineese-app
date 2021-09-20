@@ -3,7 +3,7 @@
 // npm i sass
 // npm i node-sass
 // npm i @supabase/supabase-js
-// npm i --save-dev @types/react-router-dom
+// npm i --save-dev @interfaces/react-router-dom
 // npm install react-confetti
 // npm install --save react-snowstorm
 // npm install fireworks-js
@@ -32,6 +32,7 @@ import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
 import {Footer} from "./Footer/Footer";
 import {Landing} from "./Landing/Landing";
 import {Sentences} from "./Practice/Sentences/Sentences";
+import {MemoryCardGame} from "./Practice/MemoryCardGame/MemoryCardGame";
 // 1) same nicknames problem
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -110,7 +111,7 @@ function App() {
                             <Route path='/practice/audio-matching'><AudioMatching user={matchedUser} onGameFinished={() => {
                                 getUser()
                             }}/></Route>
-                            <Route path='/practice/sentences'><Sentences user={matchedUser} onGameFinished={() => {
+                            <Route path='/practice/sentences'><MemoryCardGame user={matchedUser} words={wordsFromStore}  onGameFinished={() => {
                                 getUser()
                             }}/></Route>
                             <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>

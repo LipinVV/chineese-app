@@ -175,10 +175,19 @@
 .board-game__global-wrapper {
   margin-top: 30px;
   position: relative;
+  background-color: $white-light;
+  padding: 30px 20px 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .board-game__wrapper:last-of-type {
   padding: 30px 0 30px;
+}
+
+.board-game__task {
+
 }
 
 .board-game__start,
@@ -241,14 +250,7 @@
     top: 0;
   }
   @media screen and (min-width: $tabletDevice) {
-
     padding: 30px 0 30px 0;
-  }
-  @media (min-width: $desktopDevice) {
-
-  }
-  @media (min-width: $largeDesktopDevice) {
-
   }
 }
 

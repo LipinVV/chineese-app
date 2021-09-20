@@ -1,4 +1,4 @@
-import {wordCard} from "../types/types";
+import {wordCard} from "../interfaces/interfaces";
 
 export const ACTIONS = {
     // access:

@@ -1,5 +1,5 @@
 import React from "react";
-import {wordCard} from "../../types/types";
+import {wordCard} from "../../interfaces/interfaces";
 import {keyHandler} from "../../Services/keyHandler";
 import './wordcard.scss';
 import {store} from "../../App";

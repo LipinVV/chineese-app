@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {wordCard} from "../../types/types";
+import {wordCard} from "../../interfaces/interfaces";
 import {server, store} from "../../App";
 import './wordMatchingTasks.scss';
 import {arrayShuffler} from "../../Services/arrayShuffler";

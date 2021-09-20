@@ -6,7 +6,7 @@ import {server} from "../../App";
 import {incrementUserPoints} from "../../Actions/actions";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
-import {wordCard} from "../../types/types";
+import {wordCard} from "../../interfaces/interfaces";
 import {userInterface} from "../../Services/dataGetter";
 
 // FIX IT

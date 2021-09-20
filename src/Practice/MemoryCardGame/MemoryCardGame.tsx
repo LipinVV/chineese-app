@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {wordCard} from "../../interfaces/interfaces";
 import {server} from "../../App";
-import './boardGame.scss'
 import {arrayShuffler} from "../../Services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
@@ -10,7 +9,7 @@ import {shuffleHandler} from "../../Services/arrayShuffler";
 import {wordInterface} from "../../AdminSection/WordCreator/WordCreatorFireBase";
 import {userInterface} from "../../Services/dataGetter";
 // FIX IT
-export const BoardGame = ({user, words, onGameFinish} : any) => {
+export const MemoryCardGame = ({user, words, onGameFinish} : any) => {
     const dispatch = useDispatch();
 
     const [wordsForTheTask, setWordsForTheTask] = useState<wordCard[]>([]);
@@ -30,7 +29,7 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
         modifiedArray = [...wordsForTheTask, ...modifiedArray];
 
         const preparedFinalArray = shuffleHandler(modifiedArray).map((word: wordInterface, index: number) => ({...word, id: index + 1}))
-        
+
 
         setFinalArray(preparedFinalArray)
     }
