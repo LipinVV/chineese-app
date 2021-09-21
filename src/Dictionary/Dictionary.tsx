@@ -88,7 +88,7 @@ export const Dictionary = ({menuIsOpen} : any) => {
                     return (
                         <div key={word.word}>
                             <div></div>
-                            <ul className='dictionary__word' key={word.word}>
+                            <ul className='dictionary__word' key={word.word + word.pinyin}>
                                 <li className='dictionary__word-field'>
                                     <input
                                         type='checkbox'
@@ -98,7 +98,7 @@ export const Dictionary = ({menuIsOpen} : any) => {
                                         onChange={handleChanger}
                                     />
                                 </li>
-                                <li className='dictionary__word-field'><Word word={word.word} tone={word.tone}/></li>
+                                <li className='dictionary__word-field'><Word key={word.word + word.id} word={word.word} tone={word.tone}/></li>
                                 <li className='dictionary__word-field'>{word.pinyin}</li>
                                 <li className='dictionary__word-field'>{word.definition}</li>
                                 <li className='dictionary__word-field' onClick={() => soundOutput(word.audioUrl)}></li>

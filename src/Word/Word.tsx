@@ -8,10 +8,9 @@ export const Word =({word, tone} : any ) => {
         3: 'orange',
         4: 'blue'
     }
-
     return (
         <>
-            {word.split('').map((letter: string , index: number ) => <span key={word.word} style={{color : tones[tone.toString().split('')[index]]}}>{letter}</span>)}
+            {word.split('').map((letter: string , index: number ) => <span key={word + index + word} style={{color : tones[tone.toString().split('')[index]]}}>{letter}</span>)}
         </>
     )
 }
