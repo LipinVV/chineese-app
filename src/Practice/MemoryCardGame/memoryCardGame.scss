@@ -88,9 +88,9 @@
 }
 
 .memory-card .memory-card__front {
-  background: #fff;
+  background: $white;
   transform: rotateY(180deg);
-  color: black;
+  color: $black;
   text-align: center;
   @media (min-width: $mobileDevice) {
     font-size: 10px;

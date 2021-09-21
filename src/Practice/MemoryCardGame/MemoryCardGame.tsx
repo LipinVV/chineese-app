@@ -53,12 +53,15 @@ export const MemoryCardGame = ({user, words, onGameFinished}: any) => {
             setMatched([...matched, firstMatched.id]);
             setCollectedPoints(collectedPoints + 1);
         }
+        if (firstMatched.id !== secondMatched.id) {
+            setCollectedPoints(collectedPoints);
+        }
         if (openedCard.length === 2) setTimeout(() => setOpenedCard([]), 1000);
     }, [openedCard]);
 
     const collectedPointsHandler = async () => {
-        await updateUserPoints()
         onGameFinished()
+        await updateUserPoints()
     }
 
     const repeatHandler = async () => {
@@ -67,6 +70,8 @@ export const MemoryCardGame = ({user, words, onGameFinished}: any) => {
         setMatched([])
         await updateUserPoints()
     }
+
+    console.log(collectedPoints)
     return (
         <div className='memory-cards'>
             {pairsOfWords.map((word: wordInterface, index: number) => {
