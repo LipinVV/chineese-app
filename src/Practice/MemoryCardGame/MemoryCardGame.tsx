@@ -71,7 +71,6 @@ export const MemoryCardGame = ({user, words, onGameFinished}: any) => {
         await updateUserPoints()
     }
 
-    console.log(collectedPoints)
     return (
         <div className='memory-cards'>
             {pairsOfWords.map((word: wordInterface, index: number) => {
@@ -94,17 +93,17 @@ export const MemoryCardGame = ({user, words, onGameFinished}: any) => {
                 );
             })}
             {collectedPoints === 9 &&
-            <div className='board-game__winner-zone'>
+            <div className='memory-cards__winner-zone'>
                 <Link
                     to='/practice'
-                    className='board-game__exit'
+                    className='memory-cards__exit'
                     onClick={collectedPointsHandler}
                 >
                     To practice page
                 </Link>
                 <button
                     type='button'
-                    className='board-game__restart'
+                    className='memory-cards__restart'
                     onClick={repeatHandler}
                 >
                     Repeat
