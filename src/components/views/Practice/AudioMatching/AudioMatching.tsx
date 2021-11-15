@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {getWordsFromFireBase} from "../../../services/getWordsFromFireBase";
-import {incrementUserPoints} from "../../../../state/reducers/userPoints/actions";
+import {incrementUserPoints} from "../../../../state/userPoints/actions";
 import {useDispatch} from "react-redux";
 import {Link} from "react-router-dom";
 import {wordCard} from "../../../interfaces/interfaces";

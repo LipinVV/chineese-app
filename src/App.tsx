@@ -14,7 +14,7 @@ import {createStore} from 'redux';
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import {getAllWords} from "./state/reducers/wordGetter/actions";
+import {getAllWords} from "./state/wordGetter/actions";
 import {Access} from "./components/views/AdminSection/Access/Access";
 import {Registration} from "./components/views/AdminSection/Registration/Registration";
 import {Admin} from "./components/views/AdminSection/Admin";
@@ -30,7 +30,7 @@ import {AudioMatching} from "./components/views/Practice/AudioMatching/AudioMatc
 import {Footer} from "./components/views/Footer/Footer";
 import {Landing} from "./components/views/Landing/Landing";
 import {MemoryCardGame} from "./components/views/Practice/MemoryCardGame/MemoryCardGame";
-import {allReducers} from "./state/reducers/allReducers";
+import {allReducers} from "./state/allReducers";
 import './App.scss';
 
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',

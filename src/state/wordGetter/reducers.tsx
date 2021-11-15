@@ -1,4 +1,4 @@
-import {wordInterface} from "../../../components/views/AdminSection/WordCreator/WordConstructor";
+import {wordInterface} from "../../components/views/AdminSection/WordCreator/WordConstructor";
 
 export const reducers = (state: wordInterface[] = [], action: any) => {
     switch (action.type) {

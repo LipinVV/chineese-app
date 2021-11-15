@@ -3,7 +3,7 @@ import {wordCard} from "../../../interfaces/interfaces";
 import {arrayShuffler} from "../../../services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {incrementUserPoints} from "../../../../state/reducers/userPoints/actions";
+import {incrementUserPoints} from "../../../../state/userPoints/actions";
 import {shuffleHandler} from "../../../services/arrayShuffler";
 import {wordInterface} from "../../AdminSection/WordCreator/WordConstructor";
 import {userInterface} from "../../../services/dataGetter";
