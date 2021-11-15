@@ -4,8 +4,6 @@ import {Link} from "react-router-dom";
 
 
 export const Landing = () => {
-
-
     return (
         <div className='landing'>
             <h1 className='landing-header'>Welcome to the Chinese learning platform!</h1>

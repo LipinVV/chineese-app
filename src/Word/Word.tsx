@@ -1,5 +1,5 @@
 import React from "react";
-// FIX IT
+
 export const Word =({word, tone} : any ) => {
     const tones : any = {
         0: 'grey',

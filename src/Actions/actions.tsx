@@ -1,12 +1,7 @@
-import {wordCard} from "../interfaces/interfaces";
-
 export const ACTIONS = {
-    // access:
     IS_LOGGED_OUT: 'IS_LOGGED_OUT',
     IS_LOGGED_IN: 'IS_LOGGED_IN',
-    // getting words from database:
     GET_ALL_WORDS: 'GET_ALL_WORDS',
-    // users points:
     INCREMENT_USER_POINTS: 'INCREMENT_USER_POINTS',
     GET_TOTAL_POINTS: 'GET_TOTAL_POINTS',
 }
@@ -31,7 +26,6 @@ export const getAllWords = (data: { audioUrl: string; pinyin: string; tone: numb
         payload: data
     }
 }
-
 
 export const incrementUserPoints = (points: number) => {
     return {

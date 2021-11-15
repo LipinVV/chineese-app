@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {getWordsFromFireBase} from "../Services/getWordsFromFireBase";
-import './dictionary.scss';
 import {wordInterface} from "../AdminSection/WordCreator/WordCreatorFireBase";
 import {Word} from "../Word/Word";
-// FIX IT
-export const Dictionary = ({menuIsOpen} : any) => {
+import './dictionary.scss';
+
+export const Dictionary = () => {
     const [words, setWords] = useState<wordInterface[]>([]);
     const [filtered, setFiltered] = useState<wordInterface[]>([]);
 
@@ -44,7 +44,6 @@ export const Dictionary = ({menuIsOpen} : any) => {
 
     const handleChanger = (evt: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = evt.target;
-        // FIX IT
         setChecked((prevState: any) => {
             if (prevState.includes(Number(value))) {
                 return prevState.filter((element: string | number) => element !== Number(value))
@@ -52,27 +51,6 @@ export const Dictionary = ({menuIsOpen} : any) => {
                 return [...prevState, Number(value)]
             }
         })
-    }
-
-    const [globallyChecked, setGloballyChecked] = useState(false);
-
-    const globalHandleChanger = () => {
-        setGloballyChecked(prevState => !prevState)
-    }
-
-    const declineNoun = (count: number) => {
-        count = Math.abs(count) % 100;
-        let count1 = count % 10;
-        if (count > 10 && count < 20) {
-            return 'слов';
-        }
-        if (count1 > 1 && count1 < 5) {
-            return 'слова';
-        }
-        if (count1 === 1) {
-            return 'слово';
-        }
-        return 'слов';
     }
 
     return (
@@ -87,14 +65,13 @@ export const Dictionary = ({menuIsOpen} : any) => {
                 Boolean(filtered.length) && filtered.map((word: wordInterface) => {
                     return (
                         <div key={word.word}>
-                            <div></div>
                             <ul className='dictionary__word' key={word.word + word.pinyin}>
                                 <li className='dictionary__word-field'>
                                     <input
                                         type='checkbox'
                                         value={word.id}
                                         // @ts-ignore
-                                        checked={checked.includes(word.id) || globallyChecked}
+                                        checked={checked.includes(word.id)}
                                         onChange={handleChanger}
                                     />
                                 </li>

@@ -9,7 +9,7 @@ import {incrementUserPoints} from "../../Actions/actions";
 import {shuffleHandler} from "../../Services/arrayShuffler";
 import {wordInterface} from "../../AdminSection/WordCreator/WordCreatorFireBase";
 import {userInterface} from "../../Services/dataGetter";
-// FIX IT
+
 export const BoardGame = ({user, words, onGameFinish} : any) => {
     const dispatch = useDispatch();
 
@@ -23,7 +23,6 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
     }, [words])
 
     const generateWords = () => {
-        // FIX IT ~> extends??
         let modifiedArray = wordsForTheTask.map((word: wordInterface | any) => {
             return {...word, trans: !word.trans ? 'modified' : ''}
         })
@@ -48,7 +47,7 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
     }
 
     const [matchedPair, setMatchedPair] = useState(false);
-    // FIX IT
+
     const [completedPairs, setCompletedPairs]  = useState<any>([]);
     useEffect(() => {
         if (arrayToCompareChosenWords.length === 2 && arrayToCompareChosenWords[0] === arrayToCompareChosenWords[1]) {
@@ -60,7 +59,6 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                     correct: word.word === arrayToCompareChosenWords[0] ? 'correct-pair' : word.correct
                 }
             })
-            console.log(finalArray)
             setFinalArray(toggled);
             setCompletedPairs([...completedPairs, arrayToCompareChosenWords]);
             setCollectedPoints(collectedPoints + 1);
@@ -85,7 +83,6 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
     }, [arrayToCompareChosenWords])
     const updateUserPoints = async () => {
         try {
-            // FIX IT
             let {data: users}: any = await server
                 .from('users')
             const chosenUser = users.find((person: userInterface) => person.nickname === user);
@@ -127,7 +124,6 @@ export const BoardGame = ({user, words, onGameFinish} : any) => {
                 <div className='board-game__wrapper'>
                     <button
                         className='board-game__start'
-                        // hidden={startTask} type='button'
                         hidden={finalArray.length > 0} type='button'
                         onClick={() => {
                             generateWords();

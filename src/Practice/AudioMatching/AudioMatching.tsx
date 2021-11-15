@@ -9,7 +9,6 @@ import {Link} from "react-router-dom";
 import {wordCard} from "../../interfaces/interfaces";
 import {userInterface} from "../../Services/dataGetter";
 
-// FIX IT
 export const AudioMatching = ({user, onGameFinished}: any) => {
     const [wordsRenderedForTheTask, setWordsRenderedForTheTask] = useState<wordCard[]>([]);
     const [correctAnswers, setCorrectAnswers] = useState<any[]>([]);
@@ -64,7 +63,7 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
         }
     }
     const [wrongAnswer, setWrongAnswer] = useState(false);
-    // FIX IT
+
     const handleKeyPress = (evt: any) => {
         if (evt.keyCode === 13 && evt.target.value === showRandomWord(num)) {
                 setCollectedPoints(collectedPoints + 1);
@@ -73,11 +72,6 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
             nextAudio();
         }
         console.log('collectedPoints', collectedPoints)
-        // else {
-        //     setWrongAnswer(true);
-        //     setCollectedPoints(collectedPoints);
-        //     setNumberOfQuestions(numberOfQuestions);
-        // }
     }
 
     const [isShowPlayer, setShowPlayer] = useState(true);
@@ -97,7 +91,6 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
 
     const updateUserPoints = async () => {
         try {
-            //FIX IT
             let {data: users}: any = await server
                 .from('users')
             const chosenUser = users.find((person: userInterface) => person.nickname === user)
@@ -109,7 +102,6 @@ export const AudioMatching = ({user, onGameFinished}: any) => {
                     }
                 ])
                 .match({nickname: user})
-            console.log('user is updated =>', data)
         } catch (error) {
             console.error(error)
         }

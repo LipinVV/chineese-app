@@ -7,7 +7,7 @@
 // npm install react-confetti
 // npm install --save react-snowstorm
 // npm install fireworks-js
-// //  npm install pinyin
+// npm install pinyin
 
 import {createClient} from '@supabase/supabase-js';
 import React, {useEffect, useState} from 'react';
@@ -32,7 +32,7 @@ import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
 import {Footer} from "./Footer/Footer";
 import {Landing} from "./Landing/Landing";
 import {MemoryCardGame} from "./Practice/MemoryCardGame/MemoryCardGame";
-// 1) same nicknames problem
+
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
     'eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODc1MjMyMSwiZXhwIjoxOTQ0MzI4MzIxfQ.' +
@@ -45,7 +45,6 @@ export const store = createStore(
 store.subscribe(() => {
     localStorage['redux-store'] = JSON.stringify(store.getState());
 })
-// console.log(store.getState())
 
 function App() {
     const [state, setState] = useState(userLoggedIn);
@@ -78,9 +77,9 @@ function App() {
     }, [])
 
     const wordsFromStore = Object.values(store.getState().wordsGetter);
-    // FIX IT
+
     const [menuIsOpen, setMenuIsOpen] = useState(true);
-    //    const [menuIsOpen, setMenuIsOpen] : [boolean, React.Dispatch<React.SetStateAction<boolean>>] = useState<boolean>(true);
+
     const menuShowHandler= () => {
         setMenuIsOpen(prevState => !prevState);
     }
@@ -114,7 +113,7 @@ function App() {
                                 getUser()
                             }}/></Route>
                             <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
-                            <Route path='/dictionary'><Dictionary menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
+                            <Route path='/dictionary'><Dictionary /></Route>
                             <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
                             <Route path='/'><Landing/></Route>
                             {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin matchedUser={matchedUser}/></Route>}
