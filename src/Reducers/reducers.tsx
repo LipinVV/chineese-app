@@ -1,6 +1,6 @@
 import {logInReducer, logOutReducer} from "./auth-reducers";
 import {combineReducers} from "redux";
-import {wordGetter} from './wordGetter'
+import {wordGetter} from './wordGetter';
 
 
 export const allReducers = combineReducers({
