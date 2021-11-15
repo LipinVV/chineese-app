@@ -1,0 +1,167 @@
+@import "../../../../App";
+
+.memory-cards {
+  display: grid;
+  grid-gap: 10px;
+  padding: 20px 0 20px 0;
+  @media screen and (min-width: $mobileDevice) {
+    margin: 20px 0 20px 0;
+    grid-template: repeat(6, 1fr) / repeat(3, 1fr);
+  }
+  @media screen and (min-width: $tabletDevice) {
+    grid-template: repeat(4, 1fr) / repeat(5, 1fr);
+  }
+  @media screen and (min-width: $desktopDevice) {
+    grid-template: repeat(3, 1fr) / repeat(6, 1fr);
+    max-height: $desktopDevice;
+    margin: 0 auto;
+    max-width: $largeDesktopDevice;
+  }
+}
+
+.memory-card {
+  @media screen and (min-width: $mobileDevice) {
+    min-height: 80px;
+    min-width: 80px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    min-height: 120px;
+    min-width: 120px;
+  }
+  @media screen and (min-width: $desktopDevice) {
+    min-height: 150px;
+    min-width: 150px;
+  }
+  @media screen and (min-width: $largeDesktopDevice) {
+    min-height: 170px;
+    min-width: 170px;
+  }
+  border-radius: 2px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.memory-card.flipped {
+  pointer-events: none;
+}
+
+.memory-card.flipped .memory-card__inner {
+  transform: rotateY(180deg);
+}
+
+.memory-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: 0.6s cubic-bezier(0.38, 0.02, 0.09, 1.66) all;
+}
+
+.memory-card .memory-card__front,
+.memory-card .memory-card__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+
+.memory-card__word {
+  @media screen and (min-width: $mobileDevice) {
+    font-size: 20px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    font-size: 35px;
+  }
+  @media screen and (min-width: $desktopDevice) {
+    font-size: 45px;
+  }
+  @media screen and (min-width: $largeDesktopDevice) {
+    font-size: 55px;
+  }
+}
+
+.memory-card .memory-card__front {
+  background: $white;
+  transform: rotateY(180deg);
+  color: $black;
+  text-align: center;
+  @media screen and (min-width: $mobileDevice) {
+    font-size: 10px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    font-size: 15px;
+  }
+  @media screen and (min-width: $desktopDevice) {
+    font-size: 18px;
+  }
+  @media screen and (min-width: $largeDesktopDevice) {
+    font-size: 20px;
+  }
+}
+
+.memory-card .memory-card__back {
+  background: $red;
+  color: $black;
+  font-size: 50px;
+  transition: 0.3s ease all;
+}
+
+.memory-card .memory-card__back:hover {
+  background: $golden;
+  color: $white;
+  transform: scale(1.02);
+}
+
+.memory-cards__winner-zone {
+  position: absolute;
+  width: 75%;
+  min-height: 300px;
+  border-radius: 8px;
+  @media screen and (min-width: $mobileDevice) {
+    display: grid;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    background-color: $white-light;
+    padding: 30px 0 30px 0;
+    top: 30%;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    padding: 30px 0 30px 0;
+    top: 30%;
+  }
+}
+
+.memory-cards__exit,
+.memory-cards__restart {
+  color: $black;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  min-width: 150px;
+  margin: 0 auto;
+  border: none;
+  background-color: $white;
+  min-height: 50px;
+  border-radius: 8px;
+  @media screen and (min-width: $tabletDevice) {
+    min-height: 70px;
+    min-width: 200px;
+    font-size: 20px;
+  }
+
+  &:hover {
+    background-color: $golden;
+  }
+}

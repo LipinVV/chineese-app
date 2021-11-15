@@ -1,0 +1,124 @@
+@import "../../../App";
+
+.practice,
+.practice__navigation {
+  @media (min-width: $mobileDevice) {
+    display: grid;
+    max-width: $tabletDevice;
+  }
+  @media (min-width: $tabletDevice) {
+    max-width: $desktopDevice;
+  }
+  @media (min-width: $desktopDevice) {
+    width: 100%;
+  }
+}
+
+.practice {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  min-height: 400px;
+}
+
+.practice__navigation {
+  position: relative;
+  @media (min-width: $mobileDevice) {
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+  @media (min-width: $tabletDevice) {
+    grid-gap: 20px;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.practice__navigation-link {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  color: $white;
+  background-size: cover;
+  min-height: 60px;
+  font-weight: 600;
+  @media (min-width: $tabletDevice) {
+    font-size: 25px;
+    min-height: 80px;
+  }
+
+  &:hover .practice__navigation-title {
+    background-color: $golden;
+  }
+}
+
+.practice__navigation-link:nth-of-type(1) {
+  background-image: url('img/definition-word.jpg');
+}
+
+.practice__navigation-link:nth-of-type(2) {
+  background-image: url('img/word-definition.jfif');
+}
+
+.practice__navigation-link:nth-of-type(3) {
+  background-image: url('img/board-game.jpg');
+}
+
+.practice__navigation-link:nth-of-type(4) {
+  background-image: url('img/sprint.jpg');
+}
+
+.practice__navigation-link:nth-of-type(5) {
+  background-image: url('img/audio-definition.jpg');
+}
+
+.practice__navigation-link:nth-of-type(6) {
+  background-image: url('img/sentences.jpg');
+  background-position: bottom left;
+}
+
+.practice__header {
+  text-align: center;
+  color: $red;
+}
+
+.practice__navigation-title {
+  position: absolute;
+  width: 40%;
+  height: 100%;
+  left: 0;
+  background-color: $grey;
+  color: $dark;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0 10px;
+}
+
+.practice__navigation__task-description {
+  display: flex;
+  border: 5px solid $white;
+  position: absolute;
+  flex-direction: column;
+  width: inherit;
+  min-height: 60px;
+  background-color: $golden-rgb3;
+  color: $black;
+  font-size: $big-font;
+}
+
+.practice__navigation__task-header {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.practice__navigation__task-text {
+  padding: 20px;
+  font-size: 20px;
+  width: 100%;
+}

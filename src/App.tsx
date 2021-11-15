@@ -10,28 +10,28 @@
 // npm install pinyin
 
 import {createClient} from '@supabase/supabase-js';
+import {createStore} from 'redux';
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import {createStore} from 'redux';
-import {getAllWords} from './Actions/actions';
-import {Access} from './AdminSection/Access/Access';
-import {Registration} from './AdminSection/Access/Registration/Registration';
-import {Admin} from './AdminSection/Admin';
+import {getAllWords} from "./state/Reducers/wordGetter/actions";
+import {Access} from "./components/views/AdminSection/Access/Access";
+import {Registration} from "./components/views/AdminSection/Registration/Registration";
+import {Admin} from "./components/views/AdminSection/Admin";
+import {Navigation} from './components/views/Navigation/Navigation';
+import {BoardGame} from './components/views/Practice/BoardGame/BoardGame';
+import {Practice} from './components/views/Practice/Practice';
+import {WordMatching} from './components/views/Practice/WordMatching/WordMatching';
+import {statusOfPersonalInfo, userInterface} from './components/services/dataGetter';
+import {wordInterface} from "./components/views/AdminSection/WordCreator/WordConstructor";
+import {Dictionary} from "./components/views/Dictionary/Dictionary";
+import {getWordsFromFireBase} from "./components/services/getWordsFromFireBase";
+import {AudioMatching} from "./components/views/Practice/AudioMatching/AudioMatching";
+import {Footer} from "./components/views/Footer/Footer";
+import {Landing} from "./components/views/Landing/Landing";
+import {MemoryCardGame} from "./components/views/Practice/MemoryCardGame/MemoryCardGame";
+import {allReducers} from "./state/Reducers/allReducers";
 import './App.scss';
-import {Navigation} from './Navigation/Navigation';
-import {BoardGame} from './Practice/BoardGame/BoardGame';
-import {Practice} from './Practice/Practice';
-import {WordMatching} from './Practice/WordMatching/WordMatching';
-import {allReducers} from './Reducers/reducers';
-import {statusOfPersonalInfo, userInterface} from './Services/dataGetter';
-import {wordInterface} from "./AdminSection/WordCreator/WordCreatorFireBase";
-import {Dictionary} from "./Dictionary/Dictionary";
-import {getWordsFromFireBase} from "./Services/getWordsFromFireBase";
-import {AudioMatching} from "./Practice/AudioMatching/AudioMatching";
-import {Footer} from "./Footer/Footer";
-import {Landing} from "./Landing/Landing";
-import {MemoryCardGame} from "./Practice/MemoryCardGame/MemoryCardGame";
 
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
@@ -45,7 +45,7 @@ export const store = createStore(
 store.subscribe(() => {
     localStorage['redux-store'] = JSON.stringify(store.getState());
 })
-
+console.log(store.getState())
 function App() {
     const [state, setState] = useState(userLoggedIn);
      const accessFn = () => {
