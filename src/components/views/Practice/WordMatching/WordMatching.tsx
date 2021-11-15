@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {arrayShuffler} from "../../../services/arrayShuffler";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {incrementUserPoints} from "../../../../state/Reducers/userPoints/actions";
+import {incrementUserPoints} from "../../../../state/reducers/userPoints/actions";
 import {wordCard} from "../../../interfaces/interfaces";
 import {userInterface} from "../../../services/dataGetter";
 import {Fireworks} from "fireworks-js/dist/react";

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {isLoggedIn, isLoggedOut} from "../../../../state/Reducers/auth/actions";
+import {isLoggedIn, isLoggedOut} from "../../../../state/reducers/auth/actions";
 import {server, userLoggedIn} from "../../../../App";
 import './access.scss';
 
