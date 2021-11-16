@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {wordCard} from "../../../interfaces/interfaces";
 import {userInterface} from "../../../services/dataGetter";
 import {wordInterface} from "../../AdminSection/WordCreator/WordConstructor";
-import {server, userLoggedIn} from "../../../server";
+import {server, userLoggedIn} from "../../../services/server";
 import './audioMatching.scss';
 
 export const AudioMatching = ({user, onGameFinished}: any) => {

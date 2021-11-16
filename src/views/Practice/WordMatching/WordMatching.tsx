@@ -6,7 +6,7 @@ import {incrementUserPoints} from "../../../state/userPoints/actions";
 import {wordCard} from "../../../interfaces/interfaces";
 import {userInterface} from "../../../services/dataGetter";
 import {Fireworks} from "fireworks-js/dist/react";
-import {server, store} from "../../../server";
+import {server, store} from "../../../services/server";
 import './wordMatchingTasks.scss';
 
 

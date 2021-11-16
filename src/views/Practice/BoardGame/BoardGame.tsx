@@ -7,7 +7,7 @@ import {incrementUserPoints} from "../../../state/userPoints/actions";
 import {shuffleHandler} from "../../../services/arrayShuffler";
 import {wordInterface} from "../../AdminSection/WordCreator/WordConstructor";
 import {userInterface} from "../../../services/dataGetter";
-import {server, userLoggedIn} from "../../../server";
+import {server, userLoggedIn} from "../../../services/server";
 import './boardGame.scss';
 
 export const BoardGame = ({user, words, onGameFinish} : any) => {

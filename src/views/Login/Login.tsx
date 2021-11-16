@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 import {isLoggedIn, isLoggedOut} from "../../state/auth/actions";
-import {server, userLoggedIn} from "../../server";
+import {server, userLoggedIn} from "../../services/server";
 import './login.scss';
 
 export const Login = ({accessFn, state, user}: any) => {

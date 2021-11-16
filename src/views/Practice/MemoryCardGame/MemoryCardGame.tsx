@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {wordCard} from "../../../interfaces/interfaces";
 import {wordInterface} from "../../AdminSection/WordCreator/WordConstructor";
 import {userInterface} from "../../../services/dataGetter";
-import {server, userLoggedIn} from "../../../server";
+import {server, userLoggedIn} from "../../../services/server";
 import "./memoryCardGame.scss";
 
 

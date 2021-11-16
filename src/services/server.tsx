@@ -1,6 +1,6 @@
 import {createClient} from "@supabase/supabase-js";
 import {createStore} from "redux";
-import {allReducers} from "./state/allReducers";
+import {allReducers} from "../state/allReducers";
 
 export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +

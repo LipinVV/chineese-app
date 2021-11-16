@@ -1,7 +1,7 @@
 import React from "react";
 import {wordCard} from "../../../interfaces/interfaces";
 import {keyHandler} from "../../../services/keyHandler";
-import {store} from "../../../server";
+import {store} from "../../../services/server";
 import './wordcard.scss';
 
 export const WordCard = () => {

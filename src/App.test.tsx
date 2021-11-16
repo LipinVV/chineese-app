@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 import {Provider} from "react-redux";
-import {store} from "./server";
+import {store} from "./services/server";
 import { act } from "react-dom/test-utils";
 
 test('renders learn react link', async () => {

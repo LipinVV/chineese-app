@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useHistory} from "react-router";
 import {Link} from 'react-router-dom';
 import {userInterface} from "../../services/dataGetter";
-import {server, userLoggedIn} from "../../server";
+import {server, userLoggedIn} from "../../services/server";
 import './registration.scss';
 
 

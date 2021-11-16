@@ -28,8 +28,8 @@ import {AudioMatching} from "./views/Practice/AudioMatching/AudioMatching";
 import {Footer} from "./components/Footer/Footer";
 import {Landing} from "./components/Landing/Landing";
 import {MemoryCardGame} from "./views/Practice/MemoryCardGame/MemoryCardGame";
+import {server, store, userLoggedIn } from "./services/server";
 import './App.scss';
-import {server, store, userLoggedIn } from "./server";
 
 
 export default function App() {
@@ -62,10 +62,6 @@ export default function App() {
 
     useEffect(() => {
         getUser()
-        return () => {
-            // @ts-ignore
-            setUser('')
-        }
     }, [])
 
     const wordsFromStore = Object.values(store.getState().wordsGetter);
