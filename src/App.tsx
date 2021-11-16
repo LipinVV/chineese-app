@@ -9,44 +9,30 @@
 // npm install fireworks-js
 // npm install pinyin
 
-import {createClient} from '@supabase/supabase-js';
-import {createStore} from 'redux';
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import {getAllWords} from "./state/wordGetter/actions";
-import {Access} from "./components/views/AdminSection/Access/Access";
-import {Registration} from "./components/views/AdminSection/Registration/Registration";
-import {Admin} from "./components/views/AdminSection/Admin";
-import {Navigation} from './components/views/Navigation/Navigation';
-import {BoardGame} from './components/views/Practice/BoardGame/BoardGame';
-import {Practice} from './components/views/Practice/Practice';
-import {WordMatching} from './components/views/Practice/WordMatching/WordMatching';
-import {statusOfPersonalInfo, userInterface} from './components/services/dataGetter';
-import {wordInterface} from "./components/views/AdminSection/WordCreator/WordConstructor";
-import {Dictionary} from "./components/views/Dictionary/Dictionary";
-import {getWordsFromFireBase} from "./components/services/getWordsFromFireBase";
-import {AudioMatching} from "./components/views/Practice/AudioMatching/AudioMatching";
-import {Footer} from "./components/views/Footer/Footer";
-import {Landing} from "./components/views/Landing/Landing";
-import {MemoryCardGame} from "./components/views/Practice/MemoryCardGame/MemoryCardGame";
-import {allReducers} from "./state/allReducers";
+import {Login} from "./views/Login/Login";
+import {Registration} from "./views/Registration/Registration";
+import {Admin} from "./views/AdminSection/Admin";
+import {Navigation} from './components/Navigation/Navigation';
+import {BoardGame} from './views/Practice/BoardGame/BoardGame';
+import {Practice} from './views/Practice/Practice';
+import {WordMatching} from './views/Practice/WordMatching/WordMatching';
+import {statusOfPersonalInfo, userInterface} from './services/dataGetter';
+import {wordInterface} from "./views/AdminSection/WordCreator/WordConstructor";
+import {Dictionary} from "./components/Dictionary/Dictionary";
+import {getWordsFromFireBase} from "./services/getWordsFromFireBase";
+import {AudioMatching} from "./views/Practice/AudioMatching/AudioMatching";
+import {Footer} from "./components/Footer/Footer";
+import {Landing} from "./components/Landing/Landing";
+import {MemoryCardGame} from "./views/Practice/MemoryCardGame/MemoryCardGame";
 import './App.scss';
+import {server, store, userLoggedIn } from "./server";
 
-export const server = createClient('https://schntvgnpmprszlqppfh.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
-    'eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYyODc1MjMyMSwiZXhwIjoxOTQ0MzI4MzIxfQ.' +
-    'I8cMe1GntTxYlQRrWZAHF6MAInAwHjolSX_xxNNIRro');
-export const userLoggedIn = Boolean(server.auth.session()?.user);
-export const store = createStore(
-    allReducers,
-    {},
-);
-store.subscribe(() => {
-    localStorage['redux-store'] = JSON.stringify(store.getState());
-})
-console.log(store.getState())
-function App() {
+
+export default function App() {
     const [state, setState] = useState(userLoggedIn);
      const accessFn = () => {
          setState(!state);
@@ -65,8 +51,10 @@ function App() {
             dispatch(getAllWords(wordSets));
             setWords(wordSets);
         })
+        return () => {
+            setWords([])
+        }
     }, [])
-
     const getUser = async () => {
         const user = await statusOfPersonalInfo()
         setUser(user)
@@ -74,6 +62,10 @@ function App() {
 
     useEffect(() => {
         getUser()
+        return () => {
+            // @ts-ignore
+            setUser('')
+        }
     }, [])
 
     const wordsFromStore = Object.values(store.getState().wordsGetter);
@@ -114,7 +106,7 @@ function App() {
                             }}/></Route>
                             <Route path='/practice'><Practice menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen}/></Route>
                             <Route path='/dictionary'><Dictionary /></Route>
-                            <Route path='/access'><Access accessFn={accessFn} state={state} user={matchedUser}/></Route>
+                            <Route path='/access'><Login accessFn={accessFn} state={state} user={matchedUser}/></Route>
                             <Route path='/'><Landing/></Route>
                             {admin === '13dd155a-ddf4-4591-a525-528de4e7142b' && <Route path='/admin'><Admin matchedUser={matchedUser}/></Route>}
                         </Switch>
@@ -124,5 +116,3 @@ function App() {
         </div>
     );
 }
-
-export default App;

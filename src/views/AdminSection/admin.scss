@@ -1,0 +1,29 @@
+@import "../../App";
+
+.admin {
+  display: grid;
+  text-align: center;
+  @media screen and (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    grid-gap: 20px;
+  }
+}
+
+.admin__button {
+  cursor: pointer;
+  max-width: 150px;
+  height: 45px;
+}
+
+.admin__data-updater {
+  display: grid;
+  margin: 0 auto;
+  @media screen and (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    grid-gap: 20px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+    padding: 0 20px 0 20px;
+  }
+}

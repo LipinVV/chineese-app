@@ -1,0 +1,116 @@
+@import "../../App";
+
+.registration {
+  margin: 30px auto;
+  display: grid;
+  background-color: $section-bg;
+  @media screen and (min-width: $mobileDevice) {
+    max-width: $mobileDevice;
+    grid-gap: 20px;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    max-width: $tabletDevice;
+    padding: 0 20px 0 20px;
+  }
+  @media screen and (min-width: $desktopDevice) {
+    max-width: $desktopDevice;
+  }
+  @media screen and (min-width: $largeDesktopDevice) {
+    max-width: $largeDesktopDevice;
+  }
+}
+
+.registration__form {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.registration__header {
+  @media screen and (min-width: $mobileDevice) {
+    text-align: center;
+    font-size: 22px;
+    margin: 30px 0 10px 0;
+  }
+  @media screen and (min-width: $tabletDevice) {
+    font-size: 25px;
+  }
+}
+
+.registration__label {
+  display: grid;
+  grid-gap: 10px;
+  @media screen and (min-width: $mobileDevice) {
+    margin: 0 auto;
+    max-width: $mobileDevice;
+    font-weight: 600;
+    color: $golden;
+  }
+}
+
+.registration__input {
+  @media screen and (min-width: $mobileDevice) {
+    height: 30px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+}
+
+.registration__button,
+.registration__button_disabled,
+.registration__link__success {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+  @media screen and (min-width: $mobileDevice) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    color: $dark;
+    font-weight: 600;
+    background-color: $white;
+    border-radius: 5px;
+    border: 2px solid $dark;
+    min-width: 150px;
+    min-height: 40px;
+    font-size: inherit;
+  }
+  &:hover {
+    background-color: $golden;
+  }
+}
+
+.registration__button_disabled {
+  background-color: $nephrite;
+  &:hover {
+    background-color: $red;
+    border: none;
+  }
+}
+
+.registration__link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registration__error-message {
+  color: $black;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  background-color: $golden;
+}
+
+.registration__success {
+  display: grid;
+  text-align: center;
+  grid-gap: 20px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  color: $golden;
+}
+
+.registration__link__success {
+  font-size: 15px;
+}
