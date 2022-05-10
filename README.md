@@ -1,4 +1,4 @@
-## A simple app to train chinese skills
+## A simple app to train chinese skills, builded on ReactJS / React Redux / TypeScript / FireBase / Supabase / SCSS.
 
 
 ## Available Scripts
